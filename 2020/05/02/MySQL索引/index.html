@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="介绍索引用于快速找出在某个列中有一特定值的行。不使用索引，MySQL必须从第一条记录开始读完整个表，直到找出相关的行，表越大查询数据所花费的时间就越多。如果表中查询的列有索引，MySQL能够快速到达一个位置去搜索数据文件，而不必查看所有数据，那么将会节省很大一部分时间。 例如：有一张person表，其中有2W条记录，记录着2W个人的信息。有一个Phone的字段记录每个人的电话号码，现在想要查询出电">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL索引">
+<meta property="og:url" content="http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/index.html">
+<meta property="og:site_name" content="ZHX2020">
+<meta property="og:description" content="介绍索引用于快速找出在某个列中有一特定值的行。不使用索引，MySQL必须从第一条记录开始读完整个表，直到找出相关的行，表越大查询数据所花费的时间就越多。如果表中查询的列有索引，MySQL能够快速到达一个位置去搜索数据文件，而不必查看所有数据，那么将会节省很大一部分时间。 例如：有一张person表，其中有2W条记录，记录着2W个人的信息。有一个Phone的字段记录每个人的电话号码，现在想要查询出电">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E6%99%AE%E9%80%9A%E7%B4%A2%E5%BC%95.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%94%AF%E4%B8%80%E7%B4%A2%E5%BC%95.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E4%B8%BB%E9%94%AE%E7%B4%A2%E5%BC%95.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E7%BB%84%E5%90%88%E7%B4%A2%E5%BC%951.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E7%BB%84%E5%90%88%E7%B4%A2%E5%BC%952.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%85%A8%E6%96%87%E7%B4%A2%E5%BC%95.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E7%B4%A2%E5%BC%95%E4%BF%A1%E6%81%AF.png">
+<meta property="article:published_time" content="2020-05-02T15:51:13.000Z">
+<meta property="article:modified_time" content="2020-05-29T15:04:51.709Z">
+<meta property="article:author" content="Hello">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>MySQL索引</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/05/04/%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/05/02/MySQL%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E5%8C%BA%E5%88%AB/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&text=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&is_video=false&description=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=MySQL索引&body=Check out this article: http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&name=MySQL索引&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&t=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#介绍"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优缺点"><span class="toc-number">2.</span> <span class="toc-text">优缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分类"><span class="toc-number">3.</span> <span class="toc-text">分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#执行计划"><span class="toc-number">4.</span> <span class="toc-text">执行计划</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用"><span class="toc-number">5.</span> <span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#在创建表时创建索引"><span class="toc-number">5.1.</span> <span class="toc-text">在创建表时创建索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在创建表后创建索引"><span class="toc-number">5.2.</span> <span class="toc-text">在创建表后创建索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除索引"><span class="toc-number">5.3.</span> <span class="toc-text">删除索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看所引"><span class="toc-number">5.4.</span> <span class="toc-text">查看所引</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#技巧"><span class="toc-number">6.</span> <span class="toc-text">技巧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">7.</span> <span class="toc-text">参考</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        MySQL索引
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ZHX2020</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-05-02T15:51:13.000Z" itemprop="datePublished">2020-05-02</time>
+        
+        (Updated: <time datetime="2020-05-29T15:04:51.709Z" itemprop="dateModified">2020-05-29</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>索引用于快速找出在某个列中有一特定值的行。不使用索引，MySQL必须从第一条记录开始读完整个表，直到找出相关的行，表越大查询数据所花费的时间就越多。如果表中查询的列有索引，MySQL能够快速到达一个位置去搜索数据文件，而不必查看所有数据，那么将会节省很大一部分时间。</p>
+<p>例如：有一张person表，其中有2W条记录，记录着2W个人的信息。有一个Phone的字段记录每个人的电话号码，现在想要查询出电话号码为xxxx的人的信息。</p>
+<p>如果没有索引，那么将从表中第一条记录一条条往下遍历，直到找到该条信息为止。</p>
+<p>如果有了索引，那么会将 Phone 字段，通过一定的方法进行存储，好让查询该字段上的信息时，能够快速找到对应的数据，而不必在遍历2W条数据了。其中MySQL中的索引的存储类型有两种：BTREE、HASH。 也就是用树或者Hash值来存储该字段，更详细的查找逻辑就需要会算法的知识了。我们现在只需要知道索引的作用，功能是什么就行。</p>
+<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><p><strong>优点</strong></p>
+<ol>
+<li>所有的MySql列类型(字段类型)都可以被索引，也就是可以给任意字段设置索引。</li>
+<li>大大加快数据的查询速度。</li>
+</ol>
+<p><strong>缺点</strong></p>
+<ol>
+<li>创建索引和维护索引要耗费时间，并且随着数据量的增加所耗费的时间也会增加。</li>
+<li>索引也需要占空间，我们知道数据表中的数据也会有最大上限设置的，如果我们有大量的索引，索引文件可能会比数据文件更快达到上限值。</li>
+<li>当对表中的数据进行增加、删除、修改时，索引也需要动态的维护，降低了数据的维护速度。</li>
+</ol>
+<p><strong>使用原则</strong></p>
+<ol>
+<li>对经常更新的表就避免对其设置过多的索引，对经常用于查询的字段应该创建索引。</li>
+<li>数据量小的表最好不要使用索引，因为由于数据较少，可能查询全部数据花费的时间比遍历索引的时间还要短，索引就可能不会产生优化效果。</li>
+<li>在一个列上(字段上)不同值较少的不要建立索引，比如在学生表的”性别”字段上只有男，女两个不同值。相反的，在一个字段上不同值较多的可是建立索引。</li>
+</ol>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><p>索引是在<strong>存储引擎</strong>中实现的，也就是说不同的存储引擎，会使用不同的索引：</p>
+<p>MyISAM和InnoDB存储引擎：只支持BTREE索引， 也就是说默认使用BTREE，不能够更换。（但是innoDB存储引擎支持hash索引是自适应的，innoDB存储引擎会根据表的使用情况自动为表生成hash索引，不能人为干预是否在一张表中生成hash索引。）</p>
+<p>MEMORY/HEAP存储引擎：支持HASH和BTREE索引。</p>
+<p><strong>存储引擎的类型及特点</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">引擎名称</th>
+<th align="center">优点</th>
+<th align="center">缺陷</th>
+<th align="center">应用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">MyISAM</td>
+<td align="center">独立于操作系统，这说明可以轻松地将其从Windows服务器移植到Linux服务器</td>
+<td align="center">不支持事务/行级锁/外键约束</td>
+<td align="center">适合管理邮件或Web服务器日志数据</td>
+</tr>
+<tr>
+<td align="center">InnoDB</td>
+<td align="center">健壮的事务型存储引擎；支持事务/行级锁/外键约束/自动灾难恢复/AUTO_INCREMENT</td>
+<td align="center">-</td>
+<td align="center">需要事务支持，并且有较高的并发读取频率</td>
+</tr>
+<tr>
+<td align="center">MEMORY</td>
+<td align="center">为得到最快的响应时间，采用的逻辑存储介质是系统内存</td>
+<td align="center">当mysqld守护进程崩溃时，所有的Memory数据都会丢失；不能使用BLOB和TEXT这样的长度可变的数据类型</td>
+<td align="center">临时表</td>
+</tr>
+<tr>
+<td align="center">MERGE</td>
+<td align="center">是MyISAM类型的一种变种。合并表是将几个相同的MyISAM表合并为一个虚表</td>
+<td align="center">-</td>
+<td align="center">常应用于日志和数据仓库</td>
+</tr>
+<tr>
+<td align="center">ARCHIVE</td>
+<td align="center">归档的意思，支持索引，拥有很好的压缩机制</td>
+<td align="center">仅支持插入和查询功能</td>
+<td align="center">经常被用来当做仓库使用</td>
+</tr>
+</tbody></table>
+<p><strong>索引的分类</strong></p>
+<ol>
+<li>单列索引：一个索引只包含单个列，但一个表中可以有多个单列索引。<ul>
+<li>普通索引：MySQL中基本索引类型，没有什么限制，允许在定义索引的列中插入重复值和空值，纯粹为了查询数据更快一点。</li>
+<li>唯一索引：索引列中的值必须是唯一的，但是允许为空值，</li>
+<li>主键索引：是一种特殊的唯一索引，不允许有空值。</li>
+</ul>
+</li>
+<li>组合索引：一个的索引包含多个列，只有在查询条件中使用了这些字段的左边字段时，索引才会被使用，使用组合索引时遵循<strong>最左前缀</strong>。</li>
+<li>全文索引：要求只有在MyISAM引擎上才能使用，只能在CHAR、VARCHAR、TEXT类型字段上使用全文索引。就是在一堆文字中，通过其中的某个关键字等，就能找到该字段所属的记录行，比如有”你是个大煞笔，二货 …” 通过大煞笔，可能就可以找到该条记录。</li>
+<li>空间索引：空间索引是对空间数据类型的字段建立的索引，MySQL中的空间数据类型有四种，GEOMETRY、POINT、LINESTRING、POLYGON。在创建空间索引时，使用SPATIAL关键字。要求，引擎为MyISAM，创建空间索引的列，必须将其声明为NOT NULL。</li>
+</ol>
+<h2 id="执行计划"><a href="#执行计划" class="headerlink" title="执行计划"></a>执行计划</h2><p>使用<code>explain</code>语句去查看分析结果 </p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92.png" alt=""></p>
+<p>各字段含义</p>
+<ul>
+<li><code>id</code>：select查询的序列号，包含一组数字，表示查询中执行select子句或操作表的顺序 </li>
+<li><code>select_type</code>：查询的类型，主要是用于区分普通查询、联合查询、子查询等复杂的查询</li>
+<li><code>type</code>：访问类型，sql查询优化中一个很重要的指标，结果值从好到坏依次是：<code>system &gt; const &gt; eq_ref &gt; ref &gt; fulltext &gt; ref_or_null &gt; index_merge &gt; unique_subquery &gt; index_subquery &gt; range &gt; index &gt; ALL</code></li>
+<li><code>possible_keys</code>：查询涉及到的字段上存在索引，则该索引将被列出，但不一定被查询实际使用</li>
+<li><code>key</code>：实际使用的索引，如果为NULL，则没有使用索引。 </li>
+<li><code>key_len</code>：表示索引中使用的字节数，查询中使用的索引的长度（最大可能长度），并非实际使用长度，理论上长度越短越好。key_len是根据表定义计算而得的，不是通过表内检索出的</li>
+<li><code>ref</code>：显示索引的那一列被使用了，如果可能，是一个常量const</li>
+<li><code>rows</code>：根据表统计信息及索引选用情况，大致估算出找到所需的记录所需要读取的行数</li>
+<li><code>Extra</code>：不适合在其他字段中显示，但是十分重要的额外信息</li>
+</ul>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="在创建表时创建索引"><a href="#在创建表时创建索引" class="headerlink" title="在创建表时创建索引"></a>在创建表时创建索引</h3><p>创建索引：单列索引（普通、唯一、主键）、组合索引、全文索引和空间索引。</p>
+<p>格式：<code>CREATE TABLE 表名[字段名 数据类型] [UNIQUE|FULLTEXT|SPATIAL|...] [INDEX|KEY] [索引名字] (字段名[length])</code></p>
+<p><strong>1、创建普通索引</strong></p>
+<p>创建普通索引，创建索引时未指定索引的名，会自动帮我们用字段名当作索引名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE book(</span><br><span class="line">id INT NOT NULL PRIMARY KEY,</span><br><span class="line">name VARCHAR(50) NOT NULL,</span><br><span class="line">author VARCHAR(20) NOT NULL,</span><br><span class="line">info VARCHAR(255) NULL,</span><br><span class="line">INDEX(author));</span><br></pre></td></tr></table></figure>
+
+<p>查看表的创建</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">SHOW CREATE TABLE book;</span><br><span class="line">-------------------------------结果----------------------------------</span><br><span class="line">CREATE TABLE &#96;book&#96; (</span><br><span class="line">  &#96;id&#96; int(11) NOT NULL,</span><br><span class="line">  &#96;name&#96; varchar(50) NOT NULL,</span><br><span class="line">  &#96;author&#96; varchar(20) NOT NULL,</span><br><span class="line">  &#96;info&#96; varchar(255) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;id&#96;),</span><br><span class="line">  KEY &#96;author&#96; (&#96;author&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8</span><br></pre></td></tr></table></figure>
+
+<p>用<code>EXPLAIN</code>关键字，来查看索引是否正在被使用，并且输出其使用的索引信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM book WHERE author &#x3D; &#39;罗贯中&#39;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E6%99%AE%E9%80%9A%E7%B4%A2%E5%BC%95.png" alt=""></p>
+<p><strong>2、创建唯一索引</strong></p>
+<p>创建唯一索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE tab1(</span><br><span class="line">id INT(5) NOT NULL,</span><br><span class="line">name CHAR(20) NOT NULL,</span><br><span class="line">UNIQUE INDEX uniqId(id)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>查看表的创建</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SHOW CREATE TABLE tab1;</span><br><span class="line">---------------------------------结果--------------------------------</span><br><span class="line">CREATE TABLE &#96;tab1&#96; (</span><br><span class="line">&#96;id&#96; int(5) NOT NULL,</span><br><span class="line">&#96;name&#96; char(20) NOT NULL,</span><br><span class="line">UNIQUE KEY &#96;uniqId&#96; (&#96;id&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8</span><br></pre></td></tr></table></figure>
+
+<p>查看索引使用信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM tab1 WHERE id &#x3D; 1;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%94%AF%E4%B8%80%E7%B4%A2%E5%BC%95.png" alt=""></p>
+<p><strong>3、创建主键索引</strong></p>
+<p>创建主键索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE tab2(</span><br><span class="line">id INT(4) NOT NULL,</span><br><span class="line">name char(20) DEFAULT NULL,</span><br><span class="line">PRIMARY KEY(id));</span><br></pre></td></tr></table></figure>
+
+<p>查看表的创建</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SHOW CREATE TABLE tab2;</span><br><span class="line">---------------------------------结果--------------------------------</span><br><span class="line">CREATE TABLE &#96;tab2&#96; (</span><br><span class="line">&#96;id&#96; int(4) NOT NULL,</span><br><span class="line">&#96;name&#96; char(20) DEFAULT NULL,</span><br><span class="line">PRIMARY KEY (&#96;id&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8</span><br></pre></td></tr></table></figure>
+
+<p>查看索引使用信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM tab2 WHERE id &#x3D; 1;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E4%B8%BB%E9%94%AE%E7%B4%A2%E5%BC%95.png" alt=""></p>
+<p><strong>4、创建组合索引</strong></p>
+<p>创建组合索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE tab3(</span><br><span class="line">id INT(4) NOT NULL,</span><br><span class="line">name CHAR(20) NOT NULL,</span><br><span class="line">age INT(3) NOT NULL,</span><br><span class="line">info VARCHAR(255),</span><br><span class="line">INDEX multiIdx(id,name,age)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>查看表的创建</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">SHOW CREATE TABLE tab3;</span><br><span class="line">---------------------------------结果--------------------------------</span><br><span class="line">CREATE TABLE &#96;tab3&#96; (</span><br><span class="line">&#96;id&#96; int(4) NOT NULL,</span><br><span class="line">&#96;name&#96; char(20) NOT NULL,</span><br><span class="line">&#96;age&#96; int(3) NOT NULL,</span><br><span class="line">&#96;info&#96; varchar(255) DEFAULT NULL,</span><br><span class="line">KEY &#96;multiIdx&#96; (&#96;id&#96;,&#96;name&#96;,&#96;age&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8</span><br></pre></td></tr></table></figure>
+
+<p>查看索引使用信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM tab3 WHERE id &#x3D; 1 AND name &#x3D; &#39;nana&#39;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E7%BB%84%E5%90%88%E7%B4%A2%E5%BC%951.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM tab3 WHERE age &#x3D; 3 AND name &#x3D; &#39;nana&#39;;</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E7%BB%84%E5%90%88%E7%B4%A2%E5%BC%952.png" alt=""></p>
+<p><strong>最左前缀</strong>：组合索引遵从了最左前缀，利用索引中最左边的列集来匹配行，这样的列集称为最左前缀。例如，这里由id、name和age3个字段构成的索引，索引行中就按id/name/age的顺序存放，索引组合中的字段可以是(id，name，age)、(id，name)或者(id)。如果要查询的字段不构成最左面的前缀原则，那么就不会用索引，比如，age或者（name，age）组合就不会使用索引查询。</p>
+<p><strong>5、创建全文索引</strong></p>
+<p>创建全文索引，支持的字段类型为CHAR、VARCHAR和TEXT，存储引擎为MyISAM</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE tab4(</span><br><span class="line">id INT(4) NOT NULL,</span><br><span class="line">name CHAR(20) NOT NULL,</span><br><span class="line">age INT(3) NOT NULL,</span><br><span class="line">info VARCHAR(255),</span><br><span class="line">FULLTEXT INDEX fullTxtIdx(info)</span><br><span class="line">)ENGINE&#x3D;MyISAM;</span><br></pre></td></tr></table></figure>
+
+<p>查看表的创建</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">SHOW CREATE TABLE tab4;</span><br><span class="line">---------------------------------结果--------------------------------</span><br><span class="line">CREATE TABLE &#96;tab4&#96; (</span><br><span class="line">&#96;id&#96; int(4) NOT NULL,</span><br><span class="line">&#96;name&#96; char(20) NOT NULL,</span><br><span class="line">&#96;age&#96; int(3) NOT NULL,</span><br><span class="line">&#96;info&#96; varchar(255) DEFAULT NULL,</span><br><span class="line">FULLTEXT KEY &#96;fullTxtIdx&#96; (&#96;info&#96;)</span><br><span class="line">) ENGINE</span><br></pre></td></tr></table></figure>
+
+<p>查看索引使用信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM tab4 WHERE MATCH(info) AGAINST(&#39;white&#39;);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%85%A8%E6%96%87%E7%B4%A2%E5%BC%95.png" alt=""></p>
+<p><strong>6、创建空间索引</strong></p>
+<p>创建空间索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE tab5(</span><br><span class="line">geo GEOMETRY NOT NULL,</span><br><span class="line">SPATIAL INDEX spatIdx(geo)</span><br><span class="line">)ENGINE&#x3D;MyISAM;</span><br></pre></td></tr></table></figure>
+
+<p>查看表的创建</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SHOW CREATE TABLE tab5;</span><br><span class="line">---------------------------------结果--------------------------------</span><br><span class="line">CREATE TABLE &#96;tab5&#96; (</span><br><span class="line">&#96;geo&#96; geometry NOT NULL,</span><br><span class="line">SPATIAL KEY &#96;spatIdx&#96; (&#96;geo&#96;)</span><br><span class="line">) ENGINE&#x3D;MyISAM DEFAULT CHARSET&#x3D;utf8</span><br></pre></td></tr></table></figure>
+
+<h3 id="在创建表后创建索引"><a href="#在创建表后创建索引" class="headerlink" title="在创建表后创建索引"></a>在创建表后创建索引</h3><p><strong>在已经存在的表上创建索引</strong></p>
+<p><code>ALTER TABLE 表名 ADD[UNIQUE|FULLTEXT|SPATIAL] [INDEX|KEY] [索引名] (索引字段名(长度))</code></p>
+<p>为表添加索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE book ADD INDEX BkNameIdx(name(30));</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用CREATE INDEX创建索引</strong></p>
+<p><code>CREATE [UNIQUE|FULLTEXT|SPATIAL] [INDEX|KEY] 索引名称 ON 表名(创建索引的字段名[length])</code></p>
+<p>为book表增加一个普通索引info</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE INDEX BkInfoIdx ON book(info(10));</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除索引"><a href="#删除索引" class="headerlink" title="删除索引"></a>删除索引</h3><p><strong>使用ALTER DROP删除索引</strong></p>
+<p><code>ALTER TABLE 表名 DROP INDEX 索引名</code></p>
+<p>删除book表中的名称为BkInfoIdx的索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE book DROP INDEX BkInfoIdx;</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用DROP INDEX删除索引</strong></p>
+<p><code>DROP INDEX 索引名 ON 表名;</code></p>
+<p>删除book表中的名称为BkNameIdx的索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP INDEX BkNameIdx ON book;</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看所引"><a href="#查看所引" class="headerlink" title="查看所引"></a>查看所引</h3><p>查看表的索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW INDEX FROM book;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E7%B4%A2%E5%BC%95%E4%BF%A1%E6%81%AF.png" alt=""></p>
+<p>各个字段含义</p>
+<ul>
+<li><code>Table</code>：创建索引的表</li>
+<li><code>Non_unique</code>：表示索引是否唯一，其中1代表：非唯一索引， 0代表：唯一索引</li>
+<li><code>Key_name</code>：索引名称</li>
+<li><code>Seq_in_index</code>：表示该字段在索引中的位置，单列索引该值为1，组合索引为每个字段在索引定义中的顺序(这个只需要知道单列索引该值为1，组合索引为别的)</li>
+<li><code>Column_name</code>：表示定义索引的列字段。</li>
+<li><code>Sub_part</code>：表示索引的长度，当字段值为null时，索引长度为null</li>
+<li><code>Null</code>：表示该字段是否能为空值</li>
+<li><code>Index_type</code>：表示索引类型。</li>
+</ul>
+<h2 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h2><p><strong>1.索引不会包含有NULL的列</strong></p>
+<p>只要列中包含有NULL值，都将不会被包含在索引中，复合索引中只要有一列含有NULL值，那么这一列对于此复合索引就是无效的。</p>
+<p><strong>2.使用短索引</strong></p>
+<p>对字符串列进行索引，如果可以就应该指定一个前缀长度。例如，如果有一个char（255）的列，如果在前10个或20个字符内，多数值是唯一的，那么就不要对整个列进行索引。短索引不仅可以提高查询速度而且可以节省磁盘空间和I/O操作。</p>
+<p><strong>3.索引列排序</strong></p>
+<p>mysql查询只使用一个索引，因此如果where子句中已经使用了索引的话，那么order by中的列是不会使用索引的。因此数据库默认排序可以符合要求的情况下不要使用排序操作，尽量不要包含多个列的排序，如果需要最好给这些列建复合索引。</p>
+<p><strong>4.like语句操作</strong></p>
+<p>一般情况下不鼓励使用like操作，如果非使用不可，注意正确的使用方式。like ‘%aaa%’不会使用索引，而like ‘aaa%’可以使用索引。</p>
+<p><strong>5.不要在列上进行运算</strong></p>
+<p><strong>6.不使用NOT IN 、&lt;&gt;、!=操作，但&lt;,&lt;=，=，&gt;,&gt;=,BETWEEN,IN是可以用到索引的</strong></p>
+<p><strong>7.索引要建立在经常进行select操作的字段上</strong></p>
+<p>这是因为，如果这些列很少用到，那么有无索引并不能明显改变查询速度。相反，由于增加了索引，反而降低了系统的维护速度和增大了空间需求。</p>
+<p><strong>8.索引要建立在值比较唯一的字段上</strong></p>
+<p><strong>9.对于那些定义为text、image和bit数据类型的列不应该增加索引。因为这些列的数据量要么相当大，要么取值很少</strong></p>
+<p><strong>10.在where和join中出现的列需要建立索引</strong></p>
+<p><strong>11.where的查询条件里有不等号(where column != …),mysql将无法使用索引</strong></p>
+<p><strong>12.如果where子句的查询条件里使用了函数(如：where DAY(column)=…),mysql将无法使用索引</strong></p>
+<p><strong>13.在join操作中(需要从多个数据表提取数据时)，mysql只有在主键和外键的数据类型相同时才能使用索引，否则及时建立了索引也不会使用</strong></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://www.cnblogs.com/nananana/p/10387720.html" target="_blank" rel="noopener">mysql索引的使用</a></li>
+<li><a href="https://www.cnblogs.com/yhtboke/p/9467763.html" target="_blank" rel="noopener">SQL执行计划详解explain</a></li>
+<li><a href="https://www.cnblogs.com/liqianglog/p/11125982.html" target="_blank" rel="noopener">mysql索引使用技巧及注意事项</a></li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#介绍"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优缺点"><span class="toc-number">2.</span> <span class="toc-text">优缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分类"><span class="toc-number">3.</span> <span class="toc-text">分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#执行计划"><span class="toc-number">4.</span> <span class="toc-text">执行计划</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用"><span class="toc-number">5.</span> <span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#在创建表时创建索引"><span class="toc-number">5.1.</span> <span class="toc-text">在创建表时创建索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在创建表后创建索引"><span class="toc-number">5.2.</span> <span class="toc-text">在创建表后创建索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除索引"><span class="toc-number">5.3.</span> <span class="toc-text">删除索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看所引"><span class="toc-number">5.4.</span> <span class="toc-text">查看所引</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#技巧"><span class="toc-number">6.</span> <span class="toc-text">技巧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">7.</span> <span class="toc-text">参考</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&text=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&is_video=false&description=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=MySQL索引&body=Check out this article: http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&name=MySQL索引&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&t=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2020
+    Hello
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

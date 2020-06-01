@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="时光机穿梭我们已经成功地添加并提交了一个readme.txt文件，现在，是时候继续工作了，于是，我们继续修改readme.txt文件，改成如下内容： 12Git is a distributed version control system.Git is free software. 现在，运行 git status 命令看看结果： 123456789$ git statusOn branch m">
+<meta property="og:type" content="article">
+<meta property="og:title" content="时光机穿梭">
+<meta property="og:url" content="http://yoursite.com/2020/04/20/%E6%97%B6%E5%85%89%E6%9C%BA%E7%A9%BF%E6%A2%AD/index.html">
+<meta property="og:site_name" content="ZHX2020">
+<meta property="og:description" content="时光机穿梭我们已经成功地添加并提交了一个readme.txt文件，现在，是时候继续工作了，于是，我们继续修改readme.txt文件，改成如下内容： 12Git is a distributed version control system.Git is free software. 现在，运行 git status 命令看看结果： 123456789$ git statusOn branch m">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.liaoxuefeng.com/files/attachments/919021113952544/0">
+<meta property="og:image" content="https://www.liaoxuefeng.com/files/attachments/919020037470528/0">
+<meta property="og:image" content="https://www.liaoxuefeng.com/files/attachments/919020074026336/0">
+<meta property="og:image" content="https://www.liaoxuefeng.com/files/attachments/919020100829536/0">
+<meta property="article:published_time" content="2020-04-20T02:38:14.000Z">
+<meta property="article:modified_time" content="2020-05-29T15:22:13.168Z">
+<meta property="article:author" content="Hello">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.liaoxuefeng.com/files/attachments/919021113952544/0">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>时光机穿梭</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/04/20/%E8%BF%9C%E7%A8%8B%E7%AE%A1%E7%90%86/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/04/20/%E5%88%9B%E5%BB%BA%E7%89%88%E6%9C%AC%E5%BA%93/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/04/20/%E6%97%B6%E5%85%89%E6%9C%BA%E7%A9%BF%E6%A2%AD/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/04/20/%E6%97%B6%E5%85%89%E6%9C%BA%E7%A9%BF%E6%A2%AD/&text=时光机穿梭" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/04/20/%E6%97%B6%E5%85%89%E6%9C%BA%E7%A9%BF%E6%A2%AD/&title=时光机穿梭" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/04/20/%E6%97%B6%E5%85%89%E6%9C%BA%E7%A9%BF%E6%A2%AD/&is_video=false&description=时光机穿梭" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=时光机穿梭&body=Check out this article: http://yoursite.com/2020/04/20/%E6%97%B6%E5%85%89%E6%9C%BA%E7%A9%BF%E6%A2%AD/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/04/20/%E6%97%B6%E5%85%89%E6%9C%BA%E7%A9%BF%E6%A2%AD/&title=时光机穿梭" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/04/20/%E6%97%B6%E5%85%89%E6%9C%BA%E7%A9%BF%E6%A2%AD/&title=时光机穿梭" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/04/20/%E6%97%B6%E5%85%89%E6%9C%BA%E7%A9%BF%E6%A2%AD/&title=时光机穿梭" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/04/20/%E6%97%B6%E5%85%89%E6%9C%BA%E7%A9%BF%E6%A2%AD/&title=时光机穿梭" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/04/20/%E6%97%B6%E5%85%89%E6%9C%BA%E7%A9%BF%E6%A2%AD/&name=时光机穿梭&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/04/20/%E6%97%B6%E5%85%89%E6%9C%BA%E7%A9%BF%E6%A2%AD/&t=时光机穿梭" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#时光机穿梭"><span class="toc-number">1.</span> <span class="toc-text">时光机穿梭</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#版本回退"><span class="toc-number">2.</span> <span class="toc-text">版本回退</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#工作区和暂存区"><span class="toc-number">3.</span> <span class="toc-text">工作区和暂存区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#管理修改"><span class="toc-number">4.</span> <span class="toc-text">管理修改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#撤销修改"><span class="toc-number">5.</span> <span class="toc-text">撤销修改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除文件"><span class="toc-number">6.</span> <span class="toc-text">删除文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">7.</span> <span class="toc-text">参考</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        时光机穿梭
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ZHX2020</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-04-20T02:38:14.000Z" itemprop="datePublished">2020-04-20</time>
+        
+        (Updated: <time datetime="2020-05-29T15:22:13.168Z" itemprop="dateModified">2020-05-29</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/Git%E6%95%99%E7%A8%8B/">Git教程</a>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="时光机穿梭"><a href="#时光机穿梭" class="headerlink" title="时光机穿梭"></a>时光机穿梭</h2><p>我们已经成功地添加并提交了一个readme.txt文件，现在，是时候继续工作了，于是，我们继续修改readme.txt文件，改成如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Git is a distributed version control system.</span><br><span class="line">Git is free software.</span><br></pre></td></tr></table></figure>
+<p>现在，运行 <code>git status</code> 命令看看结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line"></span><br><span class="line">        modified:   readme.txt</span><br><span class="line"></span><br><span class="line">no changes added to commit (use &quot;git add&quot; and&#x2F;or &quot;git commit -a&quot;)</span><br></pre></td></tr></table></figure>
+<p><code>git status</code> 命令可以让我们时刻掌握仓库当前的状态，上面的命令输出告诉我们，readme.txt被修改过了，但还没有准备提交的修改。</p>
+<p>虽然Git告诉我们readme.txt被修改了，但如果能看看具体修改了什么内容，自然是很好的。比如你休假两周从国外回来，第一天上班时，已经记不清上次怎么修改的readme.txt，所以，需要用 <code>git diff</code> 这个命令看看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ git diff readme.txt</span><br><span class="line">diff --git a&#x2F;readme.txt b&#x2F;readme.txt</span><br><span class="line">index d8036c1..9247db6 100644</span><br><span class="line">--- a&#x2F;readme.txt</span><br><span class="line">+++ b&#x2F;readme.txt</span><br><span class="line">@@ -1,2 +1,2 @@</span><br><span class="line">-Git is a version control system.</span><br><span class="line">-Git is free software.</span><br><span class="line">\ No newline at end of file</span><br><span class="line">+Git is a distributed version control system.</span><br><span class="line">+Git is free software.</span><br></pre></td></tr></table></figure>
+<p><code>git diff</code> 顾名思义就是查看difference，显示的格式正是Unix通用的diff格式，可以从上面的命令输出看到，我们在第一行添加了一个distributed单词。</p>
+<p>知道了对 <code>readme.txt</code> 作了什么修改后，再把它提交到仓库就放心多了，提交修改和提交新文件是一样的两步，第一步是 <code>git add</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add readme.txt</span><br></pre></td></tr></table></figure>
+<p>同样没有任何输出。在执行第二步 <code>git commit</code> 之前，我们再运行 <code>git status</code> 看看当前仓库的状态：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)</span><br><span class="line"></span><br><span class="line">        modified:   readme.txt</span><br></pre></td></tr></table></figure>
+<p><code>git status</code> 告诉我们，将要被提交的修改包括readme.txt，下一步，就可以放心地提交了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m &quot;add distributed&quot;</span><br><span class="line">[master be081a3] add distributed</span><br><span class="line"> 1 file changed, 1 insertions(+), 1 deletions(-)</span><br></pre></td></tr></table></figure>
+
+<p>提交后，我们再用 <code>git status</code> 命令看看仓库的当前状态：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">nothing to commit, working tree clean</span><br></pre></td></tr></table></figure>
+<p>Git告诉我们当前没有需要提交的修改，而且，工作目录是干净（working tree clean）的。</p>
+<p><strong>小结</strong></p>
+<ul>
+<li>要随时掌握工作区的状态，使用git status命令。</li>
+<li>如果git status告诉你有文件被修改过，用git diff可以查看修改内容。</li>
+</ul>
+<h2 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h2><p>现在，你已经学会了修改文件，然后把修改提交到Git版本库，现在，再练习一次，修改readme.txt文件如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Git is a distributed version control system.</span><br><span class="line">Git is free software distributed under the GPL.</span><br></pre></td></tr></table></figure>
+<p>然后尝试提交：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git add readme.txt</span><br><span class="line">$ git commit -m &quot;append GPL&quot;</span><br><span class="line">[master 4a97903] append GPL</span><br><span class="line"> 1 file changed, 1 insertion(+), 1 deletion(-)</span><br></pre></td></tr></table></figure>
+<p>像这样，你不断对文件进行修改，然后不断提交修改到版本库里，就好比玩RPG游戏时，每通过一关就会自动把游戏状态存盘，如果某一关没过去，你还可以选择读取前一关的状态。有些时候，在打Boss之前，你会手动存盘，以便万一打Boss失败了，可以从最近的地方重新开始。Git也是一样，每当你觉得文件修改到一定程度的时候，就可以“保存一个快照”，这个快照在Git中被称为commit。一旦你把文件改乱了，或者误删了文件，还可以从最近的一个commit恢复，然后继续工作，而不是把几个月的工作成果全部丢失。</p>
+<p>现在，我们回顾一下 <code>readme.txt</code> 文件一共有几个版本被提交到Git仓库里了：</p>
+<p>版本1：wrote a readme file</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Git is a version control system.</span><br><span class="line">Git is free software.</span><br></pre></td></tr></table></figure>
+
+<p>版本2：add distributed</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Git is a distributed version control system.</span><br><span class="line">Git is free software.</span><br></pre></td></tr></table></figure>
+
+<p>版本3：append GPL</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Git is a distributed version control system.</span><br><span class="line">Git is free software distributed under the GPL.</span><br></pre></td></tr></table></figure>
+
+<p>当然了，在实际工作中，我们脑子里怎么可能记得一个几千行的文件每次都改了什么内容，不然要版本控制系统干什么。版本控制系统肯定有某个命令可以告诉我们历史记录，在Git中，我们用 <code>git log</code> 命令查看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ git log</span><br><span class="line">commit 4a97903782925e467139990d05666391f334e3f1 (HEAD -&gt; master)</span><br><span class="line">Author: zhx2020 &lt;13283457@qq.com&gt;</span><br><span class="line">Date:   Mon Apr 20 10:58:45 2020 +0800</span><br><span class="line"></span><br><span class="line">    append GPL</span><br><span class="line"></span><br><span class="line">commit be081a3d7e9a00a9767e57941a06b2d724f0b2f2</span><br><span class="line">Author: zhx2020 &lt;13283457@qq.com&gt;</span><br><span class="line">Date:   Mon Apr 20 10:52:34 2020 +0800</span><br><span class="line"></span><br><span class="line">    add distributed</span><br><span class="line"></span><br><span class="line">commit 58b42179049062fbaf8bff9f93265e5a217852a9</span><br><span class="line">Author: zhx2020 &lt;13283457@qq.com&gt;</span><br><span class="line">Date:   Mon Apr 20 10:22:26 2020 +0800</span><br><span class="line"></span><br><span class="line">    wrote a readme file</span><br></pre></td></tr></table></figure>
+
+<p><code>git log</code> 命令显示从最近到最远的提交日志，我们可以看到3次提交，最近的一次是 <code>append GPL</code> ，上一次是 <code>add distributed</code> ，最早的一次是 <code>wrote a readme file</code>。</p>
+<p>如果嫌输出信息太多，看得眼花缭乱的，可以试试加上 <code>--pretty=oneline</code> 参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git log --pretty&#x3D;oneline</span><br><span class="line">4a97903782925e467139990d05666391f334e3f1 (HEAD -&gt; master) append GPL</span><br><span class="line">be081a3d7e9a00a9767e57941a06b2d724f0b2f2 add distributed</span><br><span class="line">58b42179049062fbaf8bff9f93265e5a217852a9 wrote a readme file</span><br></pre></td></tr></table></figure>
+
+<p>好了，现在我们启动时光穿梭机，准备把readme.txt回退到上一个版本，也就是 <code>add distributed</code> 的那个版本，怎么做呢？</p>
+<p>现在，我们要把当前版本append GPL回退到上一个版本add distributed，就可以使用 <code>git reset</code> 命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard HEAD^</span><br><span class="line">HEAD is now at be081a3 add distributed</span><br></pre></td></tr></table></figure>
+
+<p>Git的版本回退速度非常快，因为Git在内部有个指向当前版本的HEAD指针，当你回退版本的时候，Git仅仅是把HEAD从指向append GPL：</p>
+<p><strong>小结</strong></p>
+<ol>
+<li>HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令 <code>git reset --hard commit_id</code> 。</li>
+<li>穿梭前，用 <code>git log</code> 可以查看提交历史，以便确定要回退到哪个版本。</li>
+<li>要重返未来，用 <code>git reflog</code> 查看命令历史，以便确定要回到未来的哪个版本。</li>
+</ol>
+<h2 id="工作区和暂存区"><a href="#工作区和暂存区" class="headerlink" title="工作区和暂存区"></a>工作区和暂存区</h2><p>Git和其他版本控制系统如SVN的一个不同之处就是有暂存区的概念。</p>
+<p>工作区（Working Directory）</p>
+<p>就是你在电脑里能看到的目录，比如我的 docs 文件夹就是一个工作区</p>
+<p><img src="https://www.liaoxuefeng.com/files/attachments/919021113952544/0" alt="工作区"></p>
+<p>版本库（Repository）</p>
+<p>工作区有一个隐藏目录 <code>.git</code> ，这个不算工作区，而是Git的版本库。</p>
+<p>Git的版本库里存了很多东西，其中最重要的就是称为 <code>stage</code>（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD。</p>
+<p><img src="https://www.liaoxuefeng.com/files/attachments/919020037470528/0" alt="step1"></p>
+<p>前面讲了我们把文件往Git版本库里添加的时候，是分两步执行的：</p>
+<ul>
+<li>第一步是用git add把文件添加进去，实际上就是把文件修改添加到暂存区；</li>
+<li>第二步是用git commit提交更改，实际上就是把暂存区的所有内容提交到当前分支。</li>
+</ul>
+<p>因为我们创建Git版本库时，Git自动为我们创建了唯一一个master分支，所以，现在，git commit就是往master分支上提交更改。</p>
+<p>你可以简单理解为，需要提交的文件修改通通放到暂存区，然后，一次性提交暂存区的所有修改。</p>
+<p><img src="https://www.liaoxuefeng.com/files/attachments/919020074026336/0" alt="step2"></p>
+<p>所以，<code>git add</code> 命令实际上就是把要提交的所有修改放到暂存区（Stage），然后，执行 <code>git commit</code> 就可以一次性把暂存区的所有修改提交到分支。</p>
+<p><img src="https://www.liaoxuefeng.com/files/attachments/919020100829536/0" alt="step3"></p>
+<p><strong>小结</strong></p>
+<ul>
+<li>暂存区是Git非常重要的概念，弄明白了暂存区，就弄明白了Git的很多操作到底干了什么。</li>
+<li>没弄明白暂存区是怎么回事的童鞋，请向上滚动页面，再看一次。</li>
+</ul>
+<h2 id="管理修改"><a href="#管理修改" class="headerlink" title="管理修改"></a>管理修改</h2><p>现在，假定你已经完全掌握了暂存区的概念。下面，我们要讨论的就是，为什么Git比其他版本控制系统设计得优秀，因为Git跟踪并管理的是修改，而非文件。</p>
+<p>你会问，什么是修改？比如你新增了一行，这就是一个修改，删除了一行，也是一个修改，更改了某些字符，也是一个修改，删了一些又加了一些，也是一个修改，甚至创建一个新文件，也算一个修改。</p>
+<p>对 <code>readme.txt</code> 文件进行修改</p>
+<p>使用 <code>git add readme.txt</code></p>
+<p>再次对 <code>readme.txt</code>进行修改</p>
+<p>直接 <code>git commit -m &quot;modify readme.txt&quot;</code></p>
+<p>结果：第二次的修改没用被提交</p>
+<p><strong>小结</strong></p>
+<ul>
+<li>现在，你又理解了Git是如何跟踪修改的，每次修改，如果不用git add到暂存区，那就不会加入到commit中。</li>
+</ul>
+<h2 id="撤销修改"><a href="#撤销修改" class="headerlink" title="撤销修改"></a>撤销修改</h2><p>错误的更改 <code>readme.txt</code> 的内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Git is a distributed version control system.</span><br><span class="line">Git is free software distributed under the GPL.</span><br><span class="line">error content!!!</span><br></pre></td></tr></table></figure>
+<p>使用 <code>git status</code> 查看一下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line"></span><br><span class="line">        modified:   readme.txt</span><br><span class="line"></span><br><span class="line">no changes added to commit (use &quot;git add&quot; and&#x2F;or &quot;git commit -a&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>选择</p>
+<ul>
+<li>使用 <code>git checkout -- readme.txt</code> 丢弃工作区的修改</li>
+</ul>
+<p>更改 <code>readme.txt</code> 文件并且 <code>git add readme.txt</code> 到暂存区</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)</span><br><span class="line"></span><br><span class="line">        modified:   readme.txt</span><br></pre></td></tr></table></figure>
+
+<p>选择</p>
+<ul>
+<li>使用 <code>git reset HEAD readme.txt</code> 把暂存区的修改撤回，重写放回工作区</li>
+</ul>
+<p><strong>小结</strong></p>
+<ul>
+<li>场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令 <code>git checkout -- file</code> 。</li>
+<li>当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令 <code>git reset HEAD &lt;file&gt;</code> ，就回到了场景1，第二步按场景1操作。</li>
+<li>已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。</li>
+</ul>
+<h2 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h2><p>添加一个新文件test.txt到Git并且提交</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git add test.txt</span><br><span class="line">$ git commit -m &quot;add test.txt&quot;</span><br><span class="line">[master 4d7dba8] add test.txt</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br><span class="line"> create mode 100644 test.txt</span><br></pre></td></tr></table></figure>
+<p>在工作目录删除 test.txt</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm test.txt</span><br></pre></td></tr></table></figure>
+
+<p>Git 知道删除了文件，工作区和版本库就不一致了，使用 <code>git status</code>命令查看哪些文件被删除了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use &quot;git add&#x2F;rm &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line"></span><br><span class="line">        deleted:    test.txt</span><br><span class="line"></span><br><span class="line">no changes added to commit (use &quot;git add&quot; and&#x2F;or &quot;git commit -a&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>选择</p>
+<ul>
+<li>使用 <code>git rm</code> 删除test.txt，并且 <code>git commit</code></li>
+<li>使用 <code>git checkout -- test.txt</code> 用版本库中的版本替换工作区的版本</li>
+</ul>
+<p><strong>小结</strong></p>
+<p>命令 <code>git rm</code> 用于删除一个文件。如果一个文件已经被提交到版本库，那么你永远不用担心误删，但是要小心，你只能恢复文件到最新版本，你会丢失最近一次提交后你修改的内容。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://www.liaoxuefeng.com/wiki/896043488029600/896954117292416" target="_blank" rel="noopener">廖雪峰Git教程</a></li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#时光机穿梭"><span class="toc-number">1.</span> <span class="toc-text">时光机穿梭</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#版本回退"><span class="toc-number">2.</span> <span class="toc-text">版本回退</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#工作区和暂存区"><span class="toc-number">3.</span> <span class="toc-text">工作区和暂存区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#管理修改"><span class="toc-number">4.</span> <span class="toc-text">管理修改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#撤销修改"><span class="toc-number">5.</span> <span class="toc-text">撤销修改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除文件"><span class="toc-number">6.</span> <span class="toc-text">删除文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">7.</span> <span class="toc-text">参考</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/04/20/%E6%97%B6%E5%85%89%E6%9C%BA%E7%A9%BF%E6%A2%AD/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/04/20/%E6%97%B6%E5%85%89%E6%9C%BA%E7%A9%BF%E6%A2%AD/&text=时光机穿梭" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/04/20/%E6%97%B6%E5%85%89%E6%9C%BA%E7%A9%BF%E6%A2%AD/&title=时光机穿梭" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/04/20/%E6%97%B6%E5%85%89%E6%9C%BA%E7%A9%BF%E6%A2%AD/&is_video=false&description=时光机穿梭" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=时光机穿梭&body=Check out this article: http://yoursite.com/2020/04/20/%E6%97%B6%E5%85%89%E6%9C%BA%E7%A9%BF%E6%A2%AD/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/04/20/%E6%97%B6%E5%85%89%E6%9C%BA%E7%A9%BF%E6%A2%AD/&title=时光机穿梭" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/04/20/%E6%97%B6%E5%85%89%E6%9C%BA%E7%A9%BF%E6%A2%AD/&title=时光机穿梭" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/04/20/%E6%97%B6%E5%85%89%E6%9C%BA%E7%A9%BF%E6%A2%AD/&title=时光机穿梭" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/04/20/%E6%97%B6%E5%85%89%E6%9C%BA%E7%A9%BF%E6%A2%AD/&title=时光机穿梭" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/04/20/%E6%97%B6%E5%85%89%E6%9C%BA%E7%A9%BF%E6%A2%AD/&name=时光机穿梭&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/04/20/%E6%97%B6%E5%85%89%E6%9C%BA%E7%A9%BF%E6%A2%AD/&t=时光机穿梭" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2020
+    Hello
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="概述在 Java 中提供了大数字的操作类，即 java.math.BigInteger 类与 java.math.BigDecimal 类。这两个类用于高精度计算，BigInteger 类是针对大整数的处理类，而 BigDecimal 类则是针对大浮点数的处理类。 BigInteger构造方法 1234public static BigInteger valueOf(long val) &amp;#123">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java大数运算">
+<meta property="og:url" content="http://yoursite.com/2020/04/29/Java%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/index.html">
+<meta property="og:site_name" content="ZHX2020">
+<meta property="og:description" content="概述在 Java 中提供了大数字的操作类，即 java.math.BigInteger 类与 java.math.BigDecimal 类。这两个类用于高精度计算，BigInteger 类是针对大整数的处理类，而 BigDecimal 类则是针对大浮点数的处理类。 BigInteger构造方法 1234public static BigInteger valueOf(long val) &amp;#123">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-29T03:31:29.000Z">
+<meta property="article:modified_time" content="2020-05-29T14:55:02.416Z">
+<meta property="article:author" content="Hello">
+<meta property="article:tag" content="大数">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Java大数运算</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/04/29/synchronized%E8%AF%A6%E8%A7%A3/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/04/28/%E5%86%85%E9%83%A8%E7%B1%BB/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/04/29/Java%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/04/29/Java%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/&text=Java大数运算" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/04/29/Java%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/&title=Java大数运算" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/04/29/Java%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/&is_video=false&description=Java大数运算" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Java大数运算&body=Check out this article: http://yoursite.com/2020/04/29/Java%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/04/29/Java%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/&title=Java大数运算" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/04/29/Java%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/&title=Java大数运算" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/04/29/Java%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/&title=Java大数运算" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/04/29/Java%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/&title=Java大数运算" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/04/29/Java%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/&name=Java大数运算&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/04/29/Java%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/&t=Java大数运算" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概述"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BigInteger"><span class="toc-number">2.</span> <span class="toc-text">BigInteger</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BigDecimal"><span class="toc-number">3.</span> <span class="toc-text">BigDecimal</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Java大数运算
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ZHX2020</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-04-29T03:31:29.000Z" itemprop="datePublished">2020-04-29</time>
+        
+        (Updated: <time datetime="2020-05-29T14:55:02.416Z" itemprop="dateModified">2020-05-29</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/Java%E5%9F%BA%E7%A1%80/">Java基础</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/%E5%A4%A7%E6%95%B0/" rel="tag">大数</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>在 Java 中提供了大数字的操作类，即 <code>java.math.BigInteger</code> 类与 <code>java.math.BigDecimal</code> 类。这两个类用于高精度计算，<code>BigInteger</code> 类是针对大整数的处理类，而 <code>BigDecimal</code> 类则是针对大浮点数的处理类。</p>
+<h2 id="BigInteger"><a href="#BigInteger" class="headerlink" title="BigInteger"></a>BigInteger</h2><p>构造方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> BigInteger <span class="title">valueOf</span><span class="params">(<span class="keyword">long</span> val)</span> </span>&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//val是一个long类型的值</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">BigInteger</span><span class="params">(String val, <span class="keyword">int</span> radix)</span> </span>&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//将十进制字符串转换为指定进制的大数值</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">BigInteger</span><span class="params">(String val)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(val, <span class="number">10</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//其中，val是十进制字符串</span></span><br></pre></td></tr></table></figure>
+
+<p>常用方法</p>
+<ol>
+<li><code>public BigInteger add(BigInteger val)</code>：做加法运算</li>
+<li><code>public BigInteger subtract(BigInteger val)</code>：做减法运算</li>
+<li><code>public BigInteger multiply(BigInteger val)</code> ： 做乘法运算</li>
+<li><code>public BigInteger divide(BigInteger val)</code> ： 做除法运算</li>
+<li><code>public BigInteger mod(BigInteger m)</code>：做求余运算</li>
+<li><code>public boolean equals(Object x)</code> ：做数字比较操作（true / false）</li>
+<li><code>public int compareTo(BigInteger val)</code>:做数字比较操作（1 / -1 / 0）</li>
+<li><code>public BigInteger min(BigInteger val)</code>： 返回较小的数值</li>
+<li><code>public BigInteger max(BigInteger val)</code>： 返回较大的数值</li>
+</ol>
+<p>示例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BigIntegerTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        BigInteger bigInteger = <span class="keyword">new</span> BigInteger(<span class="string">"10"</span>);</span><br><span class="line">        System.out.println(<span class="string">"加法操作："</span> + bigInteger.add(<span class="keyword">new</span> BigInteger(<span class="string">"3"</span>)));</span><br><span class="line">        System.out.println(<span class="string">"减法操作："</span> + bigInteger.subtract(<span class="keyword">new</span> BigInteger(<span class="string">"3"</span>)));</span><br><span class="line">        System.out.println(<span class="string">"乘法操作："</span> + bigInteger.multiply(<span class="keyword">new</span> BigInteger(<span class="string">"3"</span>)));</span><br><span class="line">        System.out.println(<span class="string">"除法操作："</span> + bigInteger.divide(<span class="keyword">new</span> BigInteger(<span class="string">"3"</span>)));</span><br><span class="line">        System.out.println(<span class="string">"取余操作："</span> + bigInteger.mod(<span class="keyword">new</span> BigInteger(<span class="string">"3"</span>)));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">加法操作：13</span><br><span class="line">减法操作：7</span><br><span class="line">乘法操作：30</span><br><span class="line">除法操作：3</span><br><span class="line">取余操作：1</span><br></pre></td></tr></table></figure>
+
+<h2 id="BigDecimal"><a href="#BigDecimal" class="headerlink" title="BigDecimal"></a>BigDecimal</h2><p>构造方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">BigDecimal</span><span class="params">(<span class="keyword">double</span> val)</span> </span>&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//val是一个双精度型的变量</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">BigDecimal</span><span class="params">(String val)</span> </span>&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//val是一个字符串形式的浮点类型值</span></span><br></pre></td></tr></table></figure>
+
+<p>常用方法</p>
+<ol>
+<li><code>public BigDecimal add(BigDecimal augend)</code> ：做加法操作</li>
+<li><code>public BigDecimal subtract(BigDecimal subtrahend)</code> ：做减法操作</li>
+<li><code>public BigDecimal multiply(BigDecimal multiplicand)</code> ：做乘法操作</li>
+<li><code>public BigDecimal divide(BigDecimal divisor, int sacle, int roundingMode)</code> ：做除法操作，方法中 3 个参数分别代表除数、商的小数点后的位数、近似处理模式</li>
+</ol>
+<p>示例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BigDecimalTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        BigDecimal bigDecimal = <span class="keyword">new</span> BigDecimal(<span class="number">1.2</span>);</span><br><span class="line">        System.out.println(<span class="string">"加法操作："</span> + bigDecimal.add(<span class="keyword">new</span> BigDecimal(<span class="number">0.2</span>)));</span><br><span class="line">        System.out.println(<span class="string">"减法操作："</span> + bigDecimal.subtract(<span class="keyword">new</span> BigDecimal(<span class="number">0.2</span>)));</span><br><span class="line">        System.out.println(<span class="string">"乘法操作："</span> + bigDecimal.multiply(<span class="keyword">new</span> BigDecimal(<span class="number">0.2</span>)));</span><br><span class="line">        System.out.println(<span class="string">"除法操作："</span> + bigDecimal.divide(<span class="keyword">new</span> BigDecimal(<span class="number">0.33</span>), <span class="number">10</span>, BigDecimal.ROUND_HALF_UP));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">加法操作：1.399999999999999966693309261245303787291049957275390625</span><br><span class="line">减法操作：0.999999999999999944488848768742172978818416595458984375</span><br><span class="line">乘法操作：0.2400000000000000044408920985006256686564609092309028676696466982586064542459780568606220185756683349609375</span><br><span class="line">除法操作：3.6363636364</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://zhuanlan.zhihu.com/p/63853401" target="_blank" rel="noopener">初识Java（Java数字处理类-大数字运算)</a></li>
+<li><a href="https://blog.csdn.net/dongchengrong/article/details/78848399" target="_blank" rel="noopener">java大数详解</a></li>
+<li><a href="https://www.cnblogs.com/geekfx/p/12423061.html" target="_blank" rel="noopener">BigDecimal舍入模式</a></li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概述"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BigInteger"><span class="toc-number">2.</span> <span class="toc-text">BigInteger</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BigDecimal"><span class="toc-number">3.</span> <span class="toc-text">BigDecimal</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/04/29/Java%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/04/29/Java%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/&text=Java大数运算" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/04/29/Java%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/&title=Java大数运算" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/04/29/Java%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/&is_video=false&description=Java大数运算" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Java大数运算&body=Check out this article: http://yoursite.com/2020/04/29/Java%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/04/29/Java%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/&title=Java大数运算" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/04/29/Java%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/&title=Java大数运算" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/04/29/Java%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/&title=Java大数运算" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/04/29/Java%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/&title=Java大数运算" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/04/29/Java%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/&name=Java大数运算&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/04/29/Java%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/&t=Java大数运算" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2020
+    Hello
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

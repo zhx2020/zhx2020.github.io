@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Java堆补充Hotspot遍历所有对象时，按照年龄从小到大对其所占用的大小进行累积，当累积的某个年龄大小超过了survivor区的一半时，取这个年龄和MaxTenuringThreshold中更小的一个值，作为新的晋升年龄阈值 动态年龄计算的代码如下 12345678910111213uint ageTable::compute_tenuring_threshold(size_t survivo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于Java内存区域的补充">
+<meta property="og:url" content="http://yoursite.com/2020/04/24/%E5%85%B3%E4%BA%8EJava%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E7%9A%84%E8%A1%A5%E5%85%85/index.html">
+<meta property="og:site_name" content="ZHX2020">
+<meta property="og:description" content="Java堆补充Hotspot遍历所有对象时，按照年龄从小到大对其所占用的大小进行累积，当累积的某个年龄大小超过了survivor区的一半时，取这个年龄和MaxTenuringThreshold中更小的一个值，作为新的晋升年龄阈值 动态年龄计算的代码如下 12345678910111213uint ageTable::compute_tenuring_threshold(size_t survivo">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://camo.githubusercontent.com/48189454746b5979fd465b32b996d222619ac1dc/68747470733a2f2f6d792d626c6f672d746f2d7573652e6f73732d636e2d6265696a696e672e616c6979756e63732e636f6d2f323031392d33537472696e672d506f6f6c2d4a617661312d343530783234392e706e67">
+<meta property="og:image" content="https://camo.githubusercontent.com/4d8ba97281102d302264995d3aaefb26cd76db39/68747470733a2f2f6d792d626c6f672d746f2d7573652e6f73732d636e2d6265696a696e672e616c6979756e63732e636f6d2f323031392d372f2545352541442539372545372541432541362545342542382542322545362538422542432545362538452541352d254535254238254238254539253837253846254536254231254130322e706e67">
+<meta property="article:published_time" content="2020-04-24T02:54:27.000Z">
+<meta property="article:modified_time" content="2020-05-29T15:14:28.087Z">
+<meta property="article:author" content="Hello">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://camo.githubusercontent.com/48189454746b5979fd465b32b996d222619ac1dc/68747470733a2f2f6d792d626c6f672d746f2d7573652e6f73732d636e2d6265696a696e672e616c6979756e63732e636f6d2f323031392d33537472696e672d506f6f6c2d4a617661312d343530783234392e706e67">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>关于Java内存区域的补充</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/04/24/JVM%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/04/24/HotSpot%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AF%B9%E8%B1%A1%E6%8E%A2%E7%A7%98/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/04/24/%E5%85%B3%E4%BA%8EJava%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E7%9A%84%E8%A1%A5%E5%85%85/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/04/24/%E5%85%B3%E4%BA%8EJava%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E7%9A%84%E8%A1%A5%E5%85%85/&text=关于Java内存区域的补充" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/04/24/%E5%85%B3%E4%BA%8EJava%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E7%9A%84%E8%A1%A5%E5%85%85/&title=关于Java内存区域的补充" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/04/24/%E5%85%B3%E4%BA%8EJava%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E7%9A%84%E8%A1%A5%E5%85%85/&is_video=false&description=关于Java内存区域的补充" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=关于Java内存区域的补充&body=Check out this article: http://yoursite.com/2020/04/24/%E5%85%B3%E4%BA%8EJava%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E7%9A%84%E8%A1%A5%E5%85%85/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/04/24/%E5%85%B3%E4%BA%8EJava%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E7%9A%84%E8%A1%A5%E5%85%85/&title=关于Java内存区域的补充" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/04/24/%E5%85%B3%E4%BA%8EJava%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E7%9A%84%E8%A1%A5%E5%85%85/&title=关于Java内存区域的补充" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/04/24/%E5%85%B3%E4%BA%8EJava%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E7%9A%84%E8%A1%A5%E5%85%85/&title=关于Java内存区域的补充" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/04/24/%E5%85%B3%E4%BA%8EJava%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E7%9A%84%E8%A1%A5%E5%85%85/&title=关于Java内存区域的补充" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/04/24/%E5%85%B3%E4%BA%8EJava%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E7%9A%84%E8%A1%A5%E5%85%85/&name=关于Java内存区域的补充&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/04/24/%E5%85%B3%E4%BA%8EJava%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E7%9A%84%E8%A1%A5%E5%85%85/&t=关于Java内存区域的补充" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java堆补充"><span class="toc-number">1.</span> <span class="toc-text">Java堆补充</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法区补充"><span class="toc-number">2.</span> <span class="toc-text">方法区补充</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行时常量池"><span class="toc-number">3.</span> <span class="toc-text">运行时常量池</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重点补充内容"><span class="toc-number">4.</span> <span class="toc-text">重点补充内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#String类和常量池"><span class="toc-number">4.1.</span> <span class="toc-text">String类和常量池</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#String-s1-new-String-“abc”-这句话创建了几个字符串对象？"><span class="toc-number">4.2.</span> <span class="toc-text">String s1 &#x3D; new String(“abc”);这句话创建了几个字符串对象？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-种基本类型的包装类和常量池"><span class="toc-number">4.3.</span> <span class="toc-text">8 种基本类型的包装类和常量池</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        关于Java内存区域的补充
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ZHX2020</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-04-24T02:54:27.000Z" itemprop="datePublished">2020-04-24</time>
+        
+        (Updated: <time datetime="2020-05-29T15:14:28.087Z" itemprop="dateModified">2020-05-29</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/">Java虚拟机</a>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Java堆补充"><a href="#Java堆补充" class="headerlink" title="Java堆补充"></a>Java堆补充</h2><p>Hotspot遍历所有对象时，按照年龄从小到大对其所占用的大小进行累积，当累积的某个年龄大小超过了survivor区的一半时，取这个年龄和MaxTenuringThreshold中更小的一个值，作为新的晋升年龄阈值</p>
+<p><strong>动态年龄计算的代码如下</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">uint ageTable::compute_tenuring_threshold(size_t survivor_capacity) &#123;</span><br><span class="line">	<span class="comment">//survivor_capacity是survivor空间的大小</span></span><br><span class="line">  size_t desired_survivor_size = (size_t)((((<span class="keyword">double</span>) survivor_capacity)*TargetSurvivorRatio)/<span class="number">100</span>);</span><br><span class="line">  size_t total = <span class="number">0</span>;</span><br><span class="line">  uint age = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">while</span> (age &lt; table_size) &#123;</span><br><span class="line">    total += sizes[age];<span class="comment">//sizes数组是每个年龄段对象大小</span></span><br><span class="line">    <span class="keyword">if</span> (total &gt; desired_survivor_size) <span class="keyword">break</span>;</span><br><span class="line">    age++;</span><br><span class="line">  &#125;</span><br><span class="line">  uint result = age &lt; MaxTenuringThreshold ? age : MaxTenuringThreshold;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法区补充"><a href="#方法区补充" class="headerlink" title="方法区补充"></a>方法区补充</h2><p>方法区也被称为永久代。</p>
+<p><strong>方法区和永久代的关系</strong></p>
+<p>《Java 虚拟机规范》只是规定了有方法区这么个概念和它的作用，并没有规定如何去实现它。那么，在不同的 JVM 上方法区的实现肯定是不同的了。 方法区和永久代的关系很像 Java 中接口和类的关系，类实现了接口，而永久代就是 HotSpot 虚拟机对虚拟机规范中方法区的一种实现方式。 也就是说，永久代是 HotSpot 的概念，方法区是 Java 虚拟机规范中的定义，是一种规范，而永久代是一种实现，一个是标准一个是实现，其他的虚拟机实现并没有永久代这一说法。</p>
+<p>** 常用参数**</p>
+<p>JDK 1.8 之前永久代还没被彻底移除的时候通常通过下面这些参数来调节方法区大小</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-XX:PermSize&#x3D;N &#x2F;&#x2F;方法区 (永久代) 初始大小</span><br><span class="line">-XX:MaxPermSize&#x3D;N &#x2F;&#x2F;方法区 (永久代) 最大大小,超过这个值将会抛出 OutOfMemoryError 异常:java.lang.OutOfMemoryError: PermGen</span><br></pre></td></tr></table></figure>
+
+<p>相对而言，垃圾收集行为在这个区域是比较少出现的，但并非数据进入方法区后就“永久存在”了。</p>
+<p>JDK 1.8 的时候，方法区（HotSpot 的永久代）被彻底移除了（JDK1.7 就已经开始了），取而代之是元空间，元空间使用的是直接内存。</p>
+<p>下面是一些常用参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-XX:MetaspaceSize&#x3D;N &#x2F;&#x2F;设置 Metaspace 的初始（和最小大小）</span><br><span class="line">-XX:MaxMetaspaceSize&#x3D;N &#x2F;&#x2F;设置 Metaspace 的最大大小</span><br></pre></td></tr></table></figure>
+
+<p>与永久代很大的不同就是，如果不指定大小的话，随着更多类的创建，虚拟机会耗尽所有可用的系统内存。</p>
+<p><strong>为什么要将永久代 (PermGen) 替换为元空间 (MetaSpace) 呢?</strong></p>
+<ol>
+<li><p>整个永久代有一个 JVM 本身设置固定大小上限，无法进行调整，而元空间使用的是直接内存，受本机可用内存的限制，虽然元空间仍旧可能溢出，但是比原来出现的几率会更小。</p>
+</li>
+<li><p>元空间里面存放的是类的元数据，这样加载多少类的元数据就不由 MaxPermSize 控制了, 而由系统的实际可用空间来控制，这样能加载的类就更多了。</p>
+</li>
+<li><p>在 JDK8，合并 HotSpot 和 JRockit 的代码时, JRockit 从来没有一个叫永久代的东西, 合并之后就没有必要额外的设置这么一个永久代的地方了。</p>
+</li>
+</ol>
+<h2 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h2><ol>
+<li>JDK1.7之前运行时常量池逻辑包含字符串常量池存放在方法区, 此时hotspot虚拟机对方法区的实现为永久代</li>
+<li>JDK1.7 字符串常量池被从方法区拿到了堆中, 这里没有提到运行时常量池,也就是说字符串常量池被单独拿到堆,运行时常量池剩下的东西还在方法区, 也就是hotspot中的永久代 。</li>
+<li>JDK1.8 hotspot移除了永久代用元空间(Metaspace)取而代之, 这时候字符串常量池还在堆, 运行时常量池还在方法区, 只不过方法区的实现从永久代变成了元空间(Metaspace)</li>
+</ol>
+<h2 id="重点补充内容"><a href="#重点补充内容" class="headerlink" title="重点补充内容"></a>重点补充内容</h2><h3 id="String类和常量池"><a href="#String类和常量池" class="headerlink" title="String类和常量池"></a>String类和常量池</h3><p><strong>String 对象的两种创建方式：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String str1 = <span class="string">"abcd"</span>;<span class="comment">//先检查字符串常量池中有没有"abcd"，如果字符串常量池中没有，则创建一个，然后 str1 指向字符串常量池中的对象，如果有，则直接将 str1 指向"abcd""；</span></span><br><span class="line">String str2 = <span class="keyword">new</span> String(<span class="string">"abcd"</span>);<span class="comment">//堆中创建一个新的对象</span></span><br><span class="line">String str3 = <span class="keyword">new</span> String(<span class="string">"abcd"</span>);<span class="comment">//堆中创建一个新的对象</span></span><br><span class="line">System.out.println(str1==str2);<span class="comment">//false</span></span><br><span class="line">System.out.println(str2==str3);<span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+
+<p>这两种不同的创建方法是有差别的。</p>
+<ul>
+<li>第一种方式是在常量池中拿对象；</li>
+<li>第二种方式是直接在堆内存空间创建一个新的对象。</li>
+</ul>
+<p><strong>记住一点：只要使用 new 方法，便需要创建新的对象。</strong></p>
+<p><img src="https://camo.githubusercontent.com/48189454746b5979fd465b32b996d222619ac1dc/68747470733a2f2f6d792d626c6f672d746f2d7573652e6f73732d636e2d6265696a696e672e616c6979756e63732e636f6d2f323031392d33537472696e672d506f6f6c2d4a617661312d343530783234392e706e67" alt=""></p>
+<p><strong>String 类型的常量池比较特殊。它的主要使用方法有两种：</strong></p>
+<ul>
+<li>直接使用双引号声明出来的 String 对象会直接存储在常量池中。</li>
+<li>如果不是用双引号声明的 String 对象，可以使用 String 提供的 intern 方法。String.intern() 是一个 Native 方法，它的作用是：如果运行时常量池中已经包含一个等于此 String 对象内容的字符串，则返回常量池中该字符串的引用；如果没有，JDK1.7之前（不包含1.7）的处理方式是在常量池中创建与此 String 内容相同的字符串，并返回常量池中创建的字符串的引用，JDK1.7以及之后的处理方式是在常量池中记录此字符串的引用，并返回该引用。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String s1 &#x3D; new String(&quot;计算机&quot;);</span><br><span class="line">String s2 &#x3D; s1.intern();</span><br><span class="line">String s3 &#x3D; &quot;计算机&quot;;</span><br><span class="line">System.out.println(s2);&#x2F;&#x2F;计算机</span><br><span class="line">System.out.println(s1 &#x3D;&#x3D; s2);&#x2F;&#x2F;false，因为一个是堆内存中的 String 对象一个是常量池中的 String 对象，</span><br><span class="line">System.out.println(s3 &#x3D;&#x3D; s2);&#x2F;&#x2F;true，因为两个都是常量池中的 String 对象</span><br></pre></td></tr></table></figure>
+
+<p><strong>字符串拼接</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">String str1 = <span class="string">"str"</span>;</span><br><span class="line">String str2 = <span class="string">"ing"</span>;</span><br><span class="line"></span><br><span class="line">String str3 = <span class="string">"str"</span> + <span class="string">"ing"</span>;<span class="comment">//常量池中的对象</span></span><br><span class="line">String str4 = str1 + str2; <span class="comment">//在堆上创建的新的对象	  </span></span><br><span class="line">String str5 = <span class="string">"string"</span>;<span class="comment">//常量池中的对象</span></span><br><span class="line">System.out.println(str3 == str4);<span class="comment">//false</span></span><br><span class="line">System.out.println(str3 == str5);<span class="comment">//true</span></span><br><span class="line">System.out.println(str4 == str5);<span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://camo.githubusercontent.com/4d8ba97281102d302264995d3aaefb26cd76db39/68747470733a2f2f6d792d626c6f672d746f2d7573652e6f73732d636e2d6265696a696e672e616c6979756e63732e636f6d2f323031392d372f2545352541442539372545372541432541362545342542382542322545362538422542432545362538452541352d254535254238254238254539253837253846254536254231254130322e706e67" alt=""></p>
+<p>尽量避免多个字符串拼接，因为这样会重新创建对象。如果需要改变字符串的话，可以使用 StringBuilder 或者 StringBuffer。</p>
+<h3 id="String-s1-new-String-“abc”-这句话创建了几个字符串对象？"><a href="#String-s1-new-String-“abc”-这句话创建了几个字符串对象？" class="headerlink" title="String s1 = new String(“abc”);这句话创建了几个字符串对象？"></a>String s1 = new String(“abc”);这句话创建了几个字符串对象？</h3><p>将创建 1 或 2 个字符串。如果池中已存在字符串常量“abc”，则只会在堆空间创建一个字符串常量“abc”。如果池中没有字符串常量“abc”，那么它将首先在池中创建，然后在堆空间中创建，因此将创建总共 2 个字符串对象。</p>
+<p><strong>验证</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String s1 = <span class="keyword">new</span> String(<span class="string">"abc"</span>);<span class="comment">// 堆内存的地址值</span></span><br><span class="line">String s2 = <span class="string">"abc"</span>;</span><br><span class="line">System.out.println(s1 == s2);<span class="comment">// 输出 false,因为一个是堆内存，一个是常量池的内存，故两者是不同的。</span></span><br><span class="line">System.out.println(s1.equals(s2));<span class="comment">// 输出 true</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>结果</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">false</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-种基本类型的包装类和常量池"><a href="#8-种基本类型的包装类和常量池" class="headerlink" title="8 种基本类型的包装类和常量池"></a>8 种基本类型的包装类和常量池</h3><p>Java 基本类型的包装类的大部分都实现了常量池技术，即 Byte,Short,Integer,Long,Character,Boolean；前面 4 种包装类默认创建了数值[-128，127] 的相应类型的缓存数据，Character创建了数值在[0,127]范围的缓存数据，Boolean 直接返回True Or False。如果超出对应范围仍然会去创建新的对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Boolean <span class="title">valueOf</span><span class="params">(<span class="keyword">boolean</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (b ? TRUE : FALSE);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">private static class CharacterCache &#123;         </span><br><span class="line">    private CharacterCache()&#123;&#125;</span><br><span class="line">          </span><br><span class="line">    static final Character cache[] &#x3D; new Character[127 + 1];          </span><br><span class="line">    static &#123;             </span><br><span class="line">        for (int i &#x3D; 0; i &lt; cache.length; i++)                 </span><br><span class="line">            cache[i] &#x3D; new Character((char)i);         </span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>两种浮点数类型的包装类 Float,Double 并没有实现常量池技术。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Integer i1 = <span class="number">33</span>;</span><br><span class="line">Integer i2 = <span class="number">33</span>;</span><br><span class="line">System.out.println(i1 == i2);<span class="comment">// 输出 true</span></span><br><span class="line">Integer i11 = <span class="number">333</span>;</span><br><span class="line">Integer i22 = <span class="number">333</span>;</span><br><span class="line">System.out.println(i11 == i22);<span class="comment">// 输出 false</span></span><br><span class="line">Double i3 = <span class="number">1.2</span>;</span><br><span class="line">Double i4 = <span class="number">1.2</span>;</span><br><span class="line">System.out.println(i3 == i4);<span class="comment">// 输出 false</span></span><br></pre></td></tr></table></figure>
+
+<p>Integer 缓存源代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*此方法将始终缓存-128 到 127（包括端点）范围内的值，并可以缓存此范围之外的其他值。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Integer <span class="title">valueOf</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (i &gt;= IntegerCache.low &amp;&amp; i &lt;= IntegerCache.high)</span><br><span class="line">        <span class="keyword">return</span> IntegerCache.cache[i + (-IntegerCache.low)];</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Integer(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>应用场景：</p>
+<ol>
+<li>Integer i1=40；Java 在编译的时候会直接将代码封装成 Integer i1=Integer.valueOf(40);，从而使用常量池中的对象。</li>
+<li>Integer i1 = new Integer(40);这种情况下会创建新的对象。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Integer i1 = <span class="number">40</span>;</span><br><span class="line">Integer i2 = <span class="keyword">new</span> Integer(<span class="number">40</span>);</span><br><span class="line">System.out.println(i1==i2);<span class="comment">//输出 false</span></span><br></pre></td></tr></table></figure>
+
+<p>Integer 比较更丰富的一个例子:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Integer i1 = <span class="number">40</span>;</span><br><span class="line">Integer i2 = <span class="number">40</span>;</span><br><span class="line">Integer i3 = <span class="number">0</span>;</span><br><span class="line">Integer i4 = <span class="keyword">new</span> Integer(<span class="number">40</span>);</span><br><span class="line">Integer i5 = <span class="keyword">new</span> Integer(<span class="number">40</span>);</span><br><span class="line">Integer i6 = <span class="keyword">new</span> Integer(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(<span class="string">"i1=i2   "</span> + (i1 == i2));</span><br><span class="line">System.out.println(<span class="string">"i1=i2+i3   "</span> + (i1 == i2 + i3));</span><br><span class="line">System.out.println(<span class="string">"i1=i4   "</span> + (i1 == i4));</span><br><span class="line">System.out.println(<span class="string">"i4=i5   "</span> + (i4 == i5));</span><br><span class="line">System.out.println(<span class="string">"i4=i5+i6   "</span> + (i4 == i5 + i6));   </span><br><span class="line">System.out.println(<span class="string">"40=i5+i6   "</span> + (<span class="number">40</span> == i5 + i6));</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">i1&#x3D;i2   true</span><br><span class="line">i1&#x3D;i2+i3   true</span><br><span class="line">i1&#x3D;i4   false</span><br><span class="line">i4&#x3D;i5   false</span><br><span class="line">i4&#x3D;i5+i6   true</span><br><span class="line">40&#x3D;i5+i6   true</span><br></pre></td></tr></table></figure>
+
+<p>解释</p>
+<p>语句 i4 == i5 + i6，因为+这个操作符不适用于 Integer 对象，首先 i5 和 i6 进行自动拆箱操作，进行数值相加，即 i4 == 40。然后 Integer 对象无法与数值进行直接比较，所以 i4 自动拆箱转为 int 值 40，最终这条语句转为 40 == 40 进行数值比较。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://github.com/Snailclimb/JavaGuide/blob/master/docs/java/jvm/Java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F.md" target="_blank" rel="noopener">Java 内存区域详解</a></li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java堆补充"><span class="toc-number">1.</span> <span class="toc-text">Java堆补充</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法区补充"><span class="toc-number">2.</span> <span class="toc-text">方法区补充</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行时常量池"><span class="toc-number">3.</span> <span class="toc-text">运行时常量池</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重点补充内容"><span class="toc-number">4.</span> <span class="toc-text">重点补充内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#String类和常量池"><span class="toc-number">4.1.</span> <span class="toc-text">String类和常量池</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#String-s1-new-String-“abc”-这句话创建了几个字符串对象？"><span class="toc-number">4.2.</span> <span class="toc-text">String s1 &#x3D; new String(“abc”);这句话创建了几个字符串对象？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-种基本类型的包装类和常量池"><span class="toc-number">4.3.</span> <span class="toc-text">8 种基本类型的包装类和常量池</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/04/24/%E5%85%B3%E4%BA%8EJava%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E7%9A%84%E8%A1%A5%E5%85%85/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/04/24/%E5%85%B3%E4%BA%8EJava%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E7%9A%84%E8%A1%A5%E5%85%85/&text=关于Java内存区域的补充" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/04/24/%E5%85%B3%E4%BA%8EJava%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E7%9A%84%E8%A1%A5%E5%85%85/&title=关于Java内存区域的补充" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/04/24/%E5%85%B3%E4%BA%8EJava%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E7%9A%84%E8%A1%A5%E5%85%85/&is_video=false&description=关于Java内存区域的补充" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=关于Java内存区域的补充&body=Check out this article: http://yoursite.com/2020/04/24/%E5%85%B3%E4%BA%8EJava%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E7%9A%84%E8%A1%A5%E5%85%85/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/04/24/%E5%85%B3%E4%BA%8EJava%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E7%9A%84%E8%A1%A5%E5%85%85/&title=关于Java内存区域的补充" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/04/24/%E5%85%B3%E4%BA%8EJava%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E7%9A%84%E8%A1%A5%E5%85%85/&title=关于Java内存区域的补充" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/04/24/%E5%85%B3%E4%BA%8EJava%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E7%9A%84%E8%A1%A5%E5%85%85/&title=关于Java内存区域的补充" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/04/24/%E5%85%B3%E4%BA%8EJava%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E7%9A%84%E8%A1%A5%E5%85%85/&title=关于Java内存区域的补充" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/04/24/%E5%85%B3%E4%BA%8EJava%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E7%9A%84%E8%A1%A5%E5%85%85/&name=关于Java内存区域的补充&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/04/24/%E5%85%B3%E4%BA%8EJava%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E7%9A%84%E8%A1%A5%E5%85%85/&t=关于Java内存区域的补充" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2020
+    Hello
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

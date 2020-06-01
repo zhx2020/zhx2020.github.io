@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="为什么需要使用索引MySQL官方对索引的定义为：索引（Index）是帮助 MySQL 高效获取数据的数据结构。 白话文：索引就像书的目录一样可以非常快速的定位到书的页码。 如果向mysql发出一条sql语句请求，查询的字段没有创建索引的话，可能会导致全表扫描，这样的话查询效率非常低。 索引采用的数据结构Hash算法  index&#x3D;Hash(key)  哈希表（Hash table，也叫散列表），是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="索引实现原理">
+<meta property="og:url" content="http://yoursite.com/2020/05/04/%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="ZHX2020">
+<meta property="og:description" content="为什么需要使用索引MySQL官方对索引的定义为：索引（Index）是帮助 MySQL 高效获取数据的数据结构。 白话文：索引就像书的目录一样可以非常快速的定位到书的页码。 如果向mysql发出一条sql语句请求，查询的字段没有创建索引的话，可能会导致全表扫描，这样的话查询效率非常低。 索引采用的数据结构Hash算法  index&#x3D;Hash(key)  哈希表（Hash table，也叫散列表），是">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E7%BA%A2%E9%BB%91%E6%A0%91.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/B%E6%A0%91.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/B+%E6%A0%91.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/MyISAM%E4%B8%BB%E9%94%AE%E7%B4%A2%E5%BC%95.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/MyISAM%E8%BE%85%E5%8A%A9%E7%B4%A2%E5%BC%95.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/InnoDB%E4%B8%BB%E9%94%AE%E7%B4%A2%E5%BC%95.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/InnoDB%E8%BE%85%E5%8A%A9%E7%B4%A2%E5%BC%95.png">
+<meta property="article:published_time" content="2020-05-04T06:12:22.000Z">
+<meta property="article:modified_time" content="2020-05-29T15:25:09.318Z">
+<meta property="article:author" content="Hello">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>索引实现原理</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/05/05/%E7%B4%A2%E5%BC%95%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/05/04/%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/05/04/%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/&text=索引实现原理" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/05/04/%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/&title=索引实现原理" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/05/04/%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/&is_video=false&description=索引实现原理" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=索引实现原理&body=Check out this article: http://yoursite.com/2020/05/04/%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/05/04/%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/&title=索引实现原理" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/05/04/%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/&title=索引实现原理" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/05/04/%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/&title=索引实现原理" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/05/04/%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/&title=索引实现原理" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/05/04/%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/&name=索引实现原理&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/05/04/%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/&t=索引实现原理" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么需要使用索引"><span class="toc-number">1.</span> <span class="toc-text">为什么需要使用索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#索引采用的数据结构"><span class="toc-number">2.</span> <span class="toc-text">索引采用的数据结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MyISAM与InnoDB的索引实现"><span class="toc-number">3.</span> <span class="toc-text">MyISAM与InnoDB的索引实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MyISAM索引实现"><span class="toc-number">3.1.</span> <span class="toc-text">MyISAM索引实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#InnoDB索引实现"><span class="toc-number">3.2.</span> <span class="toc-text">InnoDB索引实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MyISAM与InnoDB的索引区别"><span class="toc-number">4.</span> <span class="toc-text">MyISAM与InnoDB的索引区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#聚集索引和非聚集索引区别"><span class="toc-number">5.</span> <span class="toc-text">聚集索引和非聚集索引区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">6.</span> <span class="toc-text">参考</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        索引实现原理
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ZHX2020</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-05-04T06:12:22.000Z" itemprop="datePublished">2020-05-04</time>
+        
+        (Updated: <time datetime="2020-05-29T15:25:09.318Z" itemprop="dateModified">2020-05-29</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="为什么需要使用索引"><a href="#为什么需要使用索引" class="headerlink" title="为什么需要使用索引"></a>为什么需要使用索引</h2><p>MySQL官方对索引的定义为：索引（Index）是帮助 MySQL 高效获取数据的数据结构。</p>
+<p>白话文：索引就像书的目录一样可以非常快速的定位到书的页码。</p>
+<p>如果向mysql发出一条sql语句请求，查询的字段没有创建索引的话，可能会导致全表扫描，这样的话查询效率非常低。</p>
+<h2 id="索引采用的数据结构"><a href="#索引采用的数据结构" class="headerlink" title="索引采用的数据结构"></a>索引采用的数据结构</h2><p><strong>Hash算法</strong></p>
+<blockquote>
+<p>index=Hash(key)</p>
+</blockquote>
+<p>哈希表（Hash table，也叫散列表），是根据关键码值(Key value)而直接进行访问的数据结构。也就是说，它通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。这个映射函数叫做散列函数，存放记录的数组叫做散列表。</p>
+<p>优点:查找可以直接根据key访问<br>缺点: 不能进行范围查找</p>
+<p><strong>平衡二叉树</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91.png" alt=""></p>
+<p>平衡二叉查找树，又称 AVL树。它除了具备二叉查找树的基本特征之外，还具有一个非常重要的特点：它的左子树和右子树都是平衡二叉树，且左子树和右子树的深度之差的绝对值（平衡因子 ）不超过1。也就是说AVL树每个节点的平衡因子只可能是-1、0和1（左子树高度减去右子树高度）。</p>
+<p>优点:平衡二叉树算法基本与二叉查找树查询相同，效率比较高<br>缺点:插入操作需要旋转，支持范围查询</p>
+<p><strong>红黑树</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E7%BA%A2%E9%BB%91%E6%A0%91.png" alt=""></p>
+<p>它根据节点的生成规则，构造出一颗自平衡的二叉树。节点的生成规则必须满足：</p>
+<ol>
+<li><p>根节点必须是黑色</p>
+</li>
+<li><p>它的节点必须是红色或者黑色  </p>
+</li>
+<li><p>每个叶子结点都是黑色的空节点</p>
+</li>
+<li><p>每个红色节点的两个子节点必须是黑色    </p>
+</li>
+<li><p>从任意一个节点到叶子结点 所有路径必须包含相同数目的黑色节点。</p>
+</li>
+</ol>
+<p>因为有了这些规则的限制才保证从根节点到叶子结点的最长路径不会超过最短路径的2倍，也就是搜索数据时的匹配次数降低。</p>
+<p><strong>B树</strong></p>
+<p>它可以说是红黑树的一个变种，是一颗自平衡的多叉树。结点不再存储一个数据项，而是有多个数据项，数据项中包含key和value，key即数据列中的数值，value 可以是这行数据的地址，也可以是整行数据。如下图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/B%E6%A0%91.png" alt=""></p>
+<p><strong>B+树</strong></p>
+<p>B+树在B树之上又做了一层优化，非叶子节点也是存储多个数据项，但是数据项中只包含了key,即索引列的数值，也就是说非叶子节点它只做索引，最终的数据都是落在叶子节点中。如下图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/B+%E6%A0%91.png" alt=""></p>
+<p>MySQL为何不采用B树而采用B+树呢？正是因为B+树的非叶子节点存储的数据项只包含了key，在数据量多的情况下读取一个节点，那么就意味着读取的数据项非常多。构造出来的B+树高度相比B树更低，所以I/O的次数也就越少。由于B树存放的是key和value，当数据量非常多的情况下，读取一个节点包含的数据项不宜多。</p>
+<h2 id="MyISAM与InnoDB的索引实现"><a href="#MyISAM与InnoDB的索引实现" class="headerlink" title="MyISAM与InnoDB的索引实现"></a>MyISAM与InnoDB的索引实现</h2><h3 id="MyISAM索引实现"><a href="#MyISAM索引实现" class="headerlink" title="MyISAM索引实现"></a>MyISAM索引实现</h3><blockquote>
+<p>MyISAM索引文件和数据文件是分离的，索引文件仅保存数据记录的地址</p>
+</blockquote>
+<p><strong>主键索引</strong></p>
+<p>MyISAM引擎使用B+Tree作为索引结构，叶节点的data域存放的是数据记录的地址。下图是MyISAM主键索引的原理图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/MyISAM%E4%B8%BB%E9%94%AE%E7%B4%A2%E5%BC%95.png" alt=""></p>
+<p>这里设表一共有三列，假设我们以Col1为主键，上图是一个MyISAM表的主键索引示意。可以看出MyISAM的索引文件仅仅保存数据记录的地址。</p>
+<p><strong>辅助索引</strong></p>
+<p>在MyISAM中，主键索引和辅助索引在结构上没有任何区别，只是主键索引要求key是唯一的，而辅助索引的key可以重复。如果我们在Col2上建立一个辅助索引，则此索引的结构如下图所示：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/MyISAM%E8%BE%85%E5%8A%A9%E7%B4%A2%E5%BC%95.png" alt=""></p>
+<p>同样也是一颗B+Tree，data域保存数据记录的地址。因此，MyISAM中索引检索的算法为首先按照B+Tree搜索算法搜索索引，如果指定的Key存在，则取出其data域的值，然后以data域的值为地址，读取相应数据记录。</p>
+<h3 id="InnoDB索引实现"><a href="#InnoDB索引实现" class="headerlink" title="InnoDB索引实现"></a>InnoDB索引实现</h3><blockquote>
+<p>InnoDB也使用B+Tree作为索引结构，但具体实现方式却与MyISAM截然不同</p>
+</blockquote>
+<p><strong>主键索引</strong></p>
+<p>MyISAM索引文件和数据文件是分离的，索引文件仅保存数据记录的地址。而在InnoDB中，表数据文件本身就是按B+Tree组织的一个索引结构，这棵树的叶节点data域保存了完整的数据记录。这个索引的key是数据表的主键，因此InnoDB表数据文件本身就是主索引。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/InnoDB%E4%B8%BB%E9%94%AE%E7%B4%A2%E5%BC%95.png" alt=""></p>
+<p>上图是InnoDB主键索引的示意图，可以看到叶节点包含了完整的数据记录。这种索引叫做聚集索引。因为InnoDB的数据文件本身要按主键聚集，所以InnoDB要求表必须有主键（MyISAM可以没有），如果没有显式指定，则MySQL系统会自动选择一个可以唯一标识数据记录的列作为主键，如果不存在这种列，则MySQL自动为InnoDB表生成一个隐含字段作为主键，这个字段长度为6个字节，类型为长整形。</p>
+<p><strong>辅助索引</strong></p>
+<p>InnoDB的所有辅助索引都引用主键作为data域。例如，下图为定义在Col3上的一个辅助索引：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/InnoDB%E8%BE%85%E5%8A%A9%E7%B4%A2%E5%BC%95.png" alt=""></p>
+<p>InnoDB 表是基于聚簇索引建立的。因此InnoDB的索引能提供一种非常快速的主键查找性能。不过，它的辅助索引也会包含主键列，所以，如果主键定义的比较大，其他索引也将很大。如果想在表上定义 、很多索引，则争取尽量把主键定义得小一些。InnoDB 不会压缩索引。</p>
+<h2 id="MyISAM与InnoDB的索引区别"><a href="#MyISAM与InnoDB的索引区别" class="headerlink" title="MyISAM与InnoDB的索引区别"></a>MyISAM与InnoDB的索引区别</h2><p><strong>主键索引</strong></p>
+<p>InnoDB的数据文件本身就是索引文件，而MyISAM的索引文件和数据文件是分开的。</p>
+<p><strong>辅助索引</strong></p>
+<p>InnoDB的辅助索引data域存储相应记录主键的值而不是地址，而MyISAM的辅助索引和主索引没有多大区别。</p>
+<h2 id="聚集索引和非聚集索引区别"><a href="#聚集索引和非聚集索引区别" class="headerlink" title="聚集索引和非聚集索引区别"></a>聚集索引和非聚集索引区别</h2><p><strong>聚集索引</strong></p>
+<p>聚集索引表记录的排列顺序和索引的排列顺序一致，所以查询效率快，只要找到第一个索引值记录，其余就连续性的记录在物理也一样连续存放。聚集索引对应的缺点就是修改慢，因为为了保证表中记录的物理和索引顺序一致，在记录插入的时候，会对数据页重新排序。</p>
+<p>聚集索引类似于新华字典中用拼音去查找汉字，拼音检索表于书记顺序都是按照a~z排列的，就像相同的逻辑顺序于物理顺序一样，当你需要查找a,ai两个读音的字，或是想一次寻找多个傻(sha)的同音字时，也许向后翻几页，或紧接着下一行就得到结果了。</p>
+<p><strong>非聚集索引</strong></p>
+<p>非聚集索引指定了表中记录的逻辑顺序，但是记录的物理和索引不一定一致，两种索引都采用B+树结构，非聚集索引的叶子层并不和实际数据页相重叠，而采用叶子层包含一个指向表中的记录在数据页中的指针方式。非聚集索引层次多，不会造成数据重排。</p>
+<p>非聚集索引类似在新华字典上通过偏旁部首来查询汉字，检索表也许是按照横、竖、撇来排列的，但是由于正文中是a~z的拼音顺序，所以就类似于逻辑地址于物理地址的不对应。同时适用的情况就在于分组，大数目的不同值，频繁更新的列中，这些情况即不适合聚集索引。</p>
+<p><strong>根本区别</strong></p>
+<p>聚集索引和非聚集索引的根本区别是表记录的排列顺序和与索引的排列顺序是否一致。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://blog.csdn.net/whd526/article/details/78003466" target="_blank" rel="noopener">MyISAM和InnoDB的索引实现</a></li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么需要使用索引"><span class="toc-number">1.</span> <span class="toc-text">为什么需要使用索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#索引采用的数据结构"><span class="toc-number">2.</span> <span class="toc-text">索引采用的数据结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MyISAM与InnoDB的索引实现"><span class="toc-number">3.</span> <span class="toc-text">MyISAM与InnoDB的索引实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MyISAM索引实现"><span class="toc-number">3.1.</span> <span class="toc-text">MyISAM索引实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#InnoDB索引实现"><span class="toc-number">3.2.</span> <span class="toc-text">InnoDB索引实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MyISAM与InnoDB的索引区别"><span class="toc-number">4.</span> <span class="toc-text">MyISAM与InnoDB的索引区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#聚集索引和非聚集索引区别"><span class="toc-number">5.</span> <span class="toc-text">聚集索引和非聚集索引区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">6.</span> <span class="toc-text">参考</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/05/04/%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/05/04/%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/&text=索引实现原理" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/05/04/%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/&title=索引实现原理" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/05/04/%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/&is_video=false&description=索引实现原理" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=索引实现原理&body=Check out this article: http://yoursite.com/2020/05/04/%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/05/04/%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/&title=索引实现原理" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/05/04/%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/&title=索引实现原理" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/05/04/%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/&title=索引实现原理" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/05/04/%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/&title=索引实现原理" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/05/04/%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/&name=索引实现原理&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/05/04/%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/&t=索引实现原理" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2020
+    Hello
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

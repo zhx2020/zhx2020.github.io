@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="总体介绍LinkedHashSet和LinkedHashMap在Java里也有着相同的实现，前者仅仅是对后者做了一层包装，也就是说LinkedHashSet里面有一个LinkedHashMap（适配器模式）。 LinkedHashMap实现了Map接口，即允许放入 key 为 null 的元素，也允许插入 value 为 null 的元素。从名字上可以看出该容器是LinkedList和HashMa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LinkedHashSet和LinkedHashMap源码剖析">
+<meta property="og:url" content="http://yoursite.com/2020/05/11/LinkedHashSet%E5%92%8CLinkedHashMap%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/index.html">
+<meta property="og:site_name" content="ZHX2020">
+<meta property="og:description" content="总体介绍LinkedHashSet和LinkedHashMap在Java里也有着相同的实现，前者仅仅是对后者做了一层包装，也就是说LinkedHashSet里面有一个LinkedHashMap（适配器模式）。 LinkedHashMap实现了Map接口，即允许放入 key 为 null 的元素，也允许插入 value 为 null 的元素。从名字上可以看出该容器是LinkedList和HashMa">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/LinkedHashMap%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/LinkedHashMap_put.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/LinkedHashMap_remove.png">
+<meta property="article:published_time" content="2020-05-11T15:07:53.000Z">
+<meta property="article:modified_time" content="2020-05-29T15:00:48.863Z">
+<meta property="article:author" content="Hello">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/LinkedHashMap%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>LinkedHashSet和LinkedHashMap源码剖析</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/05/13/%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/05/11/HashSet%E5%92%8CHashMap%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/05/11/LinkedHashSet%E5%92%8CLinkedHashMap%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/05/11/LinkedHashSet%E5%92%8CLinkedHashMap%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/&text=LinkedHashSet和LinkedHashMap源码剖析" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/05/11/LinkedHashSet%E5%92%8CLinkedHashMap%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/&title=LinkedHashSet和LinkedHashMap源码剖析" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/05/11/LinkedHashSet%E5%92%8CLinkedHashMap%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/&is_video=false&description=LinkedHashSet和LinkedHashMap源码剖析" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=LinkedHashSet和LinkedHashMap源码剖析&body=Check out this article: http://yoursite.com/2020/05/11/LinkedHashSet%E5%92%8CLinkedHashMap%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/05/11/LinkedHashSet%E5%92%8CLinkedHashMap%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/&title=LinkedHashSet和LinkedHashMap源码剖析" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/05/11/LinkedHashSet%E5%92%8CLinkedHashMap%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/&title=LinkedHashSet和LinkedHashMap源码剖析" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/05/11/LinkedHashSet%E5%92%8CLinkedHashMap%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/&title=LinkedHashSet和LinkedHashMap源码剖析" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/05/11/LinkedHashSet%E5%92%8CLinkedHashMap%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/&title=LinkedHashSet和LinkedHashMap源码剖析" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/05/11/LinkedHashSet%E5%92%8CLinkedHashMap%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/&name=LinkedHashSet和LinkedHashMap源码剖析&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/05/11/LinkedHashSet%E5%92%8CLinkedHashMap%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/&t=LinkedHashSet和LinkedHashMap源码剖析" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#总体介绍"><span class="toc-number">1.</span> <span class="toc-text">总体介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法剖析"><span class="toc-number">2.</span> <span class="toc-text">方法剖析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#get"><span class="toc-number">2.1.</span> <span class="toc-text">get()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#put"><span class="toc-number">2.2.</span> <span class="toc-text">put()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#remove"><span class="toc-number">2.3.</span> <span class="toc-text">remove()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LinkedHashSet"><span class="toc-number">3.</span> <span class="toc-text">LinkedHashSet</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        LinkedHashSet和LinkedHashMap源码剖析
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ZHX2020</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-05-11T15:07:53.000Z" itemprop="datePublished">2020-05-11</time>
+        
+        (Updated: <time datetime="2020-05-29T15:00:48.863Z" itemprop="dateModified">2020-05-29</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/Java%E5%AE%B9%E5%99%A8/">Java容器</a>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="总体介绍"><a href="#总体介绍" class="headerlink" title="总体介绍"></a>总体介绍</h2><p><em>LinkedHashSet</em>和<em>LinkedHashMap</em>在Java里也有着相同的实现，前者仅仅是对后者做了一层包装，也就是说<em>LinkedHashSet</em>里面有一个<em>LinkedHashMap</em>（适配器模式）。</p>
+<p><em>LinkedHashMap</em>实现了<em>Map</em>接口，即允许放入 <code>key</code> 为 <code>null</code> 的元素，也允许插入 <code>value</code> 为 <code>null</code> 的元素。从名字上可以看出该容器是<em>LinkedList</em>和<em>HashMap</em>的混合体，也就是说它同时满足<em>HashMap</em>和<em>LinkedList</em>的某些特性。可将<em>LinkedHashMap</em>看作采用<em>LinkedList</em>增强的<em>HashMap</em>。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/LinkedHashMap%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0.png" alt=""></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">transient</span> Entry&lt;K,V&gt; header;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">extends</span> <span class="title">HashMap</span>.<span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">    <span class="comment">// These fields comprise the doubly linked list used for iteration.</span></span><br><span class="line">    Entry&lt;K,V&gt; before, after;</span><br><span class="line"></span><br><span class="line">    Entry(<span class="keyword">int</span> hash, K key, V value, HashMap.Entry&lt;K,V&gt; next) &#123;</span><br><span class="line">        <span class="keyword">super</span>(hash, key, value, next);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>事实上<em>LinkedHashMap</em>是<em>HashMap</em>的直接子类，<strong>二者唯一的区别是<em>LinkedHashMap</em>在<em>HashMa</em>p的基础上，采用双向链表（doubly-linked list）的形式将所有 <code>entry</code> 连接起来，这样是为保证元素的迭代顺序跟插入顺序相同。</strong>上图给出了<em>LinkedHashMap</em>的结构图，主体部分跟<em>HashMap</em>完全一样，多了 <code>header</code> 指向双向链表的头部（是一个哑元），<strong>该双向链表的迭代顺序就是 <code>entry</code> 的插入顺序。</strong></p>
+<p>除了可以保证迭代顺序，这种结构还有一个好处：<strong>迭代<em>LinkedHashMap</em>时不需要像<em>HashMap</em>那样遍历整个 <code>table</code> ，而只需要直接遍历 <code>header</code> 指向的双向链表即可</strong>，也就是说LinkedHashMap的迭代时间就只跟 <code>entry</code> 的个数相关，而跟 <code>table</code> 的大小无关。</p>
+<p>有两个参数可以影响<em>LinkedHashMap</em>的性能：初始容量（inital capacity）和负载系数（load factor）。初始容量指定了初始 <code>table</code> 的大小，负载系数用来指定自动扩容的临界值。当 <code>entry</code> 的数量超过 <code>capacity*load_factor</code> 时，容器将自动扩容并重新哈希。对于插入元素较多的场景，将初始容量设大可以减少重新哈希的次数。</p>
+<p>将对象放入到<em>LinkedHashMap</em>或<em>LinkedHashSet</em>中时，有两个方法需要特别关心： <code>hashCode()</code> 和 <code>equals()</code> 。<code>hashCode()</code> 方法决定了对象会被放到哪个 <code>bucket</code> 里，当多个对象的哈希值冲突时，<code>equals()</code> 方法决定了这些对象是否是“同一个对象”。所以，如果要将自定义的对象放入到<em>LinkedHashMap</em>或<em>LinkedHashSet</em>中，需要@Override <code>hashCode()</code> 和 <code>equals()</code> 方法。</p>
+<p>通过如下方式可以得到一个跟源<em>Map</em>迭代顺序一样的<em>LinkedHashMap</em>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(Map m)</span> </span>&#123;</span><br><span class="line">    Map copy = <span class="keyword">new</span> LinkedHashMap(m);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>出于性能原因，<em>LinkedHashMap</em>是非同步的（not synchronized），如果需要在多线程环境使用，需要程序员手动同步；或者通过如下方式将<em>LinkedHashMap</em>包装成（wrapped）同步的：</p>
+<p><code>Map m = Collections.synchronizedMap(new LinkedHashMap(...));</code></p>
+<h2 id="方法剖析"><a href="#方法剖析" class="headerlink" title="方法剖析"></a>方法剖析</h2><h3 id="get"><a href="#get" class="headerlink" title="get()"></a>get()</h3><p><code>get(Object key)</code> 方法根据指定的 <code>key</code> 值返回对应的 <code>value</code> 。该方法跟 <code>HashMap.get()</code> 方法的流程几乎完全一样。</p>
+<h3 id="put"><a href="#put" class="headerlink" title="put()"></a>put()</h3><p><code>put(K key, V value)</code> 方法是将指定的 <code>key</code>, <code>value</code> 对添加到 <code>map</code> 里。该方法首先会对 <code>map</code> 做一次查找，看是否包含该元组，如果已经包含则直接返回，查找过程类似于 <code>get()</code> 方法；如果没有找到，则会通过 <code>addEntry(int hash, K key, V value, int bucketIndex)</code> 方法插入新的 <code>entry</code>。</p>
+<p>注意，这里的<strong>插入有两重含义</strong>：</p>
+<ol>
+<li>从 <code>table</code> 的角度看，新的 <code>entry</code> 需要插入到对应的 <code>bucket</code> 里，当有哈希冲突时，采用头插法将新的 <code>entry</code> 插入到冲突链表的头部。</li>
+<li>从 <code>header</code> 的角度看，新的 <code>entry</code> 需要插入到双向链表的尾部。</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/LinkedHashMap_put.png" alt=""></p>
+<p><code>addEntry()</code> 代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// LinkedHashMap.addEntry()</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addEntry</span><span class="params">(<span class="keyword">int</span> hash, K key, V value, <span class="keyword">int</span> bucketIndex)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ((size &gt;= threshold) &amp;&amp; (<span class="keyword">null</span> != table[bucketIndex])) &#123;</span><br><span class="line">        resize(<span class="number">2</span> * table.length);<span class="comment">// 自动扩容，并重新哈希</span></span><br><span class="line">        hash = (<span class="keyword">null</span> != key) ? hash(key) : <span class="number">0</span>;</span><br><span class="line">        bucketIndex = hash &amp; (table.length-<span class="number">1</span>);<span class="comment">// hash%table.length</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 1.在冲突链表头部插入新的entry</span></span><br><span class="line">    HashMap.Entry&lt;K,V&gt; old = table[bucketIndex];</span><br><span class="line">    Entry&lt;K,V&gt; e = <span class="keyword">new</span> Entry&lt;&gt;(hash, key, value, old);</span><br><span class="line">    table[bucketIndex] = e;</span><br><span class="line">    <span class="comment">// 2.在双向链表的尾部插入新的entry</span></span><br><span class="line">    e.addBefore(header);</span><br><span class="line">    size++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述代码中用到了 <code>addBefore()</code> 方法将新 <code>entry e</code> 插入到双向链表头引用 <code>header</code> 的前面，这样 <code>e</code> 就成为双向链表中的最后一个元素。 <code>addBefore()</code> 的代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// LinkedHashMap.Entry.addBefor()，将this插入到existingEntry的前面</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">addBefore</span><span class="params">(Entry&lt;K,V&gt; existingEntry)</span> </span>&#123;</span><br><span class="line">    after  = existingEntry;</span><br><span class="line">    before = existingEntry.before;</span><br><span class="line">    before.after = <span class="keyword">this</span>;</span><br><span class="line">    after.before = <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述代码只是简单修改相关 <code>entry</code> 的引用而已。</p>
+<h3 id="remove"><a href="#remove" class="headerlink" title="remove()"></a>remove()</h3><p><code>remove(Object key)</code> 的作用是删除 <code>key</code> 值对应的 <code>entry</code> ，该方法的具体逻辑是在 <code>removeEntryForKey(Object key)</code> 里实现的。<code>removeEntryForKey()</code> 方法会首先找到 <code>key</code> 值对应的 <code>entry</code> ，然后删除该 <code>entry</code> （修改链表的相应引用）。查找过程跟 <code>get()</code> 方法类似。</p>
+<p>注意，这里的<strong>删除也有两重含义</strong>：</p>
+<ol>
+<li>从 <code>table</code> 的角度看，需要将该 <code>entry</code> 从对应的 <code>bucket</code> 里删除，如果对应的冲突链表不空，需要修改冲突链表的相应引用。</li>
+<li>从 <code>header</code> 的角度来看，需要将该 <code>entry</code> 从双向链表中删除，同时修改链表中前面以及后面元素的相应引用。</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/LinkedHashMap_remove.png" alt=""></p>
+<p><code>removeEntryForKey()</code> 对应的代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// LinkedHashMap.removeEntryForKey()，删除key值对应的entry</span></span><br><span class="line"><span class="function"><span class="keyword">final</span> Entry&lt;K,V&gt; <span class="title">removeEntryForKey</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">	......</span><br><span class="line">	<span class="keyword">int</span> hash = (key == <span class="keyword">null</span>) ? <span class="number">0</span> : hash(key);</span><br><span class="line">    <span class="keyword">int</span> i = indexFor(hash, table.length);<span class="comment">// hash&amp;(table.length-1)</span></span><br><span class="line">    Entry&lt;K,V&gt; prev = table[i];<span class="comment">// 得到冲突链表</span></span><br><span class="line">    Entry&lt;K,V&gt; e = prev;</span><br><span class="line">    <span class="keyword">while</span> (e != <span class="keyword">null</span>) &#123;<span class="comment">// 遍历冲突链表</span></span><br><span class="line">        Entry&lt;K,V&gt; next = e.next;</span><br><span class="line">        Object k;</span><br><span class="line">        <span class="keyword">if</span> (e.hash == hash &amp;&amp;</span><br><span class="line">            ((k = e.key) == key || (key != <span class="keyword">null</span> &amp;&amp; key.equals(k)))) &#123;<span class="comment">// 找到要删除的entry</span></span><br><span class="line">            modCount++; size--;</span><br><span class="line">            <span class="comment">// 1. 将e从对应bucket的冲突链表中删除</span></span><br><span class="line">            <span class="keyword">if</span> (prev == e) table[i] = next;</span><br><span class="line">            <span class="keyword">else</span> prev.next = next;</span><br><span class="line">            <span class="comment">// 2. 将e从双向链表中删除</span></span><br><span class="line">            e.before.after = e.after;</span><br><span class="line">            e.after.before = e.before;</span><br><span class="line">            <span class="keyword">return</span> e;</span><br><span class="line">        &#125;</span><br><span class="line">        prev = e; e = next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> e;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="LinkedHashSet"><a href="#LinkedHashSet" class="headerlink" title="LinkedHashSet"></a>LinkedHashSet</h2><p><em>LinkedHashSet</em>是对<em>LinkedHashMap</em>的简单包装，对<em>LinkedHashSet</em>的函数调用都会转换成合适的<em>LinkedHashMap</em>方法，因此<em>LinkedHashSet</em>的实现非常简单。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkedHashSet</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">extends</span> <span class="title">HashSet</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">Set</span>&lt;<span class="title">E</span>&gt;, <span class="title">Cloneable</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    ......</span><br><span class="line">    <span class="comment">// LinkedHashSet里面有一个LinkedHashMap</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LinkedHashSet</span><span class="params">(<span class="keyword">int</span> initialCapacity, <span class="keyword">float</span> loadFactor)</span> </span>&#123;</span><br><span class="line">        map = <span class="keyword">new</span> LinkedHashMap&lt;&gt;(initialCapacity, loadFactor);</span><br><span class="line">    &#125;</span><br><span class="line">	......</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;<span class="comment">//简单的方法转换</span></span><br><span class="line">        <span class="keyword">return</span> map.put(e, PRESENT)==<span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://www.cnblogs.com/CarpenterLee/p/5541111.html" target="_blank" rel="noopener">Java集合框架源码剖析：LinkedHashSet 和 LinkedHashMap</a></li>
+<li><a href="https://www.pdai.tech/md/java/collection/java-map-LinkedHashMap&LinkedHashSet.html" target="_blank" rel="noopener">Map - LinkedHashSet&amp;Map源码解析</a></li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#总体介绍"><span class="toc-number">1.</span> <span class="toc-text">总体介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法剖析"><span class="toc-number">2.</span> <span class="toc-text">方法剖析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#get"><span class="toc-number">2.1.</span> <span class="toc-text">get()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#put"><span class="toc-number">2.2.</span> <span class="toc-text">put()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#remove"><span class="toc-number">2.3.</span> <span class="toc-text">remove()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LinkedHashSet"><span class="toc-number">3.</span> <span class="toc-text">LinkedHashSet</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/05/11/LinkedHashSet%E5%92%8CLinkedHashMap%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/05/11/LinkedHashSet%E5%92%8CLinkedHashMap%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/&text=LinkedHashSet和LinkedHashMap源码剖析" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/05/11/LinkedHashSet%E5%92%8CLinkedHashMap%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/&title=LinkedHashSet和LinkedHashMap源码剖析" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/05/11/LinkedHashSet%E5%92%8CLinkedHashMap%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/&is_video=false&description=LinkedHashSet和LinkedHashMap源码剖析" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=LinkedHashSet和LinkedHashMap源码剖析&body=Check out this article: http://yoursite.com/2020/05/11/LinkedHashSet%E5%92%8CLinkedHashMap%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/05/11/LinkedHashSet%E5%92%8CLinkedHashMap%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/&title=LinkedHashSet和LinkedHashMap源码剖析" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/05/11/LinkedHashSet%E5%92%8CLinkedHashMap%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/&title=LinkedHashSet和LinkedHashMap源码剖析" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/05/11/LinkedHashSet%E5%92%8CLinkedHashMap%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/&title=LinkedHashSet和LinkedHashMap源码剖析" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/05/11/LinkedHashSet%E5%92%8CLinkedHashMap%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/&title=LinkedHashSet和LinkedHashMap源码剖析" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/05/11/LinkedHashSet%E5%92%8CLinkedHashMap%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/&name=LinkedHashSet和LinkedHashMap源码剖析&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/05/11/LinkedHashSet%E5%92%8CLinkedHashMap%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/&t=LinkedHashSet和LinkedHashMap源码剖析" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2020
+    Hello
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

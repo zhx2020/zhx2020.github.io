@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="HTTP简介1.HTTP协议，即超文本传输协议(Hypertext transfer protocol)。是一种详细规定了浏览器和万维网(WWW &#x3D; World Wide Web)服务器之间互相通信的规则，通过因特网传送万维网文档的数据传送协议。 2.HTTP协议作为TCP&#x2F;IP模型中应用层的协议也不例外。HTTP协议通常承载于TCP协议之上，有时也承载于TLS或SSL协议层之上，这个时候，就成了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Http协议详解">
+<meta property="og:url" content="http://yoursite.com/2020/05/09/Http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="ZHX2020">
+<meta property="og:description" content="HTTP简介1.HTTP协议，即超文本传输协议(Hypertext transfer protocol)。是一种详细规定了浏览器和万维网(WWW &#x3D; World Wide Web)服务器之间互相通信的规则，通过因特网传送万维网文档的数据传送协议。 2.HTTP协议作为TCP&#x2F;IP模型中应用层的协议也不例外。HTTP协议通常承载于TCP协议之上，有时也承载于TLS或SSL协议层之上，这个时候，就成了">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/TCP_IP%E6%A8%A1%E5%9E%8B.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Http_request01.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Http_request02.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Http_response.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%B8%B8%E8%A7%81%E7%8A%B6%E6%80%81%E7%A0%81.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95.png">
+<meta property="article:published_time" content="2020-05-09T14:10:57.000Z">
+<meta property="article:modified_time" content="2020-05-29T14:54:39.504Z">
+<meta property="article:author" content="Hello">
+<meta property="article:tag" content="协议">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/TCP_IP%E6%A8%A1%E5%9E%8B.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Http协议详解</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/05/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/05/09/ArrayDeque%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/05/09/Http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/05/09/Http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/&text=Http协议详解" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/05/09/Http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/&title=Http协议详解" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/05/09/Http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/&is_video=false&description=Http协议详解" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Http协议详解&body=Check out this article: http://yoursite.com/2020/05/09/Http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/05/09/Http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/&title=Http协议详解" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/05/09/Http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/&title=Http协议详解" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/05/09/Http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/&title=Http协议详解" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/05/09/Http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/&title=Http协议详解" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/05/09/Http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/&name=Http协议详解&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/05/09/Http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/&t=Http协议详解" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP简介"><span class="toc-number">1.</span> <span class="toc-text">HTTP简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP特点"><span class="toc-number">2.</span> <span class="toc-text">HTTP特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP工作流程"><span class="toc-number">3.</span> <span class="toc-text">HTTP工作流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP之请求消息Request"><span class="toc-number">4.</span> <span class="toc-text">HTTP之请求消息Request</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP之响应消息Response"><span class="toc-number">5.</span> <span class="toc-text">HTTP之响应消息Response</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP之状态码"><span class="toc-number">6.</span> <span class="toc-text">HTTP之状态码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP请求方法"><span class="toc-number">7.</span> <span class="toc-text">HTTP请求方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP工作原理"><span class="toc-number">8.</span> <span class="toc-text">HTTP工作原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GET和POST的区别"><span class="toc-number">9.</span> <span class="toc-text">GET和POST的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">10.</span> <span class="toc-text">参考</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Http协议详解
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ZHX2020</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-05-09T14:10:57.000Z" itemprop="datePublished">2020-05-09</time>
+        
+        (Updated: <time datetime="2020-05-29T14:54:39.504Z" itemprop="dateModified">2020-05-29</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/%E5%8D%8F%E8%AE%AE/" rel="tag">协议</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="HTTP简介"><a href="#HTTP简介" class="headerlink" title="HTTP简介"></a>HTTP简介</h2><p>1.HTTP协议，即<strong>超文本传输协议</strong>(Hypertext transfer protocol)。是一种详细规定了<strong>浏览器和万维网(WWW = World Wide Web)服务器</strong>之间互相通信的规则，通过因特网传送万维网文档的数据传送协议。</p>
+<p>2.HTTP协议作为TCP/IP模型中应用层的协议也不例外。HTTP协议通常承载于TCP协议之上，有时也承载于TLS或SSL协议层之上，这个时候，就成了我们常说的HTTPS。如下图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/TCP_IP%E6%A8%A1%E5%9E%8B.png" alt=""></p>
+<p>3.HTTP是一个<strong>应用层协议</strong>，由请求和响应构成，是一个标准的客户端服务器模型。HTTP是一个<strong>无状态</strong>的协议。</p>
+<p>4.HTTP默认的端口号为<strong>80</strong>，HTTPS的端口号为<strong>443</strong>。</p>
+<p>5.浏览网页是HTTP的主要应用，但是这并不代表HTTP就只能应用于网页的浏览。HTTP是一种协议，只要通信的双方都遵守这个协议，HTTP就能有用武之地。比如咱们常用的QQ，迅雷这些软件，都会使用HTTP协议(还包括其他的协议)。</p>
+<h2 id="HTTP特点"><a href="#HTTP特点" class="headerlink" title="HTTP特点"></a>HTTP特点</h2><p>1、<strong>简单快速</strong>：客户向服务器请求服务时，只需传送请求方法和路径。由于HTTP协议简单，使得HTTP服务器的程序规模小，因而通信速度很快。</p>
+<p>2、<strong>灵活</strong>：HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type加以标记。</p>
+<p>3、<strong>HTTP 0.9和1.0使用非持续连接</strong>：限制每次连接只处理一个请求，服务器处理完客户的请求，并收到客户的应答后，即断开连接。<strong>HTTP 1.1使用持续连接</strong>：不必为每个web对象创建一个新的连接，一个连接可以传送多个对象，采用这种方式可以节省传输时间。</p>
+<p>4、<strong>无状态</strong>：HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。另一方面，在服务器不需要先前信息时它的应答就较快。</p>
+<p>5、<strong>支持B/S及C/S模式</strong>。</p>
+<h2 id="HTTP工作流程"><a href="#HTTP工作流程" class="headerlink" title="HTTP工作流程"></a>HTTP工作流程</h2><p>一次HTTP操作称为一个事务，其工作过程可分为四步：</p>
+<p>1.首先客户机与服务器需要建立连接。只要单击某个超级链接，HTTP的工作开始。</p>
+<p>2.建立连接后，客户机发送一个请求给服务器，请求方式的格式为：统一资源标识符（URL）、协议版本号，后边是MIME信息包括请求修饰符、客户机信息和可能的内容。</p>
+<p>3.服务器接到请求后，给予相应的响应信息，其格式为一个状态行，包括信息的协议版本号、一个成功或错误的代码，后边是MIME信息包括服务器信息、实体信息和可能的内容。</p>
+<p>4.客户端接收服务器所返回的信息通过浏览器显示在用户的显示屏上，然后客户机与服务器断开连接。</p>
+<p>如果在以上过程中的某一步出现错误，那么产生错误的信息将返回到客户端，有显示屏输出。对于用户来说，这些过程是由HTTP自己完成的，用户只要用鼠标点击，等待信息显示就可以了。</p>
+<h2 id="HTTP之请求消息Request"><a href="#HTTP之请求消息Request" class="headerlink" title="HTTP之请求消息Request"></a>HTTP之请求消息Request</h2><p>客户端发送一个HTTP请求到服务器的请求消息包括以下格式：</p>
+<p><strong>请求行</strong>、<strong>请求头部</strong>、<strong>空行</strong>和<strong>请求数据</strong>四个部分组成。</p>
+<blockquote>
+<p><strong>Get请求例子</strong></p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Http_request01.png" alt=""></p>
+<p>第一部分：<strong>请求行，用来说明请求类型,要访问的资源以及所使用的HTTP版本</strong>.</p>
+<p>GET说明请求类型为GET,[/562f25980001b1b106000338.jpg]为要访问的资源，该行的最后一部分说明使用的是HTTP1.1版本。</p>
+<p>第二部分：<strong>请求头部，紧接着请求行（即第一行）之后的部分，用来说明服务器要使用的附加信息</strong></p>
+<p>从第二行起为请求头部，HOST将指出请求的目的地.User-Agent,服务器端和客户端脚本都能访问它,它是浏览器类型检测逻辑的重要基础.该信息由你的浏览器来定义,并且在每个请求中自动发送等等</p>
+<p>第三部分：<strong>空行，请求头部后面的空行是必须的</strong></p>
+<p>即使第四部分的请求数据为空，也必须有空行。</p>
+<p>第四部分：<strong>请求数据也叫主体，可以添加任意的其他数据</strong>。</p>
+<p>这个例子的请求数据为空。</p>
+<blockquote>
+<p><strong>POST请求例子</strong></p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Http_request02.png" alt=""></p>
+<p>第一部分：请求行，第一行明了是post请求，以及http1.1版本。</p>
+<p>第二部分：请求头部，第二行至第六行。</p>
+<p>第三部分：空行，第七行的空行。</p>
+<p>第四部分：请求数据，第八行。</p>
+<h2 id="HTTP之响应消息Response"><a href="#HTTP之响应消息Response" class="headerlink" title="HTTP之响应消息Response"></a>HTTP之响应消息Response</h2><p>一般情况下，服务器接收并处理客户端发过来的请求后会返回一个HTTP的响应消息。</p>
+<p>HTTP响应也由四个部分组成，分别是：<strong>状态行</strong>、<strong>消息报头</strong>、<strong>空行</strong>和<strong>响应正文</strong>。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Http_response.png" alt=""></p>
+<p>第一部分：<strong>状态行，由HTTP协议版本号， 状态码， 状态消息 三部分组成</strong>。</p>
+<p>第一行为状态行，（HTTP/1.1）表明HTTP版本为1.1版本，状态码为200，状态消息为（ok）</p>
+<p>第二部分：<strong>消息报头，用来说明客户端要使用的一些附加信息</strong></p>
+<p>第二行和第三行和第四行为消息报头，<br>Date:生成响应的日期和时间；Content-Type:指定了MIME类型的HTML(text/html),编码类型是ISO-8859-1</p>
+<p>第三部分：<strong>空行，消息报头后面的空行是必须的</strong></p>
+<p>第四部分：<strong>响应正文，服务器返回给客户端的文本信息</strong>。</p>
+<p>空行后面的html部分为响应正文。</p>
+<h2 id="HTTP之状态码"><a href="#HTTP之状态码" class="headerlink" title="HTTP之状态码"></a>HTTP之状态码</h2><p>状态代码有<strong>三位数字</strong>组成，第一个数字定义了响应的类别，共分五种类别:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1xx：指示信息--表示请求已接收，继续处理</span><br><span class="line"></span><br><span class="line">2xx：成功--表示请求已被成功接收、理解、接受</span><br><span class="line"></span><br><span class="line">3xx：重定向--要完成请求必须进行更进一步的操作</span><br><span class="line"></span><br><span class="line">4xx：客户端错误--请求有语法错误或请求无法实现</span><br><span class="line"></span><br><span class="line">5xx：服务器端错误--服务器未能实现合法的请求</span><br></pre></td></tr></table></figure>
+
+<p>常见状态码：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%B8%B8%E8%A7%81%E7%8A%B6%E6%80%81%E7%A0%81.png" alt=""></p>
+<h2 id="HTTP请求方法"><a href="#HTTP请求方法" class="headerlink" title="HTTP请求方法"></a>HTTP请求方法</h2><p>根据HTTP标准，HTTP请求可以使用多种请求方法。</p>
+<p><strong>HTTP1.0</strong>定义了三种请求方法： <code>GET</code> , <code>POST</code> 和 <code>HEAD</code> 方法。</p>
+<p><strong>HTTP1.1</strong>新增了五种请求方法：<code>OPTIONS</code> , <code>PUT</code> ,  <code>DELETE</code> ,  <code>TRACE</code> 和 <code>CONNECT</code> 方法。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95.png" alt=""></p>
+<h2 id="HTTP工作原理"><a href="#HTTP工作原理" class="headerlink" title="HTTP工作原理"></a>HTTP工作原理</h2><p>HTTP协议定义Web客户端如何从Web服务器请求Web页面，以及服务器如何把Web页面传送给客户端。HTTP协议采用了<strong>请求/响应模型</strong>。客户端向服务器发送一个请求报文，请求报文包含请求的方法、URL、协议版本、请求头部和请求数据。服务器以一个状态行作为响应，响应的内容包括协议的版本、成功或者错误代码、服务器信息、响应头部和响应数据。</p>
+<p>以下是 HTTP 请求/响应的步骤：</p>
+<p><strong>1、客户端连接到Web服务器</strong></p>
+<p>一个HTTP客户端，通常是浏览器，与Web服务器的HTTP端口（默认为80）建立一个TCP套接字连接。例如，<a href="http://www.oakcms.cn。" target="_blank" rel="noopener">http://www.oakcms.cn。</a></p>
+<p><strong>2、发送HTTP请求</strong></p>
+<p>通过TCP套接字，客户端向Web服务器发送一个文本的请求报文，一个请求报文由请求行、请求头部、空行和请求数据4部分组成。</p>
+<p><strong>3、服务器接受请求并返回HTTP响应</strong></p>
+<p>Web服务器解析请求，定位请求资源。服务器将资源副本写到TCP套接字，由客户端读取。一个响应由状态行、响应头部、空行和响应数据4部分组成。</p>
+<p><strong>4、释放连接TCP连接</strong></p>
+<p>若connection 模式为close，则服务器主动关闭TCP连接，客户端被动关闭连接，释放TCP连接;若connection 模式为keepalive，则该连接会保持一段时间，在该时间内可以继续接收请求;</p>
+<p><strong>5、客户端浏览器解析HTML内容</strong></p>
+<p>客户端浏览器首先解析状态行，查看表明请求是否成功的状态代码。然后解析每一个响应头，响应头告知以下为若干字节的HTML文档和文档的字符集。客户端浏览器读取响应数据HTML，根据HTML的语法对其进行格式化，并在浏览器窗口中显示。   </p>
+<h2 id="GET和POST的区别"><a href="#GET和POST的区别" class="headerlink" title="GET和POST的区别"></a>GET和POST的区别</h2><p>1、GET提交的数据会放在URL之后，以?分割URL和传输数据，参数之间以&amp;相连，如EditPosts.aspx?name=test1&amp;id=123456. POST方法是把提交的数据放在HTTP包的Body中.</p>
+<p>2、GET提交的数据大小有限制（因为浏览器对URL的长度有限制），而POST方法提交的数据没有限制.</p>
+<p>3、GET方式需要使用Request.QueryString来取得变量的值，而POST方式通过Request.Form来获取变量的值。</p>
+<p>4、GET方式提交数据，会带来安全问题，比如一个登录页面，通过GET方式提交数据时，用户名和密码将出现在URL上，如果页面可以被缓存或者其他人可以访问这台机器，就可以从历史记录获得该用户的账号和密码.</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://www.cnblogs.com/ranyonsue/p/5984001.html" target="_blank" rel="noopener">关于HTTP协议，一篇就够了</a></li>
+<li><a href="https://www.cnblogs.com/qdhxhz/p/8468913.html" target="_blank" rel="noopener">【HTTP协议】—HTTP协议详解</a></li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP简介"><span class="toc-number">1.</span> <span class="toc-text">HTTP简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP特点"><span class="toc-number">2.</span> <span class="toc-text">HTTP特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP工作流程"><span class="toc-number">3.</span> <span class="toc-text">HTTP工作流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP之请求消息Request"><span class="toc-number">4.</span> <span class="toc-text">HTTP之请求消息Request</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP之响应消息Response"><span class="toc-number">5.</span> <span class="toc-text">HTTP之响应消息Response</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP之状态码"><span class="toc-number">6.</span> <span class="toc-text">HTTP之状态码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP请求方法"><span class="toc-number">7.</span> <span class="toc-text">HTTP请求方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP工作原理"><span class="toc-number">8.</span> <span class="toc-text">HTTP工作原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GET和POST的区别"><span class="toc-number">9.</span> <span class="toc-text">GET和POST的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">10.</span> <span class="toc-text">参考</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/05/09/Http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/05/09/Http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/&text=Http协议详解" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/05/09/Http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/&title=Http协议详解" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/05/09/Http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/&is_video=false&description=Http协议详解" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Http协议详解&body=Check out this article: http://yoursite.com/2020/05/09/Http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/05/09/Http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/&title=Http协议详解" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/05/09/Http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/&title=Http协议详解" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/05/09/Http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/&title=Http协议详解" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/05/09/Http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/&title=Http协议详解" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/05/09/Http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/&name=Http协议详解&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/05/09/Http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/&t=Http协议详解" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2020
+    Hello
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

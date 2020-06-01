@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="设计原则总原则（开闭原则）：对扩展开放，对修改关闭 1、单一职责原则：每个类应该实现单一的职责 2、里氏替换原则：子类对父类的方法尽量不要重写和重载 3、依赖倒转原则：面向接口编程，依赖于抽象而不依赖于具体 4、接口隔离原则：每个接口中不存在子类用不到却必须实现的方法 5、迪米特法则（最少知道原则）：一个类对自己依赖的类知道的越少越好 6、合成复用原则：尽量首先使用合成&#x2F;聚合的方式，而不是使用继承">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式概览">
+<meta property="og:url" content="http://yoursite.com/2020/05/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%A7%88/index.html">
+<meta property="og:site_name" content="ZHX2020">
+<meta property="og:description" content="设计原则总原则（开闭原则）：对扩展开放，对修改关闭 1、单一职责原则：每个类应该实现单一的职责 2、里氏替换原则：子类对父类的方法尽量不要重写和重载 3、依赖倒转原则：面向接口编程，依赖于抽象而不依赖于具体 4、接口隔离原则：每个接口中不存在子类用不到却必须实现的方法 5、迪米特法则（最少知道原则）：一个类对自己依赖的类知道的越少越好 6、合成复用原则：尽量首先使用合成&#x2F;聚合的方式，而不是使用继承">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E4%BE%9D%E8%B5%96.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%85%B3%E8%81%94.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E8%81%9A%E5%90%88.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E7%BB%84%E5%90%88.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%AE%9E%E7%8E%B0.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E6%B3%9B%E5%8C%96.png">
+<meta property="article:published_time" content="2020-05-18T01:00:35.000Z">
+<meta property="article:modified_time" content="2020-05-29T15:20:53.729Z">
+<meta property="article:author" content="Hello">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E4%BE%9D%E8%B5%96.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>设计模式概览</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/05/18/MySQL%E9%9D%A2%E8%AF%95%E9%A2%98/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/05/17/leetcode%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/05/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%A7%88/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/05/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%A7%88/&text=设计模式概览" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/05/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%A7%88/&title=设计模式概览" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/05/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%A7%88/&is_video=false&description=设计模式概览" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=设计模式概览&body=Check out this article: http://yoursite.com/2020/05/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%A7%88/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/05/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%A7%88/&title=设计模式概览" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/05/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%A7%88/&title=设计模式概览" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/05/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%A7%88/&title=设计模式概览" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/05/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%A7%88/&title=设计模式概览" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/05/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%A7%88/&name=设计模式概览&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/05/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%A7%88/&t=设计模式概览" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#设计原则"><span class="toc-number">1.</span> <span class="toc-text">设计原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UML关系"><span class="toc-number">2.</span> <span class="toc-text">UML关系</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#依赖"><span class="toc-number">2.1.</span> <span class="toc-text">依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关联"><span class="toc-number">2.2.</span> <span class="toc-text">关联</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#聚合"><span class="toc-number">2.3.</span> <span class="toc-text">聚合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组合"><span class="toc-number">2.4.</span> <span class="toc-text">组合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现"><span class="toc-number">2.5.</span> <span class="toc-text">实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#泛化"><span class="toc-number">2.6.</span> <span class="toc-text">泛化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分类"><span class="toc-number">3.</span> <span class="toc-text">分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        设计模式概览
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ZHX2020</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-05-18T01:00:35.000Z" itemprop="datePublished">2020-05-18</time>
+        
+        (Updated: <time datetime="2020-05-29T15:20:53.729Z" itemprop="dateModified">2020-05-29</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a>设计原则</h2><p><strong>总原则（开闭原则）：</strong>对扩展开放，对修改关闭</p>
+<p><strong>1、单一职责原则：</strong>每个类应该实现单一的职责</p>
+<p><strong>2、里氏替换原则：</strong>子类对父类的方法尽量不要重写和重载</p>
+<p><strong>3、依赖倒转原则：</strong>面向接口编程，依赖于抽象而不依赖于具体</p>
+<p><strong>4、接口隔离原则：</strong>每个接口中不存在子类用不到却必须实现的方法</p>
+<p><strong>5、迪米特法则（最少知道原则）：</strong>一个类对自己依赖的类知道的越少越好</p>
+<p><strong>6、合成复用原则：</strong>尽量首先使用合成/聚合的方式，而不是使用继承</p>
+<h2 id="UML关系"><a href="#UML关系" class="headerlink" title="UML关系"></a>UML关系</h2><blockquote>
+<p><strong>关系由弱到强：依赖 &lt; 关联 &lt; 聚合 &lt; 组合 &lt; 实现 &lt; 泛化</strong></p>
+</blockquote>
+<h3 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h3><p><strong>概念：</strong>是一种 <strong>使用</strong> 的关系，即一个类的实现需要另一个类的协助，所以要尽量不使用双向的互相依赖，在程序中一般表现为类 A 中的方法需要类 B 的实例作为其参数或者变量，而类 A 本身并不需要引用类 B 的实例作为其成员变量。</p>
+<p><strong>表示方法：</strong>虚线箭头，类 A 指向类 B</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E4%BE%9D%E8%B5%96.png" alt=""></p>
+<h3 id="关联"><a href="#关联" class="headerlink" title="关联"></a>关联</h3><p><strong>概念：</strong>表示类与类之间的 <strong>联接</strong>,它使一个类知道另一个类的属性和方法，这种关系比依赖更强、不存在依赖关系的偶然性、关系也不是临时性的，一般是长期性的，在程序中被关联类 B 以类属性的形式出现在关联类 A 中，也可能是关联类 A 引用了一个类型为被关联类 B 的全局变量。</p>
+<p><strong>表示方法：</strong>实线箭头，类 A 指向类 B</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%85%B3%E8%81%94.png" alt=""></p>
+<h3 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h3><p><strong>概念：</strong>聚合是关联关系的一种特例，是强的关联关系。聚合是整体和个体之间的关系，即 <strong>has-a</strong> 的关系，整体与个体可以具有各自的生命周期，个体可以属于多个整体对象，也可以为多个整体对象共享。程序中聚合和关联关系是一致的，只能从语义级别来区分。</p>
+<p><strong>表示方法：</strong>尾部为空心菱形的实线箭头（也可以没箭头），类 A 指向类 B</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E8%81%9A%E5%90%88.png" alt=""></p>
+<h3 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h3><p><strong>概念：</strong>组合也是关联关系的一种特例。组合是一种整体与部分的关系，即 <strong>contains-a</strong> 的关系，比聚合更强。部分与整体的生命周期一致，整体的生命周期结束也就意味着部分的生命周期结束，组合关系不能共享。程序中组合和关联关系是一致的，只能从语义级别来区分。</p>
+<p><strong>表示方法：</strong>尾部为实心菱形的实线箭头（也可以没箭头），类 A 指向类 B</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E7%BB%84%E5%90%88.png" alt=""></p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p><strong>概念：</strong>实现是一种 <strong>类与接口</strong> 的关系，表示类是接口所有特征和行为的实现，在程序中一般通过类实现接口来描述。</p>
+<p><strong>表示方法：</strong>空心三角形箭头的虚线，实现类指向接口</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%AE%9E%E7%8E%B0.png" alt=""></p>
+<h3 id="泛化"><a href="#泛化" class="headerlink" title="泛化"></a>泛化</h3><p><strong>概念：</strong>泛化是一种 <strong>一般与特殊</strong>、<strong>一般与具体</strong> 之间关系的描述，具体描述建立在一般描述的基础之上，并对其进行了扩展。在程序中是通过继承类实现的。比如狗是对动物的具体描述，在面向对象设计的时候一般把狗设计为动物的子类。</p>
+<p><strong>表示方法：</strong>空心三角形箭头的实线，子类指向父类</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E6%B3%9B%E5%8C%96.png" alt=""></p>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><ul>
+<li><strong>创建型模式（5）</strong><ul>
+<li>简单工厂模式（不属于）</li>
+<li>工厂方法模式</li>
+<li>抽象工厂模式</li>
+<li>单例模式</li>
+<li>建造者模式</li>
+<li>原型模式</li>
+</ul>
+</li>
+<li><strong>结构型模式（7）</strong><ul>
+<li>代理模式</li>
+<li>适配器模式</li>
+<li>桥梁模式</li>
+<li>装饰器模式</li>
+<li>门面模式</li>
+<li>组合模式</li>
+<li>享元模式</li>
+</ul>
+</li>
+<li><strong>行为型模式（11）</strong><ul>
+<li>解释器模式</li>
+<li>策略模式</li>
+<li>观察者模式</li>
+<li>责任链模式</li>
+<li>模板方法模式</li>
+<li>状态模式</li>
+<li>命令模式</li>
+<li>迭代器模式</li>
+<li>调解者模式</li>
+<li>备忘录模式</li>
+<li>访问者模式</li>
+</ul>
+</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://www.cnblogs.com/geek6/p/3951677.html" target="_blank" rel="noopener">23种设计模式全解析</a></li>
+<li><a href="https://www.cnblogs.com/maplebridge/p/10486113.html" target="_blank" rel="noopener">设计模式之UML关系图</a></li>
+<li><a href="https://www.cnblogs.com/chengJAVA/p/5646322.html" target="_blank" rel="noopener">UML的六种关系</a></li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#设计原则"><span class="toc-number">1.</span> <span class="toc-text">设计原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UML关系"><span class="toc-number">2.</span> <span class="toc-text">UML关系</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#依赖"><span class="toc-number">2.1.</span> <span class="toc-text">依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关联"><span class="toc-number">2.2.</span> <span class="toc-text">关联</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#聚合"><span class="toc-number">2.3.</span> <span class="toc-text">聚合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组合"><span class="toc-number">2.4.</span> <span class="toc-text">组合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现"><span class="toc-number">2.5.</span> <span class="toc-text">实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#泛化"><span class="toc-number">2.6.</span> <span class="toc-text">泛化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分类"><span class="toc-number">3.</span> <span class="toc-text">分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/05/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%A7%88/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/05/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%A7%88/&text=设计模式概览" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/05/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%A7%88/&title=设计模式概览" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/05/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%A7%88/&is_video=false&description=设计模式概览" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=设计模式概览&body=Check out this article: http://yoursite.com/2020/05/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%A7%88/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/05/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%A7%88/&title=设计模式概览" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/05/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%A7%88/&title=设计模式概览" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/05/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%A7%88/&title=设计模式概览" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/05/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%A7%88/&title=设计模式概览" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/05/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%A7%88/&name=设计模式概览&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/05/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%A7%88/&t=设计模式概览" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2020
+    Hello
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
