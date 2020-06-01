@@ -9,7 +9,7 @@
     <meta name="description" content="数据库的三大特性 实体：表  属性：表中的数据（字段）  关系：表与表之间的关系   数据库设计三大范式 第一范式1NF：列不可分   数据表中的每一列(字段)，必须是不可拆分的最小单元，也就是确保每一列的原子性，而不是集合。   第二范式2NF：要有主键   满足1NF的基础上，要求：表中的所有列，都必需依赖于主键，而不能有任何一列与主键没有关系（一个表只描述一件事情）。第二范式消除表的无关数据">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据库的三大范式以及五大约束">
-<meta property="og:url" content="http://yoursite.com/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/index.html">
+<meta property="og:url" content="https://zhx2020.github.io/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/index.html">
 <meta property="og:site_name" content="ZHX2020">
 <meta property="og:description" content="数据库的三大特性 实体：表  属性：表中的数据（字段）  关系：表与表之间的关系   数据库设计三大范式 第一范式1NF：列不可分   数据表中的每一列(字段)，必须是不可拆分的最小单元，也就是确保每一列的原子性，而不是集合。   第二范式2NF：要有主键   满足1NF的基础上，要求：表中的所有列，都必需依赖于主键，而不能有任何一列与主键没有关系（一个表只描述一件事情）。第二范式消除表的无关数据">
 <meta property="og:locale" content="zh_CN">
@@ -73,7 +73,7 @@
          
           <li><a href="/archives/">归档</a></li>
          
-          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+          <li><a href="http://github.com/xxx" target="_blank" rel="noopener">项目</a></li>
          
           <li><a href="/search/">搜索</a></li>
         
@@ -99,17 +99,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&text=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&title=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&is_video=false&description=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=数据库的三大范式以及五大约束&body=Check out this article: http://yoursite.com/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&title=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&title=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&title=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&title=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&name=数据库的三大范式以及五大约束&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&t=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://zhx2020.github.io/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://zhx2020.github.io/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&text=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://zhx2020.github.io/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&title=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zhx2020.github.io/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&is_video=false&description=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=数据库的三大范式以及五大约束&body=Check out this article: https://zhx2020.github.io/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://zhx2020.github.io/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&title=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://zhx2020.github.io/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&title=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://zhx2020.github.io/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&title=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://zhx2020.github.io/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&title=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://zhx2020.github.io/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&name=数据库的三大范式以及五大约束&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://zhx2020.github.io/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&t=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -226,7 +226,7 @@
          
           <li><a href="/archives/">归档</a></li>
          
-          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+          <li><a href="http://github.com/xxx" target="_blank" rel="noopener">项目</a></li>
          
           <li><a href="/search/">搜索</a></li>
         
@@ -239,17 +239,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&text=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&title=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&is_video=false&description=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=数据库的三大范式以及五大约束&body=Check out this article: http://yoursite.com/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&title=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&title=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&title=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&title=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&name=数据库的三大范式以及五大约束&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&t=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://zhx2020.github.io/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://zhx2020.github.io/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&text=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://zhx2020.github.io/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&title=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zhx2020.github.io/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&is_video=false&description=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=数据库的三大范式以及五大约束&body=Check out this article: https://zhx2020.github.io/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://zhx2020.github.io/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&title=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://zhx2020.github.io/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&title=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://zhx2020.github.io/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&title=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://zhx2020.github.io/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&title=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://zhx2020.github.io/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&name=数据库的三大范式以及五大约束&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://zhx2020.github.io/2020/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E4%BB%A5%E5%8F%8A%E4%BA%94%E5%A4%A7%E7%BA%A6%E6%9D%9F/&t=数据库的三大范式以及五大约束" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -287,7 +287,7 @@
          
           <li><a href="/archives/">归档</a></li>
          
-          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+          <li><a href="http://github.com/xxx" target="_blank" rel="noopener">项目</a></li>
          
           <li><a href="/search/">搜索</a></li>
         

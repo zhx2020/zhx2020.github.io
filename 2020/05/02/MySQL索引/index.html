@@ -9,7 +9,7 @@
     <meta name="description" content="介绍索引用于快速找出在某个列中有一特定值的行。不使用索引，MySQL必须从第一条记录开始读完整个表，直到找出相关的行，表越大查询数据所花费的时间就越多。如果表中查询的列有索引，MySQL能够快速到达一个位置去搜索数据文件，而不必查看所有数据，那么将会节省很大一部分时间。 例如：有一张person表，其中有2W条记录，记录着2W个人的信息。有一个Phone的字段记录每个人的电话号码，现在想要查询出电">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL索引">
-<meta property="og:url" content="http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/index.html">
+<meta property="og:url" content="https://zhx2020.github.io/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/index.html">
 <meta property="og:site_name" content="ZHX2020">
 <meta property="og:description" content="介绍索引用于快速找出在某个列中有一特定值的行。不使用索引，MySQL必须从第一条记录开始读完整个表，直到找出相关的行，表越大查询数据所花费的时间就越多。如果表中查询的列有索引，MySQL能够快速到达一个位置去搜索数据文件，而不必查看所有数据，那么将会节省很大一部分时间。 例如：有一张person表，其中有2W条记录，记录着2W个人的信息。有一个Phone的字段记录每个人的电话号码，现在想要查询出电">
 <meta property="og:locale" content="zh_CN">
@@ -81,7 +81,7 @@
          
           <li><a href="/archives/">归档</a></li>
          
-          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+          <li><a href="http://github.com/xxx" target="_blank" rel="noopener">项目</a></li>
          
           <li><a href="/search/">搜索</a></li>
         
@@ -107,17 +107,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&text=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&is_video=false&description=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=MySQL索引&body=Check out this article: http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&name=MySQL索引&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&t=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://zhx2020.github.io/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://zhx2020.github.io/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&text=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://zhx2020.github.io/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zhx2020.github.io/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&is_video=false&description=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=MySQL索引&body=Check out this article: https://zhx2020.github.io/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://zhx2020.github.io/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://zhx2020.github.io/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://zhx2020.github.io/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://zhx2020.github.io/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://zhx2020.github.io/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&name=MySQL索引&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://zhx2020.github.io/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&t=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -405,7 +405,7 @@
          
           <li><a href="/archives/">归档</a></li>
          
-          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+          <li><a href="http://github.com/xxx" target="_blank" rel="noopener">项目</a></li>
          
           <li><a href="/search/">搜索</a></li>
         
@@ -418,17 +418,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&text=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&is_video=false&description=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=MySQL索引&body=Check out this article: http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&name=MySQL索引&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&t=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://zhx2020.github.io/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://zhx2020.github.io/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&text=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://zhx2020.github.io/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zhx2020.github.io/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&is_video=false&description=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=MySQL索引&body=Check out this article: https://zhx2020.github.io/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://zhx2020.github.io/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://zhx2020.github.io/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://zhx2020.github.io/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://zhx2020.github.io/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&title=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://zhx2020.github.io/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&name=MySQL索引&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://zhx2020.github.io/2020/05/02/MySQL%E7%B4%A2%E5%BC%95/&t=MySQL索引" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -466,7 +466,7 @@
          
           <li><a href="/archives/">归档</a></li>
          
-          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+          <li><a href="http://github.com/xxx" target="_blank" rel="noopener">项目</a></li>
          
           <li><a href="/search/">搜索</a></li>
         

@@ -9,7 +9,7 @@
     <meta name="description" content="实现原理RPC（Remote Procedure Call）远程过程调用，它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议。 不管是什么样的RPC框架，总体思路都是服务提供方暴露服务，消费方通过服务方提供的接口使用动态代理获取代理对象，然后调用代理对象的方法，代理对象在内部进行远程调用，获得计算结果。简要示意图如下图所示：  在这个过程中，有两处关键点。第一是获取代理对象">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RPC框架原理和实现">
-<meta property="og:url" content="http://yoursite.com/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:url" content="https://zhx2020.github.io/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/index.html">
 <meta property="og:site_name" content="ZHX2020">
 <meta property="og:description" content="实现原理RPC（Remote Procedure Call）远程过程调用，它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议。 不管是什么样的RPC框架，总体思路都是服务提供方暴露服务，消费方通过服务方提供的接口使用动态代理获取代理对象，然后调用代理对象的方法，代理对象在内部进行远程调用，获得计算结果。简要示意图如下图所示：  在这个过程中，有两处关键点。第一是获取代理对象">
 <meta property="og:locale" content="zh_CN">
@@ -74,7 +74,7 @@
          
           <li><a href="/archives/">归档</a></li>
          
-          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+          <li><a href="http://github.com/xxx" target="_blank" rel="noopener">项目</a></li>
          
           <li><a href="/search/">搜索</a></li>
         
@@ -100,17 +100,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&text=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&title=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&is_video=false&description=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=RPC框架原理和实现&body=Check out this article: http://yoursite.com/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&title=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&title=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&title=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&title=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&name=RPC框架原理和实现&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&t=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://zhx2020.github.io/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://zhx2020.github.io/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&text=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://zhx2020.github.io/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&title=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zhx2020.github.io/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&is_video=false&description=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=RPC框架原理和实现&body=Check out this article: https://zhx2020.github.io/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://zhx2020.github.io/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&title=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://zhx2020.github.io/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&title=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://zhx2020.github.io/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&title=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://zhx2020.github.io/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&title=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://zhx2020.github.io/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&name=RPC框架原理和实现&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://zhx2020.github.io/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&t=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -220,7 +220,7 @@
          
           <li><a href="/archives/">归档</a></li>
          
-          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+          <li><a href="http://github.com/xxx" target="_blank" rel="noopener">项目</a></li>
          
           <li><a href="/search/">搜索</a></li>
         
@@ -233,17 +233,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&text=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&title=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&is_video=false&description=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=RPC框架原理和实现&body=Check out this article: http://yoursite.com/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&title=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&title=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&title=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&title=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&name=RPC框架原理和实现&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&t=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://zhx2020.github.io/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://zhx2020.github.io/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&text=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://zhx2020.github.io/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&title=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zhx2020.github.io/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&is_video=false&description=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=RPC框架原理和实现&body=Check out this article: https://zhx2020.github.io/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://zhx2020.github.io/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&title=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://zhx2020.github.io/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&title=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://zhx2020.github.io/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&title=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://zhx2020.github.io/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&title=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://zhx2020.github.io/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&name=RPC框架原理和实现&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://zhx2020.github.io/2020/05/22/RPC%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/&t=RPC框架原理和实现" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -281,7 +281,7 @@
          
           <li><a href="/archives/">归档</a></li>
          
-          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+          <li><a href="http://github.com/xxx" target="_blank" rel="noopener">项目</a></li>
          
           <li><a href="/search/">搜索</a></li>
         
