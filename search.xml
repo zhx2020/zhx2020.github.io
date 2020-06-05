@@ -4,6 +4,44 @@
   
     
     <entry>
+      <title>Java常用方法</title>
+      <link href="/2020/06/05/Java%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/"/>
+      <url>/2020/06/05/Java%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><p><strong>构造方法</strong></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span></span><br></pre></td></tr></table></figure><h2 id="Integer"><a href="#Integer" class="headerlink" title="Integer"></a>Integer</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> Java基础 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>贝壳Java后端开发实习</title>
+      <link href="/2020/06/05/%E8%B4%9D%E5%A3%B3Java%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E5%AE%9E%E4%B9%A0/"/>
+      <url>/2020/06/05/%E8%B4%9D%E5%A3%B3Java%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E5%AE%9E%E4%B9%A0/</url>
+      
+        <content type="html"><![CDATA[<p><strong>Java的基本数据类型？</strong></p><ul><li>整形：byte，short，int，long</li><li>字符型：char</li><li>浮点型：float，double</li><li>布尔型：boolean</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 面经合集 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Hello World</title>
       <link href="/2020/06/01/hello-world/"/>
       <url>/2020/06/01/hello-world/</url>
