@@ -6,17 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="动态规划最长公共子串题目描述 有两个字符串（可能包含空格）,请找出其中最长的公共连续子串,输出其长度。 示例1 12输入：str1&#x3D;&quot;abcde&quot;，str2&#x3D;&quot;abcde&quot;输出：5  示例2 12输入：str1&#x3D;&quot;abcdefg&quot;，str2&#x3D;&quot;acdaefg&quot;输出：3  图解 两">
+    <meta name="description" content="动态规划最长公共子串题目描述 有两个字符串（可能包含空格），请找出其中最长的公共连续子串，输出其长度。 示例1 12输入：str1&#x3D;&quot;abcde&quot;，str2&#x3D;&quot;abcde&quot;输出：5  示例2 12输入：str1&#x3D;&quot;abcdefg&quot;，str2&#x3D;&quot;acdaefg&quot;输出：3  图解 两">
 <meta property="og:type" content="article">
 <meta property="og:title" content="leetcode题集">
 <meta property="og:url" content="https://zhx2020.github.io/2020/05/17/leetcode%E9%A2%98%E9%9B%86/index.html">
 <meta property="og:site_name" content="ZHX2020">
-<meta property="og:description" content="动态规划最长公共子串题目描述 有两个字符串（可能包含空格）,请找出其中最长的公共连续子串,输出其长度。 示例1 12输入：str1&#x3D;&quot;abcde&quot;，str2&#x3D;&quot;abcde&quot;输出：5  示例2 12输入：str1&#x3D;&quot;abcdefg&quot;，str2&#x3D;&quot;acdaefg&quot;输出：3  图解 两">
+<meta property="og:description" content="动态规划最长公共子串题目描述 有两个字符串（可能包含空格），请找出其中最长的公共连续子串，输出其长度。 示例1 12输入：str1&#x3D;&quot;abcde&quot;，str2&#x3D;&quot;abcde&quot;输出：5  示例2 12输入：str1&#x3D;&quot;abcdefg&quot;，str2&#x3D;&quot;acdaefg&quot;输出：3  图解 两">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E4%B8%B21.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E4%B8%B22.png">
 <meta property="article:published_time" content="2020-05-17T06:19:37.000Z">
-<meta property="article:modified_time" content="2020-06-08T03:07:26.305Z">
+<meta property="article:modified_time" content="2020-06-09T07:13:50.894Z">
 <meta property="article:author" content="Hello">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E4%B8%B21.png">
@@ -116,7 +116,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#动态规划"><span class="toc-number">1.</span> <span class="toc-text">动态规划</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#最长公共子串"><span class="toc-number">1.1.</span> <span class="toc-text">最长公共子串</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#动态规划"><span class="toc-number">1.</span> <span class="toc-text">动态规划</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#最长公共子串"><span class="toc-number">1.1.</span> <span class="toc-text">最长公共子串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#01背包"><span class="toc-number">1.2.</span> <span class="toc-text">01背包</span></a></li></ol></li></ol>
     </div>
   </span>
 </div>
@@ -142,7 +142,7 @@
       
         <time datetime="2020-05-17T06:19:37.000Z" itemprop="datePublished">2020-05-17</time>
         
-        (Updated: <time datetime="2020-06-08T03:07:26.305Z" itemprop="dateModified">2020-06-08</time>)
+        (Updated: <time datetime="2020-06-09T07:13:50.894Z" itemprop="dateModified">2020-06-09</time>)
         
       
     </div>
@@ -163,7 +163,7 @@
 
   <div class="content" itemprop="articleBody">
     <h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><h3 id="最长公共子串"><a href="#最长公共子串" class="headerlink" title="最长公共子串"></a>最长公共子串</h3><p><strong>题目描述</strong></p>
-<p>有两个字符串（可能包含空格）,请找出其中最长的公共连续子串,输出其长度。</p>
+<p>有两个字符串（可能包含空格），请找出其中最长的公共连续子串，输出其长度。</p>
 <p><strong>示例1</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：str1&#x3D;&quot;abcde&quot;，str2&#x3D;&quot;abcde&quot;</span><br><span class="line">输出：5</span><br></pre></td></tr></table></figure>
 
@@ -177,13 +177,23 @@
 <p>两个串不同</p>
 <img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/最长公共子串2.png" width="240px"/>
 
-<p><strong>参考代码</strong></p>
+<p><strong>代码</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        String str1 = sc.next();</span><br><span class="line">        String str2 = sc.next();</span><br><span class="line">        <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">1000</span>][<span class="number">1000</span>];</span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str1.length(); i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; str2.length(); j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (str1.charAt(i) == str2.charAt(j)) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (i == <span class="number">0</span> || j == <span class="number">0</span>) &#123;</span><br><span class="line">                        dp[i][j] = <span class="number">1</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        dp[i][j] = dp[i - <span class="number">1</span>][j - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    dp[i][j] = <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (dp[i][j] &gt; max) &#123;</span><br><span class="line">                    max = dp[i][j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(max);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>参考</strong></p>
 <ul>
 <li><a href="https://www.cnblogs.com/dgwblog/p/11727658.html" target="_blank" rel="noopener">最长公共子串（图文版）</a></li>
 </ul>
+<h3 id="01背包"><a href="#01背包" class="headerlink" title="01背包"></a>01背包</h3><p><strong>题目描述</strong></p>
+<p>现在有一个背包（容器），它的体积（容量）为V，现在有N种物品（每个物品只有一个），每个物品的价值W[i]和占用空间C[i]都会由输入给出，现在问这个背包最多能携带总价值多少的物品？</p>
+<p><strong>输入</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">70 3</span><br><span class="line">71 100</span><br><span class="line">69 1</span><br><span class="line">1 2</span><br></pre></td></tr></table></figure>
+
+<p><strong>输出</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3</span><br></pre></td></tr></table></figure>
+
+<p><strong>代码</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        <span class="keyword">int</span> v = sc.nextInt(); </span><br><span class="line">        <span class="keyword">int</span> n = sc.nextInt(); </span><br><span class="line">        <span class="keyword">int</span>[] w = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">1024</span>];</span><br><span class="line">        <span class="keyword">int</span>[] c = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">1024</span>];</span><br><span class="line">        <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">1024</span>][<span class="number">1024</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            w[i] = sc.nextInt();</span><br><span class="line">            c[i] = sc.nextInt();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= v; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (j &lt; w[i]) &#123;</span><br><span class="line">                    dp[i][j] = dp[i - <span class="number">1</span>][j];</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    dp[i][j] = Math.max(dp[i - <span class="number">1</span>][j], dp[i - <span class="number">1</span>][j - w[i]] + c[i]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(dp[n][v]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
   </div>
 </article>
@@ -215,7 +225,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#动态规划"><span class="toc-number">1.</span> <span class="toc-text">动态规划</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#最长公共子串"><span class="toc-number">1.1.</span> <span class="toc-text">最长公共子串</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#动态规划"><span class="toc-number">1.</span> <span class="toc-text">动态规划</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#最长公共子串"><span class="toc-number">1.1.</span> <span class="toc-text">最长公共子串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#01背包"><span class="toc-number">1.2.</span> <span class="toc-text">01背包</span></a></li></ol></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
