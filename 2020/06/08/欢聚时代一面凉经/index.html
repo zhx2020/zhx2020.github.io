@@ -14,7 +14,7 @@
 <meta property="og:description" content="MySQLmysql的事务的四大特性  原子性（Atomicity）：事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生。 一致性（Consistency）：事务前后数据的完整性必须保持一致。 隔离性（Isolation）：多个用户并发访问数据库时，数据库为每一个用户开启的事务，不能被其它事务的操作数据所干扰，多个并发事务之间要相互隔离。 持久性（Durability）：一个事务一">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-08T03:16:54.000Z">
-<meta property="article:modified_time" content="2020-06-10T03:50:57.210Z">
+<meta property="article:modified_time" content="2020-06-10T13:21:52.102Z">
 <meta property="article:author" content="Hello">
 <meta name="twitter:card" content="summary">
     
@@ -111,7 +111,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL"><span class="toc-number">1.</span> <span class="toc-text">MySQL</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL"><span class="toc-number">1.</span> <span class="toc-text">MySQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JVM"><span class="toc-number">2.</span> <span class="toc-text">JVM</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -137,7 +137,7 @@
       
         <time datetime="2020-06-08T03:16:54.000Z" itemprop="datePublished">2020-06-08</time>
         
-        (Updated: <time datetime="2020-06-10T03:50:57.210Z" itemprop="dateModified">2020-06-10</time>)
+        (Updated: <time datetime="2020-06-10T13:21:52.102Z" itemprop="dateModified">2020-06-10</time>)
         
       
     </div>
@@ -182,6 +182,31 @@
 <ul>
 <li><a href="https://zhuanlan.zhihu.com/p/52678870" target="_blank" rel="noopener">深入理解数据库行锁与表锁</a></li>
 </ul>
+<h2 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h2><p><strong>运行时数据区有哪些</strong></p>
+<ul>
+<li>程序计数器：用于记录当前线程的正在执行的字节码指令位置。</li>
+<li>虚拟机栈：用于存储局部变量表（基本数据类型和对象引用），操作数栈，动态链接，方法出口等信息。</li>
+<li>本地方法栈：为虚拟机使用的Native方法（本地方法）提供服务。</li>
+<li>方法区：用于存储被虚拟机加载的类信息、常量、静态变量、即时编译器编译的代码等数据。</li>
+<li>堆：存放对象实例，所有的对象的实例都需要在这里分配内存。</li>
+</ul>
+<p><strong>哪些是线程私有哪些的线程独占的</strong></p>
+<ul>
+<li>线程私有：虚拟机栈、本地方法栈、程序计数器。</li>
+<li>线程独占：堆、方法区。</li>
+</ul>
+<p><strong>方法区存放的有哪些东西</strong></p>
+<p>被虚拟机加载的类信息、常量、静态变量、即使编译器编译的代码。</p>
+<p><strong>创建一个对象的过程</strong></p>
+<ol>
+<li>类加载检查</li>
+<li>分配内存</li>
+<li>初始化零值</li>
+<li>设置对象头</li>
+<li>执行init方法</li>
+</ol>
+<p><strong>如何知道这个对象是哪个类型的</strong></p>
+<p>通过对象的getClass()方法。</p>
 
   </div>
 </article>
@@ -213,7 +238,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL"><span class="toc-number">1.</span> <span class="toc-text">MySQL</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL"><span class="toc-number">1.</span> <span class="toc-text">MySQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JVM"><span class="toc-number">2.</span> <span class="toc-text">JVM</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
