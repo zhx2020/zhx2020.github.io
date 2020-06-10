@@ -15,7 +15,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%AD%90%E6%9F%A5%E8%AF%A2.png">
 <meta property="article:published_time" content="2020-04-28T03:06:12.000Z">
-<meta property="article:modified_time" content="2020-06-06T10:34:00.956Z">
+<meta property="article:modified_time" content="2020-06-10T03:27:27.679Z">
 <meta property="article:author" content="Hello">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%AD%90%E6%9F%A5%E8%AF%A2.png">
@@ -115,7 +115,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#登录、退出"><span class="toc-number">1.</span> <span class="toc-text">登录、退出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作数据库"><span class="toc-number">2.</span> <span class="toc-text">操作数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作表"><span class="toc-number">3.</span> <span class="toc-text">操作表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#增删查改"><span class="toc-number">4.</span> <span class="toc-text">增删查改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#约束"><span class="toc-number">5.</span> <span class="toc-text">约束</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多表查询"><span class="toc-number">6.</span> <span class="toc-text">多表查询</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#登录、退出"><span class="toc-number">1.</span> <span class="toc-text">登录、退出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作数据库"><span class="toc-number">2.</span> <span class="toc-text">操作数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作表"><span class="toc-number">3.</span> <span class="toc-text">操作表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#增删查改"><span class="toc-number">4.</span> <span class="toc-text">增删查改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#约束"><span class="toc-number">5.</span> <span class="toc-text">约束</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多表查询"><span class="toc-number">6.</span> <span class="toc-text">多表查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事务"><span class="toc-number">7.</span> <span class="toc-text">事务</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -141,7 +141,7 @@
       
         <time datetime="2020-04-28T03:06:12.000Z" itemprop="datePublished">2020-04-28</time>
         
-        (Updated: <time datetime="2020-06-06T10:34:00.956Z" itemprop="dateModified">2020-06-06</time>)
+        (Updated: <time datetime="2020-06-10T03:27:27.679Z" itemprop="dateModified">2020-06-10</time>)
         
       
     </div>
@@ -293,7 +293,18 @@
 </ul>
 </li>
 </ol>
-<h2 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h2><p>1、主键约束：primary key<br>2、非空约束：not null<br>3、唯一约束：unique<br>4、外键约束：foreign key</p>
+<h2 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h2><p>1、主键约束：primary key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1、添加</span><br><span class="line">alter table stu modify name varchar(20) primary key;</span><br><span class="line"></span><br><span class="line">2、删除</span><br><span class="line">alter table stu drop primary key;</span><br><span class="line"></span><br><span class="line">3、自动增长</span><br><span class="line">auto_increment 数值类型的列完成自动递增</span><br></pre></td></tr></table></figure>
+
+<p>2、非空约束：not null</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">1、创建表时添加约束</span><br><span class="line">create table stu</span><br><span class="line">(</span><br><span class="line">	id int,</span><br><span class="line">	name varchar(20) not null</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">2、创建表完之后添加约束</span><br><span class="line">alter table stu modify name varchar(20) not null;</span><br><span class="line"></span><br><span class="line">3、删除非空约束</span><br><span class="line">alter table stu modify name varchar(20);</span><br></pre></td></tr></table></figure>
+
+<p>3、唯一约束：unique</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1、添加</span><br><span class="line">alter table stu modify name varchar(20) unique;</span><br><span class="line"></span><br><span class="line">2、删除</span><br><span class="line">alter table stu drop index name;</span><br></pre></td></tr></table></figure>
+
+<p>4、外键约束：foreign key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">1、创建表时可以添加外键</span><br><span class="line">create table 表名</span><br><span class="line">(</span><br><span class="line">外键列</span><br><span class="line">constraint 外键名称 foreign key (外键列名称) references 主表名称(主表列名称)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">2、创建表之后添加外键</span><br><span class="line">alter table emp add constraint emp_dep_fk foreign key (dep_id) references dep(id);</span><br><span class="line"></span><br><span class="line">3、删除外键</span><br><span class="line">alter table emp drop foreign key emp_dep_fk;</span><br></pre></td></tr></table></figure>
+
 <h2 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h2><p>1、内连接查询</p>
 <ul>
 <li>隐式内连接：使用where条件消除无用的数据<ul>
@@ -329,7 +340,24 @@
 <li>情况3：子查询的结果是多行多列的，子查询可以作为一张虚拟表</li>
 </ul>
 <p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%AD%90%E6%9F%A5%E8%AF%A2.png" alt=""></p>
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>数据库隔离级别</p>
+<ul>
+<li>READ UNCOMMITTED（读未提交）</li>
+<li>READ COMMITTED（读已提交）</li>
+<li>REPEATABLE READ（可重复读）</li>
+<li>SERIALIZABLE（可串行化）</li>
+</ul>
+<p>查看数据库隔离级别</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select @@tx_isolation; &#x2F;&#x2F; 当前会话</span><br><span class="line">select @@global.tx_isolation; &#x2F;&#x2F; 全局的</span><br></pre></td></tr></table></figure>
 
+<p>mysql数据库事务开关（临时有效）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set autocommit &#x3D; 1; &#x2F;&#x2F; 开启自动提交事务</span><br><span class="line">set autocommit &#x3D; 0; &#x2F;&#x2F; 关闭自动提交事务</span><br><span class="line">show variables like &#39;%autocommit%&#39;; &#x2F;&#x2F; 查看事务开关</span><br></pre></td></tr></table></figure>
+
+<p>修改数据库的事务级别</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set global transaction isolation level read uncommitted; &#x2F;&#x2F;全局的</span><br><span class="line">set session transaction isolation level read uncommitted; &#x2F;&#x2F;当前会话</span><br></pre></td></tr></table></figure>
+
+<p>事务操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">-- 开启事务</span><br><span class="line">begin;</span><br><span class="line">-- 查询指定用户</span><br><span class="line">select * from user where id &#x3D; 1;</span><br><span class="line">-- 修改指定用户余额</span><br><span class="line">update user set money &#x3D; 500 where id &#x3D; 1;</span><br><span class="line">-- 提交事务</span><br><span class="line">-- commit;</span><br><span class="line">-- 回滚事务</span><br><span class="line">-- rollback;</span><br></pre></td></tr></table></figure>
   </div>
 </article>
 
@@ -360,7 +388,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#登录、退出"><span class="toc-number">1.</span> <span class="toc-text">登录、退出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作数据库"><span class="toc-number">2.</span> <span class="toc-text">操作数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作表"><span class="toc-number">3.</span> <span class="toc-text">操作表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#增删查改"><span class="toc-number">4.</span> <span class="toc-text">增删查改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#约束"><span class="toc-number">5.</span> <span class="toc-text">约束</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多表查询"><span class="toc-number">6.</span> <span class="toc-text">多表查询</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#登录、退出"><span class="toc-number">1.</span> <span class="toc-text">登录、退出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作数据库"><span class="toc-number">2.</span> <span class="toc-text">操作数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作表"><span class="toc-number">3.</span> <span class="toc-text">操作表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#增删查改"><span class="toc-number">4.</span> <span class="toc-text">增删查改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#约束"><span class="toc-number">5.</span> <span class="toc-text">约束</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多表查询"><span class="toc-number">6.</span> <span class="toc-text">多表查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事务"><span class="toc-number">7.</span> <span class="toc-text">事务</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
