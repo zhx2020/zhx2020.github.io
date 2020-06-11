@@ -14,7 +14,7 @@
 <meta property="og:description" content="MySQLmysql的事务的四大特性  原子性（Atomicity）：事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生。 一致性（Consistency）：事务前后数据的完整性必须保持一致。 隔离性（Isolation）：多个用户并发访问数据库时，数据库为每一个用户开启的事务，不能被其它事务的操作数据所干扰，多个并发事务之间要相互隔离。 持久性（Durability）：一个事务一">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-08T03:16:54.000Z">
-<meta property="article:modified_time" content="2020-06-11T07:19:49.008Z">
+<meta property="article:modified_time" content="2020-06-11T08:44:59.570Z">
 <meta property="article:author" content="Hello">
 <meta name="twitter:card" content="summary">
     
@@ -137,7 +137,7 @@
       
         <time datetime="2020-06-08T03:16:54.000Z" itemprop="datePublished">2020-06-08</time>
         
-        (Updated: <time datetime="2020-06-11T07:19:49.008Z" itemprop="dateModified">2020-06-11</time>)
+        (Updated: <time datetime="2020-06-11T08:44:59.570Z" itemprop="dateModified">2020-06-11</time>)
         
       
     </div>
@@ -244,8 +244,24 @@
 </li>
 </ul>
 <p><strong>TCP的三次握手和四次挥手</strong></p>
+<ul>
+<li><strong>三次握手</strong><ol>
+<li>客户端发送SYN的请求标志。</li>
+<li>服务器发送ACK的确认标志和SYN的请求标志。</li>
+<li>客户端发送ACK的确认标志。</li>
+</ol>
+</li>
+<li><strong>四次挥手</strong><ol>
+<li>客户端发送FIN的结束标志。</li>
+<li>服务器发送ACK的确认标志。</li>
+<li>服务器发送ACK的确认标志和FIN的结束标志。</li>
+<li>客户端发送ACK的确认标志。</li>
+</ol>
+</li>
+</ul>
 <p><strong>参考</strong></p>
 <ul>
+<li><a href="https://www.nowcoder.com/discuss/436374" target="_blank" rel="noopener">2020.6.5 欢聚时代一面凉经</a></li>
 <li><a href="https://www.cnblogs.com/20158424-hxlz/p/10315639.html" target="_blank" rel="noopener">java - tcp如何保证传输的可靠性和有序性</a></li>
 </ul>
 

@@ -6,17 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="静态IP地址你买了一台新电脑，插上网线，开机，这时电脑能够上网吗？ 通常你必须做一些设置。有时，管理员（或者ISP）会告诉你下面四个参数，你把它们填入操作系统，计算机就能连上网了： 1234* 本机的IP地址* 子网掩码* 网关的IP地址* DNS的IP地址  下图是Windows系统的设置窗口。  这四个参数缺一不可，后文会解释为什么需要知道它们才能上网。由于它们是给定的，计算机每次开机，都会分">
+    <meta name="description" content="静态IP地址你买了一台新电脑，插上网线，开机，这时电脑能够上网吗？ 通常你必须做一些设置。有时，管理员（或者ISP）会告诉你下面四个参数，你把它们填入操作系统，计算机就能连上网了： 1234* 本机的IP地址* 子网掩码* 网关的IP地址* DNS的IP地址  下图是Windows系统的设置窗口。   这四个参数缺一不可，后文会解释为什么需要知道它们才能上网。由于它们是给定的，计算机每次开机，都会">
 <meta property="og:type" content="article">
 <meta property="og:title" content="用户的上网设置">
 <meta property="og:url" content="https://zhx2020.github.io/2020/05/11/%E7%94%A8%E6%88%B7%E7%9A%84%E4%B8%8A%E7%BD%91%E8%AE%BE%E7%BD%AE/index.html">
 <meta property="og:site_name" content="ZHX2020">
-<meta property="og:description" content="静态IP地址你买了一台新电脑，插上网线，开机，这时电脑能够上网吗？ 通常你必须做一些设置。有时，管理员（或者ISP）会告诉你下面四个参数，你把它们填入操作系统，计算机就能连上网了： 1234* 本机的IP地址* 子网掩码* 网关的IP地址* DNS的IP地址  下图是Windows系统的设置窗口。  这四个参数缺一不可，后文会解释为什么需要知道它们才能上网。由于它们是给定的，计算机每次开机，都会分">
+<meta property="og:description" content="静态IP地址你买了一台新电脑，插上网线，开机，这时电脑能够上网吗？ 通常你必须做一些设置。有时，管理员（或者ISP）会告诉你下面四个参数，你把它们填入操作系统，计算机就能连上网了： 1234* 本机的IP地址* 子网掩码* 网关的IP地址* DNS的IP地址  下图是Windows系统的设置窗口。   这四个参数缺一不可，后文会解释为什么需要知道它们才能上网。由于它们是给定的，计算机每次开机，都会">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/201206/bg2012061111.png">
 <meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/201206/bg2012061102.png">
 <meta property="article:published_time" content="2020-05-11T03:09:55.000Z">
-<meta property="article:modified_time" content="2020-05-29T05:33:34.433Z">
+<meta property="article:modified_time" content="2020-06-11T09:02:54.841Z">
 <meta property="article:author" content="Hello">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://www.ruanyifeng.com/blogimg/asset/201206/bg2012061111.png">
@@ -142,7 +142,7 @@
       
         <time datetime="2020-05-11T03:09:55.000Z" itemprop="datePublished">2020-05-11</time>
         
-        (Updated: <time datetime="2020-05-29T05:33:34.433Z" itemprop="dateModified">2020-05-29</time>)
+        (Updated: <time datetime="2020-06-11T09:02:54.841Z" itemprop="dateModified">2020-06-11</time>)
         
       
     </div>
@@ -167,7 +167,8 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">* 本机的IP地址</span><br><span class="line">* 子网掩码</span><br><span class="line">* 网关的IP地址</span><br><span class="line">* DNS的IP地址</span><br></pre></td></tr></table></figure>
 
 <p>下图是Windows系统的设置窗口。</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201206/bg2012061111.png" alt=""></p>
+<img src="http://www.ruanyifeng.com/blogimg/asset/201206/bg2012061111.png" width="320px"/>
+
 <p>这四个参数缺一不可，后文会解释为什么需要知道它们才能上网。由于它们是给定的，计算机每次开机，都会分到同样的IP地址，所以这种情况被称作”静态IP地址上网”。</p>
 <p>但是，这样的设置很专业，普通用户望而生畏，而且如果一台电脑的IP地址保持不变，其他电脑就不能使用这个地址，不够灵活。出于这两个原因，大多数用户使用”动态IP地址上网”。</p>
 <h2 id="动态IP地址"><a href="#动态IP地址" class="headerlink" title="动态IP地址"></a>动态IP地址</h2><p>所谓”动态IP地址”，指计算机开机后，会自动分配到一个IP地址，不用人为设定。它使用的协议叫做<a href="https://zh.wikipedia.org/zh/DHCP" target="_blank" rel="noopener">DHCP协议</a>。</p>
@@ -175,7 +176,8 @@
 <p>前面说过，如果两台计算机在同一个子网络，必须知道对方的MAC地址和IP地址，才能发送数据包。但是，新加入的计算机不知道这两个地址，怎么发送数据包呢？</p>
 <p>DHCP协议做了一些巧妙的规定。</p>
 <h2 id="DHCP协议"><a href="#DHCP协议" class="headerlink" title="DHCP协议"></a>DHCP协议</h2><p>首先，它是一种应用层协议，建立在UDP协议之上，所以整个数据包是这样的：</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201206/bg2012061102.png" alt=""></p>
+<img src="http://www.ruanyifeng.com/blogimg/asset/201206/bg2012061102.png" width="480px"/>
+
 <p>（1）最前面的”以太网标头”，设置发出方（本机）的MAC地址和接收方（DHCP服务器）的MAC地址。前者就是本机网卡的MAC地址，后者这时不知道，就填入一个广播地址：FF-FF-FF-FF-FF-FF。<br>（2）后面的”IP标头”，设置发出方的IP地址和接收方的IP地址。这时，对于这两者，本机都不知道。于是，发出方的IP地址就设为0.0.0.0，接收方的IP地址设为255.255.255.255。<br>（3）最后的”UDP标头”，设置发出方的端口和接收方的端口。这一部分是DHCP协议规定好的，发出方是68端口，接收方是67端口。</p>
 <p>这个数据包构造完成后，就可以发出了。以太网是广播发送，同一个子网络的每台计算机都收到了这个包。因为接收方的MAC地址是FF-FF-FF-FF-FF-FF，看不出是发给谁的，所以每台收到这个包的计算机，还必须分析这个包的IP地址，才能确定是不是发给自己的。当看到发出方IP地址是0.0.0.0，接收方是255.255.255.255，于是DHCP服务器知道”这个包是发给我的”，而其他计算机就可以丢弃这个包。</p>
 <p>接下来，DHCP服务器读出这个包的数据内容，分配好IP地址，发送回去一个”DHCP响应”数据包。这个响应包的结构也是类似的，以太网标头的MAC地址是双方的网卡地址，IP标头的IP地址是DHCP服务器的IP地址（发出方）和255.255.255.255（接收方），UDP标头的端口是67（发出方）和68（接收方），分配给请求端的IP地址和本网络的具体参数则包含在Data部分。</p>
