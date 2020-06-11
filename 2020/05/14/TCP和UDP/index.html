@@ -14,7 +14,7 @@
 <meta property="og:description" content="区别1、TCP 是面向连接的，可靠的数据传输服务，UDP 是面向无连接的，尽最大努力的数据传输服务，不保证数据传输的可靠性 2、TCP 面向字节流，UDP 面向报文  应用进程交给 UDP 多长的报文，UDP 就照样发送，一次发送一个报文 TCP 在发送时采取的方式完全不同：TCP 根据对方给出的窗口值和当前网络拥塞的程度来决定一个报文段应该包含多少个字节。如果报文太长，TCP 会将其拆分再发送，">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-14T03:02:58.000Z">
-<meta property="article:modified_time" content="2020-05-29T15:08:10.632Z">
+<meta property="article:modified_time" content="2020-06-11T03:13:44.032Z">
 <meta property="article:author" content="Hello">
 <meta name="twitter:card" content="summary">
     
@@ -113,7 +113,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#区别"><span class="toc-number">1.</span> <span class="toc-text">区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#适用场景"><span class="toc-number">2.</span> <span class="toc-text">适用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对应协议"><span class="toc-number">3.</span> <span class="toc-text">对应协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#区别"><span class="toc-number">1.</span> <span class="toc-text">区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#适用场景"><span class="toc-number">2.</span> <span class="toc-text">适用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对应协议"><span class="toc-number">3.</span> <span class="toc-text">对应协议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP对应的协议"><span class="toc-number">3.1.</span> <span class="toc-text">TCP对应的协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UDP对应的协议"><span class="toc-number">3.2.</span> <span class="toc-text">UDP对应的协议</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -139,7 +139,7 @@
       
         <time datetime="2020-05-14T03:02:58.000Z" itemprop="datePublished">2020-05-14</time>
         
-        (Updated: <time datetime="2020-05-29T15:08:10.632Z" itemprop="dateModified">2020-05-29</time>)
+        (Updated: <time datetime="2020-06-11T03:13:44.032Z" itemprop="dateModified">2020-06-11</time>)
         
       
     </div>
@@ -173,19 +173,13 @@
 <p>具体示意图查看<a href="https://www.jianshu.com/p/c63b082ac565" target="_blank" rel="noopener">TCP和UDP</a></p>
 <h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><p><strong>TCP 适用于效率要求相对低，但对准确性要求相对高的场景。</strong>因为传输中需要对数据确认、重发、排序等操作，相比之下效率没有UDP高。TCP 适用于电子邮件（SMTP）、远程终端接入（TELNET）、万维网（HTTP）、文件传送（FTP）</p>
 <p><strong>UDP 适用于效率要求相对高，对准确性要求相对低的场景。</strong>如视频直播、QQ语音电话等即时通讯、广播通信。开销小（因为提供可靠的、面向连接的运输服务，会多很多开销比如确认、流量控制、计时器、连接管理等），也适用于简单文件传送（TFTP）、路由选择协议（RIP）、域名系统（DNS）等</p>
-<h2 id="对应协议"><a href="#对应协议" class="headerlink" title="对应协议"></a>对应协议</h2><blockquote>
-<p><strong>TCP对应的协议</strong></p>
-</blockquote>
-<p><strong>FTP(21)</strong>：定义了文件传输协议，使用21端口。常说某某计算机开了FTP服务便是启动了文件传输服务。下载文件，上传主页，都要用到FTP服务。</p>
+<h2 id="对应协议"><a href="#对应协议" class="headerlink" title="对应协议"></a>对应协议</h2><h3 id="TCP对应的协议"><a href="#TCP对应的协议" class="headerlink" title="TCP对应的协议"></a>TCP对应的协议</h3><p><strong>FTP(21)</strong>：定义了文件传输协议，使用21端口。常说某某计算机开了FTP服务便是启动了文件传输服务。下载文件，上传主页，都要用到FTP服务。</p>
 <p><strong>ssh(22)</strong>: 专为远程登录会话和其他网络服务提供安全性的协议</p>
 <p><strong>Telnet(23)</strong>：(远程登陆协议)它是一种用于远程登陆的端口，用户可以以自己的身份远程连接到计算机上，通过这种端口可以提供一种基于DOS模式下的通信服务。如以前的BBS是-纯字符界面的，支持BBS的服务器将23端口打开，对外提供服务。</p>
 <p><strong>SMTP(25)</strong>：定义了简单邮件传送协议，现在很多邮件服务器都用的是这个协议，用于发送邮件。如常见的免费邮件服务中用的就是这个邮件服务端口，所以在电子邮件设置-中常看到有这么SMTP端口设置这个栏，服务器开放的是25号端口。</p>
 <p><strong>POP3(110)</strong>：它是和SMTP对应，POP3用于接收邮件。通常情况下，POP3协议所用的是110端口。也是说，只要你有相应的使用POP3协议的程序（例如Fo-xmail或Outlook），就可以不以Web方式登陆进邮箱界面，直接用邮件程序就可以收到邮件（如是163邮箱就没有必要先进入网易网站，再进入自己的邮-箱来收信）。</p>
 <p><strong>HTTP(80)</strong>：是从Web服务器传输超文本到本地浏览器的传送协议。</p>
-<blockquote>
-<p><strong>UDP对应的协议</strong></p>
-</blockquote>
-<p><strong>DNS(53)</strong>：用于域名解析服务，将域名地址转换为IP地址。DNS用的是53号端口。</p>
+<h3 id="UDP对应的协议"><a href="#UDP对应的协议" class="headerlink" title="UDP对应的协议"></a>UDP对应的协议</h3><p><strong>DNS(53)</strong>：用于域名解析服务，将域名地址转换为IP地址。DNS用的是53号端口。</p>
 <p><strong>RIP(520)</strong>：路由信息协议，端口520</p>
 <p><strong>SNMP(161)</strong>：简单网络管理协议，使用161号端口，是用来管理网络设备的。由于网络设备很多，无连接的服务就体现出其优势。</p>
 <p><strong>TFTP(69)</strong>：简单文件传输协议，该协议在熟知端口69上使用UDP服务。</p>
@@ -224,7 +218,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#区别"><span class="toc-number">1.</span> <span class="toc-text">区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#适用场景"><span class="toc-number">2.</span> <span class="toc-text">适用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对应协议"><span class="toc-number">3.</span> <span class="toc-text">对应协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#区别"><span class="toc-number">1.</span> <span class="toc-text">区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#适用场景"><span class="toc-number">2.</span> <span class="toc-text">适用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对应协议"><span class="toc-number">3.</span> <span class="toc-text">对应协议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP对应的协议"><span class="toc-number">3.1.</span> <span class="toc-text">TCP对应的协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UDP对应的协议"><span class="toc-number">3.2.</span> <span class="toc-text">UDP对应的协议</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
