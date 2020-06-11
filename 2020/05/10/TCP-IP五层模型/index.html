@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="概述 五层模型  互联网的实现，分成好几层。每一层都有自己的功能，就像建筑物一样，每一层都靠下一层支持。 用户接触到的，只是最上面的一层，根本没有感觉到下面的层。要理解互联网，必须从最下层开始，自下而上理解每一层的功能。  如上图所示，最底下的一层叫做”实体层”（Physical Layer），最上面的一层叫做”应用层”（Application Layer），中间的三层（自下而上）分别是”链接层”">
+    <meta name="description" content="概述 五层模型  互联网的实现，分成好几层。每一层都有自己的功能，就像建筑物一样，每一层都靠下一层支持。 用户接触到的，只是最上面的一层，根本没有感觉到下面的层。要理解互联网，必须从最下层开始，自下而上理解每一层的功能。   如上图所示，最底下的一层叫做”实体层”（Physical Layer），最上面的一层叫做”应用层”（Application Layer），中间的三层（自下而上）分别是”链接层">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TCP&#x2F;IP五层模型">
 <meta property="og:url" content="https://zhx2020.github.io/2020/05/10/TCP-IP%E4%BA%94%E5%B1%82%E6%A8%A1%E5%9E%8B/index.html">
 <meta property="og:site_name" content="ZHX2020">
-<meta property="og:description" content="概述 五层模型  互联网的实现，分成好几层。每一层都有自己的功能，就像建筑物一样，每一层都靠下一层支持。 用户接触到的，只是最上面的一层，根本没有感觉到下面的层。要理解互联网，必须从最下层开始，自下而上理解每一层的功能。  如上图所示，最底下的一层叫做”实体层”（Physical Layer），最上面的一层叫做”应用层”（Application Layer），中间的三层（自下而上）分别是”链接层”">
+<meta property="og:description" content="概述 五层模型  互联网的实现，分成好几层。每一层都有自己的功能，就像建筑物一样，每一层都靠下一层支持。 用户接触到的，只是最上面的一层，根本没有感觉到下面的层。要理解互联网，必须从最下层开始，自下而上理解每一层的功能。   如上图所示，最底下的一层叫做”实体层”（Physical Layer），最上面的一层叫做”应用层”（Application Layer），中间的三层（自下而上）分别是”链接层">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052902.png">
 <meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052903.png">
@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052912.png">
 <meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052913.png">
 <meta property="article:published_time" content="2020-05-10T15:46:35.000Z">
-<meta property="article:modified_time" content="2020-05-29T15:06:58.505Z">
+<meta property="article:modified_time" content="2020-06-11T06:54:21.502Z">
 <meta property="article:author" content="Hello">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052902.png">
@@ -152,7 +152,7 @@
       
         <time datetime="2020-05-10T15:46:35.000Z" itemprop="datePublished">2020-05-10</time>
         
-        (Updated: <time datetime="2020-05-29T15:06:58.505Z" itemprop="dateModified">2020-05-29</time>)
+        (Updated: <time datetime="2020-06-11T06:54:21.502Z" itemprop="dateModified">2020-06-11</time>)
         
       
     </div>
@@ -177,7 +177,8 @@
 </blockquote>
 <p>互联网的实现，分成好几层。每一层都有自己的功能，就像建筑物一样，每一层都靠下一层支持。</p>
 <p>用户接触到的，只是最上面的一层，根本没有感觉到下面的层。要理解互联网，必须从最下层开始，自下而上理解每一层的功能。</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052902.png" alt=""></p>
+<img src="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052902.png" width="480px"/>
+
 <p>如上图所示，最底下的一层叫做”实体层”（Physical Layer），最上面的一层叫做”应用层”（Application Layer），中间的三层（自下而上）分别是”链接层”（Link Layer）、”网络层”（Network Layer）和”传输层”（Transport Layer）。越下面的层，越靠近硬件；越上面的层，越靠近用户。</p>
 <blockquote>
 <p><strong>层与协议</strong></p>
@@ -186,7 +187,8 @@
 <p>大家都遵守的规则，就叫做”协议”（protocol）。</p>
 <p>互联网的每一层，都定义了很多协议。它们是互联网的核心，下面介绍每一层的功能，主要就是介绍每一层的主要协议。</p>
 <h2 id="实体层"><a href="#实体层" class="headerlink" title="实体层"></a>实体层</h2><p>电脑要组网，第一件事要干什么？当然是先把电脑连起来，可以用光缆、电缆、双绞线、无线电波等方式。</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052903.png" alt=""></p>
+<img src="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052903.png" width="420px"/>
+
 <p><strong>这就叫做”实体层”，它就是把电脑连接起来的物理手段。它主要规定了网络的一些电气特性，作用是负责传送0和1的电信号。</strong></p>
 <h2 id="链接层"><a href="#链接层" class="headerlink" title="链接层"></a>链接层</h2><blockquote>
 <p><strong>定义</strong></p>
@@ -198,7 +200,8 @@
 </blockquote>
 <p>早期的时候，每家公司都有自己的电信号分组方式。逐渐地，一种叫做<a href="https://zh.wikipedia.org/wiki/%E4%BB%A5%E5%A4%AA%E7%BD%91" target="_blank" rel="noopener">“以太网”</a>（Ethernet）的协议，占据了主导地位。</p>
 <p>以太网规定，一组电信号构成一个数据包，叫做”帧”（Frame）。每一帧分成两个部分：标头（Head）和数据（Data）。</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052904.png" alt=""></p>
+<img src="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052904.png" width="420px"/>
+
 <p>“标头”包含数据包的一些说明项，比如发送者、接受者、数据类型等等；”数据”则是数据包的具体内容。</p>
 <p>“标头”的长度，固定为18字节。”数据”的长度，最短为46字节，最长为1500字节。因此，整个”帧”最短为64字节，最长为1518字节。如果数据很长，就必须分割成多个帧进行发送。</p>
 <blockquote>
@@ -208,7 +211,8 @@
 <p>以太网规定，连入网络的所有设备，都必须具有”网卡”接口。数据包必须是从一块网卡，传送到另一块网卡。网卡的地址，就是数据包的发送地址和接收地址，这叫做MAC地址。</p>
 <p>每块网卡出厂的时候，都有一个全世界独一无二的MAC地址，长度是48个二进制位，通常用12个十六进制数表示。</p>
 <p>每块网卡出厂的时候，都有一个全世界独一无二的MAC地址，长度是48个二进制位，通常用12个十六进制数表示。</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052906.png" alt=""></p>
+<img src="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052906.png" width="420px"/>
+
 <p>前6个十六进制数是厂商编号，后6个是该厂商的网卡流水号。有了MAC地址，就可以定位网卡和数据包的路径了。</p>
 <blockquote>
 <p>广播</p>
@@ -218,7 +222,8 @@
 <p>回答是有一种ARP协议，可以解决这个问题。这个留到后面介绍，这里只需要知道，以太网数据包必须知道接收方的MAC地址，然后才能发送。</p>
 <p>其次，就算有了MAC地址，系统怎样才能把数据包准确送到接收方？</p>
 <p>回答是以太网采用了一种很”原始”的方式，它不是把数据包准确送到接收方，而是向本网络内所有计算机发送，让每台计算机自己判断，是否为接收方。</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052907.png" alt=""></p>
+<img src="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052907.png" width="420px"/>
+
 <p>上图中，1号计算机向2号计算机发送一个数据包，同一个子网络的3号、4号、5号计算机都会收到这个包。它们读取这个包的”标头”，找到接收方的MAC地址，然后与自身的MAC地址相比较，如果两者相同，就接受这个包，做进一步处理，否则就丢弃这个包。这种发送方式就叫做”广播”（broadcasting）。</p>
 <p>有了数据包的定义、网卡的MAC地址、广播的发送方式，”链接层”就可以在多台计算机之间传送数据了。</p>
 <h2 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h2><blockquote>
@@ -227,7 +232,8 @@
 <p>以太网协议，依靠MAC地址发送数据。理论上，单单依靠MAC地址，上海的网卡就可以找到洛杉矶的网卡了，技术上是可以实现的。</p>
 <p>但是，这样做有一个重大的缺点。以太网采用广播方式发送数据包，所有成员人手一”包”，不仅效率低，而且局限在发送者所在的子网络。也就是说，如果两台计算机不在同一个子网络，广播是传不过去的。这种设计是合理的，否则互联网上每一台计算机都会收到所有包，那会引起灾难。</p>
 <p>互联网是无数子网络共同组成的一个巨型网络，很像想象上海和洛杉矶的电脑会在同一个子网络，这几乎是不可能的。</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052914.png" alt=""></p>
+<img src="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052914.png" width="420px"/>
+
 <p>因此，必须找到一种方法，能够区分哪些MAC地址属于同一个子网络，哪些不是。如果是同一个子网络，就采用广播方式发送，否则就采用”路由”方式发送。（”路由”的意思，就是指如何向不同的子网络分发数据包，这是一个很大的主题，本文不涉及。）遗憾的是，MAC地址本身无法做到这一点。它只与厂商有关，与所处网络无关。</p>
 <p><strong>这就导致了”网络层”的诞生。它的作用是引进一套新的地址，使得我们能够区分不同的计算机是否属于同一个子网络。这套地址就叫做”网络地址”，简称”网址”。</strong></p>
 <p>于是，”网络层”出现以后，每台计算机有了两种地址，一种是MAC地址，另一种是网络地址。两种地址之间没有任何联系，MAC地址是绑定在网卡上的，网络地址则是管理员分配的，它们只是随机组合在一起。</p>
@@ -237,7 +243,8 @@
 </blockquote>
 <p>规定网络地址的协议，叫做IP协议。它所定义的地址，就被称为IP地址。</p>
 <p>目前，广泛采用的是IP协议第四版，简称IPv4。这个版本规定，网络地址由32个二进制位组成。</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052908.png" alt=""></p>
+<img src="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052908.png" width="420px"/>
+
 <p>习惯上，我们用分成四段的十进制数表示IP地址，从0.0.0.0一直到255.255.255.255。</p>
 <p>互联网上的每一台计算机，都会分配到一个IP地址。这个地址分成两个部分，前一部分代表网络，后一部分代表主机。比如，IP地址172.16.254.1，这是一个32位的地址，假定它的网络部分是前24位（172.16.254），那么主机部分就是后8位（最后的那个1）。处于同一个子网络的电脑，它们IP地址的网络部分必定是相同的，也就是说172.16.254.2应该与172.16.254.1处在同一个子网络。</p>
 <p>但是，问题在于单单从IP地址，我们无法判断网络部分。还是以172.16.254.1为例，它的网络部分，到底是前24位，还是前16位，甚至前28位，从IP地址上是看不出来的。</p>
@@ -253,9 +260,11 @@
 <p>但是前面说过，以太网数据包只包含MAC地址，并没有IP地址的栏位。那么是否需要修改数据定义，再添加一个栏位呢？</p>
 <p>回答是不需要，我们可以把IP数据包直接放进以太网数据包的”数据”部分，因此完全不用修改以太网的规格。这就是互联网分层结构的好处：上层的变动完全不涉及下层的结构。</p>
 <p>具体来说，IP数据包也分为”标头”和”数据”两个部分。</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052909.png" alt=""></p>
+<img src="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052909.png" width="420px"/>
+
 <p>“标头”部分主要包括版本、长度、IP地址等信息，”数据”部分则是IP数据包的具体内容。它放进以太网数据包后，以太网数据包就变成了下面这样。</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052910.png" alt=""></p>
+<img src="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052910.png" width="420px"/>
+
 <p>IP数据包的”标头”部分的长度为20到60字节，整个数据包的总长度最大为65,535字节。因此，理论上，一个IP数据包的”数据”部分，最长为65,515字节。前面说过，以太网数据包的”数据”部分，最长只有1500字节。因此，如果IP数据包超过了1500字节，它就需要分割成几个以太网数据包，分开发送了。</p>
 <blockquote>
 <p>ARP协议</p>
@@ -279,9 +288,11 @@
 </blockquote>
 <p>现在，我们必须在数据包中加入端口信息，这就需要新的协议。最简单的实现叫做UDP协议，它的格式几乎就是在数据前面，加上端口号。</p>
 <p>UDP数据包，也是由”标头”和”数据”两部分组成。</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052911.png" alt=""></p>
+<img src="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052911.png" width="420px"/>
+
 <p>“标头”部分主要定义了发出端口和接收端口，”数据”部分就是具体的内容。然后，把整个UDP数据包放入IP数据包的”数据”部分，而前面说过，IP数据包又是放在以太网数据包之中的，所以整个以太网数据包现在变成了下面这样：</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052912.png" alt=""></p>
+<img src="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052912.png" width="420px"/>
+
 <p>UDP数据包非常简单，”标头”部分一共只有8个字节，总长度不超过65,535字节，正好放进一个IP数据包。</p>
 <blockquote>
 <p>TCP协议</p>
@@ -294,7 +305,8 @@
 <p><strong>“应用层”的作用，就是规定应用程序的数据格式。</strong></p>
 <p>举例来说，TCP协议可以为各种各样的程序传递数据，比如Email、WWW、FTP等等。那么，必须有不同协议规定电子邮件、网页、FTP数据的格式，这些应用程序协议就构成了”应用层”。</p>
 <p>这是最高的一层，直接面对用户。它的数据就放在TCP数据包的”数据”部分。因此，现在的以太网的数据包就变成下面这样。</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052913.png" alt=""></p>
+<img src="http://www.ruanyifeng.com/blogimg/asset/201205/bg2012052913.png" width="420px"/>
+
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="http://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html" target="_blank" rel="noopener">互联网协议入门（一）</a></li>
 <li><a href="http://www.ruanyifeng.com/blog/2012/06/internet_protocol_suite_part_ii.html" target="_blank" rel="noopener">互联网协议入门（二）</a></li>

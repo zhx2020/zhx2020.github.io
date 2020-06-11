@@ -16,7 +16,7 @@
 <meta property="og:image" content="https://www.javadoop.com/blogimages/map/3.png">
 <meta property="og:image" content="https://www.javadoop.com/blogimages/map/4.png">
 <meta property="article:published_time" content="2020-05-29T11:42:28.000Z">
-<meta property="article:modified_time" content="2020-06-01T08:43:12.096Z">
+<meta property="article:modified_time" content="2020-06-11T06:40:26.247Z">
 <meta property="article:author" content="Hello">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.javadoop.com/blogimages/map/3.png">
@@ -142,7 +142,7 @@
       
         <time datetime="2020-05-29T11:42:28.000Z" itemprop="datePublished">2020-05-29</time>
         
-        (Updated: <time datetime="2020-06-01T08:43:12.096Z" itemprop="dateModified">2020-06-01</time>)
+        (Updated: <time datetime="2020-06-11T06:40:26.247Z" itemprop="dateModified">2020-06-11</time>)
         
       
     </div>
@@ -181,9 +181,11 @@
 <h2 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h2><p>HashMap是线程不安全的类，HashTable线程安全，但每次操作都使用synchronized关键字，对全局加锁性能太低。</p>
 <p>ConcurrentHashMap大量使用volatile，final，CAS等无锁技术来减少锁竞争对于性能的影响。避免了对全局加锁，使用对局部加锁，极大的提高了在并发环境下的操作速度。</p>
 <h3 id="jdk1-7"><a href="#jdk1-7" class="headerlink" title="jdk1.7"></a>jdk1.7</h3><p>底层实现使用 Segment数组 + HashEntry数组</p>
-<p><img src="https://www.javadoop.com/blogimages/map/3.png" alt=""></p>
+<img src="https://www.javadoop.com/blogimages/map/3.png" width="680px"/>
+
 <h3 id="jdk1-8"><a href="#jdk1-8" class="headerlink" title="jdk1.8"></a>jdk1.8</h3><p>底层实现使用 数组 + 链表 + 红黑树</p>
-<p><img src="https://www.javadoop.com/blogimages/map/4.png" alt=""></p>
+<img src="https://www.javadoop.com/blogimages/map/4.png" width="680px"/>
+
 <h2 id="ConcurrentLinkedQueue"><a href="#ConcurrentLinkedQueue" class="headerlink" title="ConcurrentLinkedQueue"></a>ConcurrentLinkedQueue</h2><h2 id="ConcurrentLinkedDeque"><a href="#ConcurrentLinkedDeque" class="headerlink" title="ConcurrentLinkedDeque"></a>ConcurrentLinkedDeque</h2><h2 id="AtomicInteger（原子类）"><a href="#AtomicInteger（原子类）" class="headerlink" title="AtomicInteger（原子类）"></a>AtomicInteger（原子类）</h2><h3 id="类属性和成员变量"><a href="#类属性和成员变量" class="headerlink" title="类属性和成员变量"></a>类属性和成员变量</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Unsafe unsafe = Unsafe.getUnsafe();</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> valueOffset;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        valueOffset = unsafe.objectFieldOffset</span><br><span class="line">            (AtomicInteger.class.getDeclaredField("value"));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception ex) &#123; <span class="keyword">throw</span> <span class="keyword">new</span> Error(ex); &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">int</span> value;</span><br></pre></td></tr></table></figure>
 <p>1、AtomicInteger类使用Unsafe，直接操作内存来保证原子性。<br>2、long类型的valueOffset，在类加载时，初始化了值。<br>3、用volatile修饰的int类型的成员变量value，是AtomicInteger所包装的值。</p>
 <h3 id="valueOffset"><a href="#valueOffset" class="headerlink" title="valueOffset"></a>valueOffset</h3><p>初始化赋值的方法</p>
