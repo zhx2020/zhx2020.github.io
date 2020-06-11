@@ -14,7 +14,7 @@
 <meta property="og:description" content="MySQLmysql的事务的四大特性  原子性（Atomicity）：事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生。 一致性（Consistency）：事务前后数据的完整性必须保持一致。 隔离性（Isolation）：多个用户并发访问数据库时，数据库为每一个用户开启的事务，不能被其它事务的操作数据所干扰，多个并发事务之间要相互隔离。 持久性（Durability）：一个事务一">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-08T03:16:54.000Z">
-<meta property="article:modified_time" content="2020-06-11T03:13:00.990Z">
+<meta property="article:modified_time" content="2020-06-11T07:19:49.008Z">
 <meta property="article:author" content="Hello">
 <meta name="twitter:card" content="summary">
     
@@ -137,7 +137,7 @@
       
         <time datetime="2020-06-08T03:16:54.000Z" itemprop="datePublished">2020-06-08</time>
         
-        (Updated: <time datetime="2020-06-11T03:13:00.990Z" itemprop="dateModified">2020-06-11</time>)
+        (Updated: <time datetime="2020-06-11T07:19:49.008Z" itemprop="dateModified">2020-06-11</time>)
         
       
     </div>
@@ -226,11 +226,27 @@
 <li>TCP的首部开销大；UDP的首部开销小。</li>
 <li>TCP是全双功；UDP是半双功；</li>
 </ol>
-<p><strong>TCP如何保证可靠传输的</strong></p>
+<p><strong>TCP如何保证传输的可靠性和有序性</strong></p>
 <ul>
-<li>检验和</li>
-<li>序列号/确认应答</li>
-<li>超时重传</li>
+<li><p><strong>可靠性</strong></p>
+<ol>
+<li>应用数据被TCP划分为最适合发送的数据包。</li>
+<li>在TCP发送一个数据块后，将启动一个定时器，用以接收目的端的确认信息，若不能及时得到确认，将重发该数据包（超时重发）。</li>
+<li>目的端接收到一个数据包后，需要向另一方发送确认信息，这个确认信息不是立即发送，往往推迟个几分之一秒，用来对包做完整性校验。</li>
+<li>接收端接收到的数据包可能会有重复，这个时候，会进行查重操作，把重复的数据包丢掉。</li>
+<li>TCP还能提供流量控制。TCP连接的每一方都有固定大小的缓冲空间。TCP的接收端只允许另一端发送接收端缓冲区所能接纳的数据。这将防止较快主机致使较慢主机的缓冲区溢出。（TCP可以进行流量控制，防止较快主机致使较慢主机的缓冲区溢出）TCP使用的流量控制协议是可变大小的滑动窗口协议。 </li>
+</ol>
+</li>
+<li><p><strong>有序性</strong></p>
+<ul>
+<li>TCP会对发送的数据包进行编号，接收方接收之后会进行排序，之后发送给应用层。</li>
+</ul>
+</li>
+</ul>
+<p><strong>TCP的三次握手和四次挥手</strong></p>
+<p><strong>参考</strong></p>
+<ul>
+<li><a href="https://www.cnblogs.com/20158424-hxlz/p/10315639.html" target="_blank" rel="noopener">java - tcp如何保证传输的可靠性和有序性</a></li>
 </ul>
 
   </div>
