@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/201206/bg2012061107.png">
 <meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/201206/bg2012061104.jpg">
 <meta property="article:published_time" content="2020-05-11T03:23:21.000Z">
-<meta property="article:modified_time" content="2020-06-11T09:07:47.320Z">
+<meta property="article:modified_time" content="2020-06-14T05:38:51.754Z">
 <meta property="article:author" content="Hello">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://www.ruanyifeng.com/blogimg/asset/201206/bg2012061103.png">
@@ -145,7 +145,7 @@
       
         <time datetime="2020-05-11T03:23:21.000Z" itemprop="datePublished">2020-05-11</time>
         
-        (Updated: <time datetime="2020-06-11T09:07:47.320Z" itemprop="dateModified">2020-06-11</time>)
+        (Updated: <time datetime="2020-06-14T05:38:51.754Z" itemprop="dateModified">2020-06-14</time>)
         
       
     </div>
@@ -172,13 +172,13 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">* 本机的IP地址：192.168.1.100</span><br><span class="line">* 子网掩码：255.255.255.0</span><br><span class="line">* 网关的IP地址：192.168.1.1</span><br><span class="line">* DNS的IP地址：8.8.8.8</span><br></pre></td></tr></table></figure>
 
 <p>然后他打开浏览器，想要访问Google，在地址栏输入了网址：<a href="http://www.google.com。" target="_blank" rel="noopener">www.google.com。</a></p>
-<img src="http://www.ruanyifeng.com/blogimg/asset/201206/bg2012061103.png" width="480px">
+<img src="http://www.ruanyifeng.com/blogimg/asset/201206/bg2012061103.png" width="380px">
 
 <p>这意味着，浏览器要向Google发送一个网页请求的数据包。</p>
 <p><strong>DNS协议</strong></p>
 <p>我们知道，发送数据包，必须要知道对方的IP地址。但是，现在，我们只知道网址<a href="http://www.google.com，不知道它的IP地址。" target="_blank" rel="noopener">www.google.com，不知道它的IP地址。</a></p>
 <p><a href="https://en.wikipedia.org/wiki/Domain_Name_System" target="_blank" rel="noopener">DNS协议</a>可以帮助我们，将这个网址转换成IP地址。已知DNS服务器为8.8.8.8，于是我们向这个地址发送一个DNS数据包（53端口）。</p>
-<img src="http://www.ruanyifeng.com/blogimg/asset/201206/bg2012061105.png" width="480px">
+<img src="http://www.ruanyifeng.com/blogimg/asset/201206/bg2012061105.png" width="420px">
 
 <p>然后，DNS服务器做出响应，告诉我们Google的IP地址是172.194.72.105。于是，我们知道了对方的IP地址。</p>
 <p><strong>子网掩码</strong></p>
@@ -187,7 +187,7 @@
 <p>因此，我们要向Google发送数据包，必须通过网关192.168.1.1转发，也就是说，接收方的MAC地址将是网关的MAC地址。</p>
 <p><strong>应用层协议</strong></p>
 <p>浏览网页用的是HTTP协议，它的整个数据包构造是这样的：</p>
-<img src="http://www.ruanyifeng.com/blogimg/asset/201206/bg2012061106.png" width="480px">
+<img src="http://www.ruanyifeng.com/blogimg/asset/201206/bg2012061106.png" width="420px">
 
 <p>HTTP部分的内容，类似于下面这样：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GET &#x2F; HTTP&#x2F;1.1</span><br><span class="line">Host: www.google.com</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (Windows NT 6.1) ......</span><br><span class="line">Accept: text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q&#x3D;0.9,*&#x2F;*;q&#x3D;0.8</span><br><span class="line">Accept-Encoding: gzip,deflate,sdch</span><br><span class="line">Accept-Language: zh-CN,zh;q&#x3D;0.8</span><br><span class="line">Accept-Charset: GBK,utf-8;q&#x3D;0.7,*;q&#x3D;0.3</span><br><span class="line">Cookie: ... ...</span><br></pre></td></tr></table></figure>
@@ -202,7 +202,7 @@
 <p><strong>以太网协议</strong></p>
 <p>最后，IP数据包嵌入以太网数据包。以太网数据包需要设置双方的MAC地址，发送方为本机的网卡MAC地址，接收方为网关192.168.1.1的MAC地址（通过ARP协议得到）。</p>
 <p>以太网数据包的数据部分，最大长度为1500字节，而现在的IP数据包长度为5000字节。因此，IP数据包必须分割成四个包。因为每个包都有自己的IP标头（20字节），所以四个包的IP数据包的长度分别为1500、1500、1500、560。</p>
-<img src="http://www.ruanyifeng.com/blogimg/asset/201206/bg2012061107.png" width="480px">
+<img src="http://www.ruanyifeng.com/blogimg/asset/201206/bg2012061107.png" width="420px">
 
 <p><strong>服务器端响应</strong></p>
 <p>经过多个网关的转发，Google的服务器172.194.72.105，收到了这四个以太网数据包。</p>

@@ -6,17 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="概念并发（concurrency）：指在同一时刻只能有一条指令执行，但多个进程指令被快速的轮换执行，使得在宏观上具有多个进程同时执行的效果，但在微观上并不是同时执行的，只是把时间分成若干端，使多个进程快速交替的执行  如上图所示，并发就是只有一个CPU资源，程序（或线程）之间要竞争得到执行机会。图中的第一个阶段，在A执行的过程中，B、C不会执行，因为这段时间内这个CPU资源被A竞争到了，同理，第二">
+    <meta name="description" content="概念并发（concurrency）：指在同一时刻只能有一条指令执行，但多个进程指令被快速的轮换执行，使得在宏观上具有多个进程同时执行的效果，但在微观上并不是同时执行的，只是把时间分成若干端，使多个进程快速交替的执行   如上图所示，并发就是只有一个CPU资源，程序（或线程）之间要竞争得到执行机会。图中的第一个阶段，在A执行的过程中，B、C不会执行，因为这段时间内这个CPU资源被A竞争到了，同理，第">
 <meta property="og:type" content="article">
 <meta property="og:title" content="并发和并行">
 <meta property="og:url" content="https://zhx2020.github.io/2020/04/26/%E5%B9%B6%E5%8F%91%E5%92%8C%E5%B9%B6%E8%A1%8C/index.html">
 <meta property="og:site_name" content="ZHX2020">
-<meta property="og:description" content="概念并发（concurrency）：指在同一时刻只能有一条指令执行，但多个进程指令被快速的轮换执行，使得在宏观上具有多个进程同时执行的效果，但在微观上并不是同时执行的，只是把时间分成若干端，使多个进程快速交替的执行  如上图所示，并发就是只有一个CPU资源，程序（或线程）之间要竞争得到执行机会。图中的第一个阶段，在A执行的过程中，B、C不会执行，因为这段时间内这个CPU资源被A竞争到了，同理，第二">
+<meta property="og:description" content="概念并发（concurrency）：指在同一时刻只能有一条指令执行，但多个进程指令被快速的轮换执行，使得在宏观上具有多个进程同时执行的效果，但在微观上并不是同时执行的，只是把时间分成若干端，使多个进程快速交替的执行   如上图所示，并发就是只有一个CPU资源，程序（或线程）之间要竞争得到执行机会。图中的第一个阶段，在A执行的过程中，B、C不会执行，因为这段时间内这个CPU资源被A竞争到了，同理，第">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%B9%B6%E5%8F%91.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%B9%B6%E8%A1%8C.png">
 <meta property="article:published_time" content="2020-04-26T11:06:13.000Z">
-<meta property="article:modified_time" content="2020-05-29T15:10:32.206Z">
+<meta property="article:modified_time" content="2020-06-14T06:02:11.898Z">
 <meta property="article:author" content="Hello">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%B9%B6%E5%8F%91.png">
@@ -142,7 +142,7 @@
       
         <time datetime="2020-04-26T11:06:13.000Z" itemprop="datePublished">2020-04-26</time>
         
-        (Updated: <time datetime="2020-05-29T15:10:32.206Z" itemprop="dateModified">2020-05-29</time>)
+        (Updated: <time datetime="2020-06-14T06:02:11.898Z" itemprop="dateModified">2020-06-14</time>)
         
       
     </div>
@@ -163,10 +163,12 @@
 
   <div class="content" itemprop="articleBody">
     <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p><strong>并发（concurrency）</strong>：指在同一时刻只能有一条指令执行，但多个进程指令被快速的轮换执行，使得在宏观上具有多个进程同时执行的效果，但在微观上并不是同时执行的，只是把时间分成若干端，使多个进程快速交替的执行</p>
-<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%B9%B6%E5%8F%91.png" alt=""></p>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/并发.png" width="270px"/>
+
 <p>如上图所示，并发就是只有一个CPU资源，程序（或线程）之间要竞争得到执行机会。图中的第一个阶段，在A执行的过程中，B、C不会执行，因为这段时间内这个CPU资源被A竞争到了，同理，第二阶段只有B在执行，第三阶段只有C在执行。其实，并发过程中，A、B、C并不是同事进行的（微观角度），但又是同时进行的（宏观角度）</p>
 <p><strong>并行（parallellism）</strong>:指在同一时刻，有多条指令在多个处理器上同时执行</p>
-<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%B9%B6%E8%A1%8C.png" alt=""></p>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/并行.png" width="270px"/>
+
 <p>如图所示，在同一时刻，ABC都是同时执行（微观、宏观）</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过多线程实现并发，并行：</p>
 <ul>

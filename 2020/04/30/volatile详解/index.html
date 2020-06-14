@@ -16,7 +16,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C1.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C2.png">
 <meta property="article:published_time" content="2020-04-30T01:53:38.000Z">
-<meta property="article:modified_time" content="2020-05-29T15:10:04.744Z">
+<meta property="article:modified_time" content="2020-06-14T05:59:26.686Z">
 <meta property="article:author" content="Hello">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C1.png">
@@ -142,7 +142,7 @@
       
         <time datetime="2020-04-30T01:53:38.000Z" itemprop="datePublished">2020-04-30</time>
         
-        (Updated: <time datetime="2020-05-29T15:10:04.744Z" itemprop="dateModified">2020-05-29</time>)
+        (Updated: <time datetime="2020-06-14T05:59:26.686Z" itemprop="dateModified">2020-06-14</time>)
         
       
     </div>
@@ -223,9 +223,11 @@
 <li>如果 a happen-before b，b happen-before c，则a happen-before c（传递性）。</li>
 </ul>
 <p>这里我们主要看下第三条：volatile变量的保证有序性的规则。《核心理论》一文中提到过重排序分为编译器重排序和处理器重排序。为了实现volatile内存语义，JMM会对volatile变量限制这两种类型的重排序。下面是JMM针对volatile变量所规定的重排序规则表：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C1.png" alt=""></p>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/内存屏障1.png" width="420px"/>
+
 <h3 id="内存屏障"><a href="#内存屏障" class="headerlink" title="内存屏障"></a>内存屏障</h3><p>为了实现volatile可见性和happen-befor的语义。JVM底层是通过一个叫做“内存屏障”的东西来完成。内存屏障，也叫做内存栅栏，是一组处理器指令，用于实现对内存操作的顺序限制。下面是完成上述规则所要求的内存屏障：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C2.png" alt=""></p>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/内存屏障2.png" width="480px"/>
+
 <p>1.LoadLoad 屏障</p>
 <p>执行顺序：Load1—&gt;Loadload—&gt;Load2<br>确保Load2及后续Load指令加载数据之前能访问到Load1加载的数据。</p>
 <p>2.StoreStore 屏障</p>

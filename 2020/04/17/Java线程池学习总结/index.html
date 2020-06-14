@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E4%BB%BB%E5%8A%A1%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B-4.jpg">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Executor.jpg">
 <meta property="article:published_time" content="2020-04-17T11:59:06.000Z">
-<meta property="article:modified_time" content="2020-05-29T14:58:33.456Z">
+<meta property="article:modified_time" content="2020-06-14T06:18:46.417Z">
 <meta property="article:author" content="Hello">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E7%BB%84%E6%88%90.jpg">
@@ -148,7 +148,7 @@
       
         <time datetime="2020-04-17T11:59:06.000Z" itemprop="datePublished">2020-04-17</time>
         
-        (Updated: <time datetime="2020-05-29T14:58:33.456Z" itemprop="dateModified">2020-05-29</time>)
+        (Updated: <time datetime="2020-06-14T06:18:46.417Z" itemprop="dateModified">2020-06-14</time>)
         
       
     </div>
@@ -178,28 +178,35 @@
 <li>线程集合（workers）：存放执行任务的线程，是一个HashSet；</li>
 <li>任务等待队列（workQueue）：存放等待线程池调度执行的任务，是一个阻塞式队列BlockingQueue；</li>
 </ol>
-<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E7%BB%84%E6%88%90.jpg" alt=""></p>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/线程池的组成.jpg" width="360px">
+
 <p><strong>线程池有几个核心参数：</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E6%A0%B8%E5%BF%83%E5%8F%82%E6%95%B0.png" alt=""></p>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/线程池的核心参数.png" width="480px"/>
+
 <p><strong>任务执行流程</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E4%BB%BB%E5%8A%A1%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png" alt=""></p>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/线程池的任务执行流程.png" width="500px"/>
+
 <p>任务由execute方法提交到线程池中调度，在提交任务时会有下面几种场景：</p>
 <ol>
 <li>线程池中线程数量小于corePoolSize，此时任务不会进等待队列，线程池直接创建一个线程Worker执行提交的任务；</li>
 </ol>
-<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E4%BB%BB%E5%8A%A1%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B-1.jpg" alt=""></p>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/任务执行流程-1.jpg" width="360px"/>
+
 <ol start="2">
 <li>线程池中线程数量不小于corePoolSize并且等待队列未满，任务直接添加到等待队列，等待线程池调度执行；</li>
 </ol>
-<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E4%BB%BB%E5%8A%A1%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B-2.jpg" alt=""></p>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/任务执行流程-2.jpg" width="360px"/>
+
 <ol start="3">
 <li>线程池中线程数量不小于corePoolSize但是等待队列已满且线程数量小于maximumPoolSize，线程池会进行扩容新创建一个线程Worker执行提交的任务，新创建的Worker会被添加到线程集合workers中；</li>
 </ol>
-<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E4%BB%BB%E5%8A%A1%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B-3.jpg" alt=""></p>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/任务执行流程-3.jpg" width="360px"/>
+
 <ol start="4">
 <li>等待队列已满并且线程数量已达到maximumPoolSize，这种情况下线程池无法继续执行任务会拒绝任务，执行一个指定的拒接策略。</li>
 </ol>
-<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E4%BB%BB%E5%8A%A1%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B-4.jpg" alt=""></p>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/任务执行流程-4.jpg" width="360px"/>
+
 <ol start="5">
 <li>线程池已关闭，拒绝任务，执行一个指定的拒接策略。</li>
 </ol>
@@ -227,7 +234,8 @@
 <p><strong>按时调度线程</strong></p>
 <p>JDK还内置了延时/定时调度任务的线程池，能够延时/定时执行提交的任务，它和普通线程池实现上的区别是，任务队列使用了定制的阻塞队列DelayedWorkQueue，该队列会对添加到队列中的任务按时间排序，在从队列中拉取任务时，只有队头任务指定的时间超过了延时时间时才会有任务出队，否则会一直等待。</p>
 <h2 id="Executor框架"><a href="#Executor框架" class="headerlink" title="Executor框架"></a>Executor框架</h2><p><strong>结构图</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Executor.jpg" alt=""></p>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Executor.jpg" width="360px"/>
+
 <ul>
 <li>Executor：一个接口，其定义了一个接收 Runnable 对象的方法 executor，其方法签名为 executor(Runnable command)。</li>
 <li>ExecutorService：是一个比 Executor 使用更广泛的子类接口，其提供了生命周期管理的方法，以及可跟踪一个或多个异步任务执行状况返回 Future 的方法。</li>
