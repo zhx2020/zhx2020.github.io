@@ -16,7 +16,7 @@
 <meta property="og:image" content="https://camo.githubusercontent.com/48189454746b5979fd465b32b996d222619ac1dc/68747470733a2f2f6d792d626c6f672d746f2d7573652e6f73732d636e2d6265696a696e672e616c6979756e63732e636f6d2f323031392d33537472696e672d506f6f6c2d4a617661312d343530783234392e706e67">
 <meta property="og:image" content="https://camo.githubusercontent.com/4d8ba97281102d302264995d3aaefb26cd76db39/68747470733a2f2f6d792d626c6f672d746f2d7573652e6f73732d636e2d6265696a696e672e616c6979756e63732e636f6d2f323031392d372f2545352541442539372545372541432541362545342542382542322545362538422542432545362538452541352d254535254238254238254539253837253846254536254231254130322e706e67">
 <meta property="article:published_time" content="2020-04-24T02:54:27.000Z">
-<meta property="article:modified_time" content="2020-05-29T15:14:28.087Z">
+<meta property="article:modified_time" content="2020-06-14T05:00:02.335Z">
 <meta property="article:author" content="Hello">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://camo.githubusercontent.com/48189454746b5979fd465b32b996d222619ac1dc/68747470733a2f2f6d792d626c6f672d746f2d7573652e6f73732d636e2d6265696a696e672e616c6979756e63732e636f6d2f323031392d33537472696e672d506f6f6c2d4a617661312d343530783234392e706e67">
@@ -142,7 +142,7 @@
       
         <time datetime="2020-04-24T02:54:27.000Z" itemprop="datePublished">2020-04-24</time>
         
-        (Updated: <time datetime="2020-05-29T15:14:28.087Z" itemprop="dateModified">2020-05-29</time>)
+        (Updated: <time datetime="2020-06-14T05:00:02.335Z" itemprop="dateModified">2020-06-14</time>)
         
       
     </div>
@@ -202,7 +202,8 @@
 <li>第二种方式是直接在堆内存空间创建一个新的对象。</li>
 </ul>
 <p><strong>记住一点：只要使用 new 方法，便需要创建新的对象。</strong></p>
-<p><img src="https://camo.githubusercontent.com/48189454746b5979fd465b32b996d222619ac1dc/68747470733a2f2f6d792d626c6f672d746f2d7573652e6f73732d636e2d6265696a696e672e616c6979756e63732e636f6d2f323031392d33537472696e672d506f6f6c2d4a617661312d343530783234392e706e67" alt=""></p>
+<img src="https://camo.githubusercontent.com/48189454746b5979fd465b32b996d222619ac1dc/68747470733a2f2f6d792d626c6f672d746f2d7573652e6f73732d636e2d6265696a696e672e616c6979756e63732e636f6d2f323031392d33537472696e672d506f6f6c2d4a617661312d343530783234392e706e67" width="360px"/>
+
 <p><strong>String 类型的常量池比较特殊。它的主要使用方法有两种：</strong></p>
 <ul>
 <li>直接使用双引号声明出来的 String 对象会直接存储在常量池中。</li>
@@ -213,7 +214,8 @@
 <p><strong>字符串拼接</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">String str1 = <span class="string">"str"</span>;</span><br><span class="line">String str2 = <span class="string">"ing"</span>;</span><br><span class="line"></span><br><span class="line">String str3 = <span class="string">"str"</span> + <span class="string">"ing"</span>;<span class="comment">//常量池中的对象</span></span><br><span class="line">String str4 = str1 + str2; <span class="comment">//在堆上创建的新的对象	  </span></span><br><span class="line">String str5 = <span class="string">"string"</span>;<span class="comment">//常量池中的对象</span></span><br><span class="line">System.out.println(str3 == str4);<span class="comment">//false</span></span><br><span class="line">System.out.println(str3 == str5);<span class="comment">//true</span></span><br><span class="line">System.out.println(str4 == str5);<span class="comment">//false</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="https://camo.githubusercontent.com/4d8ba97281102d302264995d3aaefb26cd76db39/68747470733a2f2f6d792d626c6f672d746f2d7573652e6f73732d636e2d6265696a696e672e616c6979756e63732e636f6d2f323031392d372f2545352541442539372545372541432541362545342542382542322545362538422542432545362538452541352d254535254238254238254539253837253846254536254231254130322e706e67" alt=""></p>
+<img src="https://camo.githubusercontent.com/4d8ba97281102d302264995d3aaefb26cd76db39/68747470733a2f2f6d792d626c6f672d746f2d7573652e6f73732d636e2d6265696a696e672e616c6979756e63732e636f6d2f323031392d372f2545352541442539372545372541432541362545342542382542322545362538422542432545362538452541352d254535254238254238254539253837253846254536254231254130322e706e67" width="360px"/>
+
 <p>尽量避免多个字符串拼接，因为这样会重新创建对象。如果需要改变字符串的话，可以使用 StringBuilder 或者 StringBuffer。</p>
 <h3 id="String-s1-new-String-“abc”-这句话创建了几个字符串对象？"><a href="#String-s1-new-String-“abc”-这句话创建了几个字符串对象？" class="headerlink" title="String s1 = new String(“abc”);这句话创建了几个字符串对象？"></a>String s1 = new String(“abc”);这句话创建了几个字符串对象？</h3><p>将创建 1 或 2 个字符串。如果池中已存在字符串常量“abc”，则只会在堆空间创建一个字符串常量“abc”。如果池中没有字符串常量“abc”，那么它将首先在池中创建，然后在堆空间中创建，因此将创建总共 2 个字符串对象。</p>
 <p><strong>验证</strong></p>

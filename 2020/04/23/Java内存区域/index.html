@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Java%E5%A0%86JDK1.7.jpg">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Java%E5%A0%86JDK1.8.jpg">
 <meta property="article:published_time" content="2020-04-23T06:28:11.000Z">
-<meta property="article:modified_time" content="2020-06-10T06:06:14.409Z">
+<meta property="article:modified_time" content="2020-06-14T05:04:39.775Z">
 <meta property="article:author" content="Hello">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E5%9F%9FJDK1.6.png">
@@ -144,7 +144,7 @@
       
         <time datetime="2020-04-23T06:28:11.000Z" itemprop="datePublished">2020-04-23</time>
         
-        (Updated: <time datetime="2020-06-10T06:06:14.409Z" itemprop="dateModified">2020-06-10</time>)
+        (Updated: <time datetime="2020-06-14T05:04:39.775Z" itemprop="dateModified">2020-06-14</time>)
         
       
     </div>
@@ -218,10 +218,10 @@
 <li>老生代(Old Generation)</li>
 <li>永生代(Permanent Generation)</li>
 </ol>
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Java堆JDK1.7.jpg" width="460px"/>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Java堆JDK1.7.jpg" width="420px"/>
 
 <p>JDK 8 版本之后方法区（HotSpot 的永久代）被彻底移除了（JDK1.7 就已经开始了），取而代之是元空间，元空间使用的是直接内存。</p>
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Java堆JDK1.8.jpg" width="460px"/>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Java堆JDK1.8.jpg" width="420px"/>
 
 <p>上图所示的 Eden 区、两个 Survivor 区都属于新生代（为了区分，这两个 Survivor 区域按照顺序被命名为 from 和 to），中间一层属于老年代。</p>
 <p>大部分情况，对象都会首先在 Eden 区域分配，在一次新生代垃圾回收后，如果对象还存活，则会进入 s0 或者 s1，并且对象的年龄还会加 1(Eden 区-&gt;Survivor 区后对象的初始年龄变为 1)，当它的年龄增加到一定程度（默认为 15 岁），就会被晋升到老年代中。对象晋升到老年代的年龄阈值，可以通过参数 -XX:MaxTenuringThreshold 来设置。</p>

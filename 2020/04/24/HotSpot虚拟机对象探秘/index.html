@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture@master/img/%E7%9B%B4%E6%8E%A5%E6%8C%87%E9%92%88.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F.png">
 <meta property="article:published_time" content="2020-04-24T02:06:22.000Z">
-<meta property="article:modified_time" content="2020-06-10T13:15:34.255Z">
+<meta property="article:modified_time" content="2020-06-14T05:03:18.211Z">
 <meta property="article:author" content="Hello">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Java%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%BF%87%E7%A8%8B.png">
@@ -144,7 +144,7 @@
       
         <time datetime="2020-04-24T02:06:22.000Z" itemprop="datePublished">2020-04-24</time>
         
-        (Updated: <time datetime="2020-06-10T13:15:34.255Z" itemprop="dateModified">2020-06-10</time>)
+        (Updated: <time datetime="2020-06-14T05:03:18.211Z" itemprop="dateModified">2020-06-14</time>)
         
       
     </div>
@@ -185,17 +185,18 @@
 <ol>
 <li>句柄： 如果使用句柄的话，那么 Java 堆中将会划分出一块内存来作为句柄池，reference 中存储的就是对象的句柄地址，而句柄中包含了对象实例数据与类型数据各自的具体地址信息；</li>
 </ol>
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture@master/img/使用句柄.png" width="640px"/>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture@master/img/使用句柄.png" width="560px"/>
 
 <ol start="2">
 <li>直接指针： 如果使用直接指针访问，那么 Java 堆对象的布局中就必须考虑如何放置访问类型数据的相关信息，而 reference 中存储的直接就是对象的地址。</li>
 </ol>
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture@master/img/直接指针.png" width="640px"/>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture@master/img/直接指针.png" width="560px"/>
 
 <p><strong>这两种对象访问方式各有优势。使用句柄来访问的最大好处是 reference 中存储的是稳定的句柄地址，在对象被移动时只会改变句柄中的实例数据指针，而 reference 本身不需要修改。使用直接指针访问方式最大的好处就是速度快，它节省了一次指针定位的时间开销。</strong></p>
 <h2 id="分配内存详解"><a href="#分配内存详解" class="headerlink" title="分配内存详解"></a>分配内存详解</h2><p><strong>内存分配的两种方式：（补充内容，需要掌握）</strong></p>
 <p>选择以上两种方式中的哪一种，取决于 Java 堆内存是否规整。而 Java 堆内存是否规整，取决于 GC 收集器的算法是”标记-清除”，还是”标记-整理”（也称作”标记-压缩”），值得注意的是，复制算法内存也是规整的</p>
-<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F.png" alt=""></p>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/内存分配的两种方式.png" width="860px"/>
+
 <p><strong>内存分配并发问题（补充内容，需要掌握）</strong></p>
 <p>在创建对象的时候有一个很重要的问题，就是线程安全，因为在实际开发过程中，创建对象是很频繁的事情，作为虚拟机来说，必须要保证线程是安全的，通常来讲，虚拟机采用两种方式来保证线程安全：</p>
 <ul>
