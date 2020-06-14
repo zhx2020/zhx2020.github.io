@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="类关系图 容器主要包括 Collection 和 Map 两种，Collection 存储着对象的集合，而 Map 存储着键值对(两个对象)的映射表。   容器介绍容器，就是可以容纳其他Java对象的对象。Java Collections Framework（JCF）为Java开发者提供了通用的容器，其始于JDK 1.2，优点是：  降低编程难度 提高程序性能 提高API间的互操作性 降低学习难度">
+    <meta name="description" content="类关系图 容器主要包括 Collection 和 Map 两种，Collection 存储着对象的集合，而 Map 存储着键值对(两个对象)的映射表。    容器介绍容器，就是可以容纳其他Java对象的对象。Java Collections Framework（JCF）为Java开发者提供了通用的容器，其始于JDK 1.2，优点是：  降低编程难度 提高程序性能 提高API间的互操作性 降低学习难">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java集合框架概览">
 <meta property="og:url" content="https://zhx2020.github.io/2020/05/07/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E6%A6%82%E8%A7%88/index.html">
 <meta property="og:site_name" content="ZHX2020">
-<meta property="og:description" content="类关系图 容器主要包括 Collection 和 Map 两种，Collection 存储着对象的集合，而 Map 存储着键值对(两个对象)的映射表。   容器介绍容器，就是可以容纳其他Java对象的对象。Java Collections Framework（JCF）为Java开发者提供了通用的容器，其始于JDK 1.2，优点是：  降低编程难度 提高程序性能 提高API间的互操作性 降低学习难度">
+<meta property="og:description" content="类关系图 容器主要包括 Collection 和 Map 两种，Collection 存储着对象的集合，而 Map 存储着键值对(两个对象)的映射表。    容器介绍容器，就是可以容纳其他Java对象的对象。Java Collections Framework（JCF）为Java开发者提供了通用的容器，其始于JDK 1.2，优点是：  降低编程难度 提高程序性能 提高API间的互操作性 降低学习难">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6_%E7%B1%BB%E5%85%B3%E7%B3%BB%E5%9B%BE.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6_%E6%8E%A5%E5%8F%A3.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6_%E5%AE%9E%E7%8E%B0.png">
 <meta property="article:published_time" content="2020-05-07T07:23:51.000Z">
-<meta property="article:modified_time" content="2020-05-29T14:56:08.569Z">
+<meta property="article:modified_time" content="2020-06-14T03:36:11.097Z">
 <meta property="article:author" content="Hello">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6_%E7%B1%BB%E5%85%B3%E7%B3%BB%E5%9B%BE.png">
@@ -143,7 +143,7 @@
       
         <time datetime="2020-05-07T07:23:51.000Z" itemprop="datePublished">2020-05-07</time>
         
-        (Updated: <time datetime="2020-05-29T14:56:08.569Z" itemprop="dateModified">2020-05-29</time>)
+        (Updated: <time datetime="2020-06-14T03:36:11.097Z" itemprop="dateModified">2020-06-14</time>)
         
       
     </div>
@@ -166,7 +166,8 @@
     <h2 id="类关系图"><a href="#类关系图" class="headerlink" title="类关系图"></a>类关系图</h2><blockquote>
 <p>容器主要包括 Collection 和 Map 两种，Collection 存储着对象的集合，而 Map 存储着键值对(两个对象)的映射表。</p>
 </blockquote>
-<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6_%E7%B1%BB%E5%85%B3%E7%B3%BB%E5%9B%BE.png" alt=""></p>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Java集合框架_类关系图.png" width="840px"/>
+
 <h2 id="容器介绍"><a href="#容器介绍" class="headerlink" title="容器介绍"></a>容器介绍</h2><p>容器，就是可以容纳其他Java对象的对象。Java Collections Framework（JCF）为Java开发者提供了通用的容器，其始于JDK 1.2，优点是：</p>
 <ul>
 <li>降低编程难度</li>
@@ -178,11 +179,13 @@
 </ul>
 <p>Java容器里只能放对象，对于基本类型（int, long, float, double等），需要将其包装成对象类型后（Integer, Long, Float, Double等）才能放到容器里。很多时候拆包装和解包装能够自动完成。这虽然会导致额外的性能和空间开销，但简化了设计和编程。</p>
 <h2 id="接口和实现"><a href="#接口和实现" class="headerlink" title="接口和实现"></a>接口和实现</h2><h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><p>为了规范容器的行为，统一设计，JCF定义了14种容器接口（collection interfaces），它们的关系如下图所示：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6_%E6%8E%A5%E5%8F%A3.png" alt=""></p>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Java集合框架_接口.png" width="480px"/>
+
 <p>Map接口没有继承自Collection接口，因为Map表示的是关联式容器而不是集合。但Java为我们提供了从Map转换到Collection的方法，可以方便的将Map切换到集合视图。</p>
 <p>上图中提供了Queue接口，却没有Stack，这是因为Stack的功能已被JDK 1.6引入的Deque取代。</p>
 <h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>上述接口的通用实现见下表：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6_%E5%AE%9E%E7%8E%B0.png" alt=""></p>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Java集合框架_实现.png" width="640px"/>
+
 <h2 id="Collection和Map"><a href="#Collection和Map" class="headerlink" title="Collection和Map"></a>Collection和Map</h2><h3 id="Collection"><a href="#Collection" class="headerlink" title="Collection"></a>Collection</h3><ul>
 <li>List<ul>
 <li>ArrayList：基于动态数组实现，支持随机访问</li>

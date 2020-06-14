@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%AE%9E%E7%8E%B0.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E6%B3%9B%E5%8C%96.png">
 <meta property="article:published_time" content="2020-05-18T01:00:35.000Z">
-<meta property="article:modified_time" content="2020-05-29T15:20:53.729Z">
+<meta property="article:modified_time" content="2020-06-14T03:30:38.603Z">
 <meta property="article:author" content="Hello">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E4%BE%9D%E8%B5%96.png">
@@ -146,7 +146,7 @@
       
         <time datetime="2020-05-18T01:00:35.000Z" itemprop="datePublished">2020-05-18</time>
         
-        (Updated: <time datetime="2020-05-29T15:20:53.729Z" itemprop="dateModified">2020-05-29</time>)
+        (Updated: <time datetime="2020-06-14T03:30:38.603Z" itemprop="dateModified">2020-06-14</time>)
         
       
     </div>
@@ -178,22 +178,28 @@
 </blockquote>
 <h3 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h3><p><strong>概念：</strong>是一种 <strong>使用</strong> 的关系，即一个类的实现需要另一个类的协助，所以要尽量不使用双向的互相依赖，在程序中一般表现为类 A 中的方法需要类 B 的实例作为其参数或者变量，而类 A 本身并不需要引用类 B 的实例作为其成员变量。</p>
 <p><strong>表示方法：</strong>虚线箭头，类 A 指向类 B</p>
-<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E4%BE%9D%E8%B5%96.png" alt=""></p>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/依赖.png" width="360px"/>
+
 <h3 id="关联"><a href="#关联" class="headerlink" title="关联"></a>关联</h3><p><strong>概念：</strong>表示类与类之间的 <strong>联接</strong>,它使一个类知道另一个类的属性和方法，这种关系比依赖更强、不存在依赖关系的偶然性、关系也不是临时性的，一般是长期性的，在程序中被关联类 B 以类属性的形式出现在关联类 A 中，也可能是关联类 A 引用了一个类型为被关联类 B 的全局变量。</p>
 <p><strong>表示方法：</strong>实线箭头，类 A 指向类 B</p>
-<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%85%B3%E8%81%94.png" alt=""></p>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/关联.png" width="360px"/>
+
 <h3 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h3><p><strong>概念：</strong>聚合是关联关系的一种特例，是强的关联关系。聚合是整体和个体之间的关系，即 <strong>has-a</strong> 的关系，整体与个体可以具有各自的生命周期，个体可以属于多个整体对象，也可以为多个整体对象共享。程序中聚合和关联关系是一致的，只能从语义级别来区分。</p>
 <p><strong>表示方法：</strong>尾部为空心菱形的实线箭头（也可以没箭头），类 A 指向类 B</p>
-<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E8%81%9A%E5%90%88.png" alt=""></p>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/聚合.png" width="360px"/>
+
 <h3 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h3><p><strong>概念：</strong>组合也是关联关系的一种特例。组合是一种整体与部分的关系，即 <strong>contains-a</strong> 的关系，比聚合更强。部分与整体的生命周期一致，整体的生命周期结束也就意味着部分的生命周期结束，组合关系不能共享。程序中组合和关联关系是一致的，只能从语义级别来区分。</p>
 <p><strong>表示方法：</strong>尾部为实心菱形的实线箭头（也可以没箭头），类 A 指向类 B</p>
-<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E7%BB%84%E5%90%88.png" alt=""></p>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/组合.png" width="280px">
+
 <h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p><strong>概念：</strong>实现是一种 <strong>类与接口</strong> 的关系，表示类是接口所有特征和行为的实现，在程序中一般通过类实现接口来描述。</p>
 <p><strong>表示方法：</strong>空心三角形箭头的虚线，实现类指向接口</p>
-<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%AE%9E%E7%8E%B0.png" alt=""></p>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/实现.png" width="200px"/>
+
 <h3 id="泛化"><a href="#泛化" class="headerlink" title="泛化"></a>泛化</h3><p><strong>概念：</strong>泛化是一种 <strong>一般与特殊</strong>、<strong>一般与具体</strong> 之间关系的描述，具体描述建立在一般描述的基础之上，并对其进行了扩展。在程序中是通过继承类实现的。比如狗是对动物的具体描述，在面向对象设计的时候一般把狗设计为动物的子类。</p>
 <p><strong>表示方法：</strong>空心三角形箭头的实线，子类指向父类</p>
-<p><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E6%B3%9B%E5%8C%96.png" alt=""></p>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/泛化.png" width="200px"/>
+
 <h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><ul>
 <li><strong>创建型模式（5）</strong><ul>
 <li>简单工厂模式（不属于）</li>
