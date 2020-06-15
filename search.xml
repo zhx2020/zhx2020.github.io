@@ -4,44 +4,6 @@
   
     
     <entry>
-      <title>三年经验网易、滴滴、点我Java岗面试经验汇总</title>
-      <link href="/2020/06/15/%E4%B8%89%E5%B9%B4%E7%BB%8F%E9%AA%8C%E7%BD%91%E6%98%93%E3%80%81%E6%BB%B4%E6%BB%B4%E3%80%81%E7%82%B9%E6%88%91Java%E5%B2%97%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C%E6%B1%87%E6%80%BB/"/>
-      <url>/2020/06/15/%E4%B8%89%E5%B9%B4%E7%BB%8F%E9%AA%8C%E7%BD%91%E6%98%93%E3%80%81%E6%BB%B4%E6%BB%B4%E3%80%81%E7%82%B9%E6%88%91Java%E5%B2%97%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C%E6%B1%87%E6%80%BB/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      <categories>
-          
-          <category> 面经合集 </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>vivo面经分类汇总</title>
-      <link href="/2020/06/15/vivo%E9%9D%A2%E7%BB%8F%E5%88%86%E7%B1%BB%E6%B1%87%E6%80%BB/"/>
-      <url>/2020/06/15/vivo%E9%9D%A2%E7%BB%8F%E5%88%86%E7%B1%BB%E6%B1%87%E6%80%BB/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      <categories>
-          
-          <category> 面经合集 </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>数学相关</title>
       <link href="/2020/06/14/%E6%95%B0%E5%AD%A6%E7%9B%B8%E5%85%B3/"/>
       <url>/2020/06/14/%E6%95%B0%E5%AD%A6%E7%9B%B8%E5%85%B3/</url>
@@ -90,7 +52,7 @@
       <link href="/2020/06/05/Java%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/"/>
       <url>/2020/06/05/Java%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/</url>
       
-        <content type="html"><![CDATA[<h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><p><strong>构造方法</strong></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span></span><br></pre></td></tr></table></figure><h2 id="Integer"><a href="#Integer" class="headerlink" title="Integer"></a>Integer</h2><h2 id="BigInteger"><a href="#BigInteger" class="headerlink" title="BigInteger"></a>BigInteger</h2>]]></content>
+        <content type="html"><![CDATA[<h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><p>构造方法</p><h2 id="Integer"><a href="#Integer" class="headerlink" title="Integer"></a>Integer</h2><h2 id="BigInteger"><a href="#BigInteger" class="headerlink" title="BigInteger"></a>BigInteger</h2><h2 id="Arrays"><a href="#Arrays" class="headerlink" title="Arrays"></a>Arrays</h2><p>数组排序</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort();</span><br></pre></td></tr></table></figure><h2 id="Collections"><a href="#Collections" class="headerlink" title="Collections"></a>Collections</h2><p>集合排序</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Collections.sort();</span><br></pre></td></tr></table></figure>]]></content>
       
       
       <categories>
