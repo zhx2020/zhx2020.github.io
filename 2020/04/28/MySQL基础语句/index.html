@@ -13,12 +13,10 @@
 <meta property="og:site_name" content="ZHX2020">
 <meta property="og:description" content="登录、退出登录mysql 1mysql -h 主机地址 -u root -p 退出mysql 1exit &#x2F; quit  操作数据库查询所有数据库的名称 1show databases;  创建数据库 1create database 数据库名称;  删除数据库 1drop database 数据库名称;  使用数据库 1use 数据库名称;  操作表查询某个数据库中所有的表名称 1sh">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%AD%90%E6%9F%A5%E8%AF%A2.png">
 <meta property="article:published_time" content="2020-04-28T03:06:12.000Z">
-<meta property="article:modified_time" content="2020-06-15T08:36:59.556Z">
+<meta property="article:modified_time" content="2020-06-15T08:59:49.394Z">
 <meta property="article:author" content="Hello">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%AD%90%E6%9F%A5%E8%AF%A2.png">
     
     
         
@@ -141,7 +139,7 @@
       
         <time datetime="2020-04-28T03:06:12.000Z" itemprop="datePublished">2020-04-28</time>
         
-        (Updated: <time datetime="2020-06-15T08:36:59.556Z" itemprop="dateModified">2020-06-15</time>)
+        (Updated: <time datetime="2020-06-15T08:59:49.394Z" itemprop="dateModified">2020-06-15</time>)
         
       
     </div>
@@ -339,7 +337,7 @@
 <li>情况2：子查询的结果是多行单列的，使用运算符in来判断</li>
 <li>情况3：子查询的结果是多行多列的，子查询可以作为一张虚拟表</li>
 </ul>
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/子查询.png" width="720px"/>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#子查询情况1</span><br><span class="line">select * from emp order by salary desc limit 0,1;</span><br><span class="line">select max(salary) from emp;</span><br><span class="line">select * from emp where salary &#x3D; (select max(salary) from emp);</span><br><span class="line">select * from emp where salary &lt; (select avg(salary) from emp);</span><br><span class="line">#子查询情况2</span><br><span class="line">select id from dept where name in (&quot;财务部&quot;,&quot;开发部&quot;);</span><br><span class="line">select * from emp where dept_id in (select id from dept where name in (&quot;财务部&quot;,&quot;开发部&quot;));</span><br><span class="line">#子查询情况3</span><br><span class="line">select * from emp where join_date &gt; &quot;2011-11-11&quot;;</span><br><span class="line">select * from dept t1,(select * from emp where join_date &gt; &quot;2011-11-11&quot;) t2 where t1.id &#x3D; t2.dept_id;</span><br></pre></td></tr></table></figure>
 
 <h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>数据库隔离级别</p>
 <ul>
