@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/ArrayDeque_doubleCapacity.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/ArrayDeque_addLast.png">
 <meta property="article:published_time" content="2020-05-09T02:18:58.000Z">
-<meta property="article:modified_time" content="2020-06-14T03:49:13.956Z">
+<meta property="article:modified_time" content="2020-06-15T08:17:59.097Z">
 <meta property="article:author" content="Hello">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/ArrayDeque%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0.png">
@@ -144,7 +144,7 @@
       
         <time datetime="2020-05-09T02:18:58.000Z" itemprop="datePublished">2020-05-09</time>
         
-        (Updated: <time datetime="2020-06-14T03:49:13.956Z" itemprop="dateModified">2020-06-14</time>)
+        (Updated: <time datetime="2020-06-15T08:17:59.097Z" itemprop="dateModified">2020-06-15</time>)
         
       
     </div>
@@ -278,13 +278,13 @@
 </tbody></table>
 <p><em>ArrayDeque</em>和<em>LinkedList</em>是<em>Deque</em>的两个通用实现，官方更推荐使用<em>AarryDeque</em>用作栈和队列。</p>
 <p>从名字可以看出<em>ArrayDeque</em>底层通过<strong>数组实现</strong>，为了满足可以同时在数组两端插入或删除元素的需求，该数组还必须是循环的，即<strong>循环数组（circular array）</strong>，也就是说数组的任何一点都可能被看作起点或者终点。<em>ArrayDeque</em>是非线程安全的（not thread-safe），当多个线程同时使用的时候，需要程序员手动同步；另外，该容器不允许放入 <code>null</code> 元素。</p>
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/ArrayDeque底层实现.png" width="640px"/>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/ArrayDeque底层实现.png" width="560px"/>
 
 <p>上图中我们看到，<code>head</code> <strong>指向首端第一个有效元素</strong>，<code>tail</code> <strong>指向尾端第一个可以插入元素的空位</strong>。因为是循环数组，所以 <code>head</code> 不一定总等于0，<code>tail</code> 也不一定总是比 <code>head</code> 大。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">transient</span> Object[] elements; <span class="comment">// non-private to simplify nested class access</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">transient</span> <span class="keyword">int</span> head;</span><br><span class="line"></span><br><span class="line"><span class="keyword">transient</span> <span class="keyword">int</span> tail;</span><br></pre></td></tr></table></figure>
 
 <h2 id="方法剖析"><a href="#方法剖析" class="headerlink" title="方法剖析"></a>方法剖析</h2><h3 id="addFirst"><a href="#addFirst" class="headerlink" title="addFirst()"></a>addFirst()</h3><p><code>addFirst(E e)</code> 的作用是在<em>Deque</em>的首端插入元素，也就是在 <code>head</code> 的前面插入元素，在空间足够且下标没有越界的情况下，只需要将 <code>elements[--head] = e</code> 即可。</p>
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/ArrayDeque_addFirst.png" width="640px"/>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/ArrayDeque_addFirst.png" width="560px"/>
 
 <p>实际需要考虑：1.空间是否够用，2.下标是否越界的问题。上图中，如果 <code>head</code> 为 <code>0</code> 之后接着调用 <code>addFirst()</code> ，虽然空余空间还够用，但 <code>head</code> 为 <code>-1</code> ，下标越界了。下列代码很好的解决了这两个问题。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//addFirst(E e)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addFirst</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (e == <span class="keyword">null</span>)<span class="comment">//不允许放入null</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">    elements[head = (head - <span class="number">1</span>) &amp; (elements.length - <span class="number">1</span>)] = e;<span class="comment">//2.下标是否越界</span></span><br><span class="line">    <span class="keyword">if</span> (head == tail)<span class="comment">//1.空间是否够用</span></span><br><span class="line">        doubleCapacity();<span class="comment">//扩容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -292,13 +292,13 @@
 <p>上述代码我们看到，<strong>空间问题是在插入之后解决的</strong>，因为 <code>tail</code> 总是指向下一个可插入的空位，也就意味着 <code>elements</code> 数组至少有一个空位，所以插入元素的时候不用考虑空间问题。</p>
 <p>下标越界的处理解决起来非常简单，<code>head = (head - 1) &amp; (elements.length - 1)</code> 就可以了，这段代码相当于取余，同时解决了 <code>head</code> 为负值的情况。因为 <code>elements.length</code> 必需是 <code>2</code> 的指数倍，<code>elements - 1</code> 就是二进制低位全 <code>1</code> ，跟 <code>head - 1</code> 相与之后就起到了取模的作用，如果 <code>head - 1</code> 为负数（其实只可能是 <code>-1</code> ），则相当于对其取相对于 <code>elements.length</code> 的补码。</p>
 <p>下面再说说扩容函数 <code>doubleCapacity()</code> ，其逻辑是申请一个更大的数组（原数组的两倍），然后将原数组复制过去。过程如下图所示：</p>
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/ArrayDeque_doubleCapacity.png" width="640px"/>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/ArrayDeque_doubleCapacity.png" width="560px"/>
 
 <p>图中我们看到，复制分两次进行，第一次复制 <code>head</code> 右边的元素，第二次复制 <code>head</code> 左边的元素。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//doubleCapacity()</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">doubleCapacity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">assert</span> head == tail;</span><br><span class="line">    <span class="keyword">int</span> p = head;</span><br><span class="line">    <span class="keyword">int</span> n = elements.length;</span><br><span class="line">    <span class="keyword">int</span> r = n - p; <span class="comment">// head右边元素的个数</span></span><br><span class="line">    <span class="keyword">int</span> newCapacity = n &lt;&lt; <span class="number">1</span>;<span class="comment">//原空间的2倍</span></span><br><span class="line">    <span class="keyword">if</span> (newCapacity &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Sorry, deque too big"</span>);</span><br><span class="line">    Object[] a = <span class="keyword">new</span> Object[newCapacity];</span><br><span class="line">    System.arraycopy(elements, p, a, <span class="number">0</span>, r);<span class="comment">//复制右半部分，对应上图中绿色部分</span></span><br><span class="line">    System.arraycopy(elements, <span class="number">0</span>, a, r, p);<span class="comment">//复制左半部分，对应上图中灰色部分</span></span><br><span class="line">    elements = (E[])a;</span><br><span class="line">    head = <span class="number">0</span>;</span><br><span class="line">    tail = n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="addLast"><a href="#addLast" class="headerlink" title="addLast()"></a>addLast()</h3><p><code>addLast(E e)</code> 的作用是在<em>Deque</em>的尾端插入元素，也就是在 <code>tail</code> 的位置插入元素，由于 <code>tail</code> 总是指向下一个可以插入的空位，因此只需要 <code>elements[tail] = e;</code> 即可。插入完成后再检查空间，如果空间已经用光，则调用 <code>doubleCapacity()</code> 进行扩容。</p>
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/ArrayDeque_addLast.png" width="640px"/>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/ArrayDeque_addLast.png" width="560px"/>
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addLast</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (e == <span class="keyword">null</span>)<span class="comment">//不允许放入null</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">    elements[tail] = e;<span class="comment">//赋值</span></span><br><span class="line">    <span class="keyword">if</span> ( (tail = (tail + <span class="number">1</span>) &amp; (elements.length - <span class="number">1</span>)) == head)<span class="comment">//下标越界处理</span></span><br><span class="line">        doubleCapacity();<span class="comment">//扩容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
