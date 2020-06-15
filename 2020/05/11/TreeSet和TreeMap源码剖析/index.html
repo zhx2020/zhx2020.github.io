@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/TreeMap_put.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/TreeMap_remove.png">
 <meta property="article:published_time" content="2020-05-11T07:51:24.000Z">
-<meta property="article:modified_time" content="2020-06-14T05:29:56.401Z">
+<meta property="article:modified_time" content="2020-06-15T08:31:08.593Z">
 <meta property="article:author" content="Hello">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/TreeMap%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0.png">
@@ -147,7 +147,7 @@
       
         <time datetime="2020-05-11T07:51:24.000Z" itemprop="datePublished">2020-05-11</time>
         
-        (Updated: <time datetime="2020-06-14T05:29:56.401Z" itemprop="dateModified">2020-06-14</time>)
+        (Updated: <time datetime="2020-06-15T08:31:08.593Z" itemprop="dateModified">2020-06-15</time>)
         
       
     </div>
@@ -205,7 +205,7 @@
 <li>t 的右孩子为空，则t的后继是其第一个向左走的祖先。</li>
 </ol>
 <p>后继节点在红黑树的删除操作中将会用到。</p>
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/TreeMap_successor.png" width="680px"/>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/TreeMap_successor.png" width="560px"/>
 
 <p><em>TreeMap</em>中寻找节点后继的代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 寻找节点后继函数successor()</span></span><br><span class="line"><span class="keyword">static</span> &lt;K,V&gt; TreeMap.<span class="function">Entry&lt;K,V&gt; <span class="title">successor</span><span class="params">(Entry&lt;K,V&gt; t)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (t == <span class="keyword">null</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (t.right != <span class="keyword">null</span>) &#123;<span class="comment">// 1. t的右子树不空，则t的后继是其右子树中最小的那个元素</span></span><br><span class="line">        Entry&lt;K,V&gt; p = t.right;</span><br><span class="line">        <span class="keyword">while</span> (p.left != <span class="keyword">null</span>)</span><br><span class="line">            p = p.left;</span><br><span class="line">        <span class="keyword">return</span> p;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;<span class="comment">// 2. t的右孩子为空，则t的后继是其第一个向左走的祖先</span></span><br><span class="line">        Entry&lt;K,V&gt; p = t.parent;</span><br><span class="line">        Entry&lt;K,V&gt; ch = t;</span><br><span class="line">        <span class="keyword">while</span> (p != <span class="keyword">null</span> &amp;&amp; ch == p.right) &#123;</span><br><span class="line">            ch = p;</span><br><span class="line">            p = p.parent;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> p;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -238,7 +238,7 @@
 
 <p>上述代码中占据大量代码行的，是用来修改父子节点间引用关系的代码，其逻辑并不难理解。下面着重讲解删除后调整函数 <code>fixAfterDeletion()</code> 。首先请思考一下，删除了哪些点才会导致调整？<strong>只有删除点是BLACK的时候，才会触发调整函数</strong>，因为删除RED节点不会破坏红黑树的任何约束，而删除BLACK节点会破坏规则4。</p>
 <p>跟上文中讲过的 <code>fixAfterInsertion()</code> 函数一样，这里也要分成若干种情况。记住，无论有多少情况，具体的调整操作只有两种：1.改变某些节点的颜色，2.对某些节点进行旋转。</p>
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/TreeMap_remove.png" width="680px"/>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/TreeMap_remove.png" width="560px"/>
 
 <p>上述图解的总体思想是：将情况1首先转换成情况2，或者转换成情况3和情况4。当然，该图解并不意味着调整过程一定是从情况1开始。通过后续代码我们还会发现几个有趣的规则：a).如果是由情况1之后紧接着进入的情况2，那么情况2之后一定会退出循环（因为x为红色）；b).一旦进入情况3和情况4，一定会退出循环（因为x为root）。</p>
 <p>删除后调整函数 <code>fixAfterDeletion()</code> 的具体代码如下，其中用到了上文中提到的 <code>rotateLeft()</code> 和 <code>rotateRight()</code> 函数。通过代码我们能够看到，情况3其实是落在情况4内的。情况5～情况8跟前四种情况是对称的，因此图解中并没有画出后四种情况，读者可以参考代码自行理解。</p>

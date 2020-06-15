@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%85%A8%E6%96%87%E7%B4%A2%E5%BC%95.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E7%B4%A2%E5%BC%95%E4%BF%A1%E6%81%AF.png">
 <meta property="article:published_time" content="2020-05-02T15:51:13.000Z">
-<meta property="article:modified_time" content="2020-06-14T04:12:13.456Z">
+<meta property="article:modified_time" content="2020-06-15T08:47:41.447Z">
 <meta property="article:author" content="Hello">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92.png">
@@ -148,7 +148,7 @@
       
         <time datetime="2020-05-02T15:51:13.000Z" itemprop="datePublished">2020-05-02</time>
         
-        (Updated: <time datetime="2020-06-14T04:12:13.456Z" itemprop="dateModified">2020-06-14</time>)
+        (Updated: <time datetime="2020-06-15T08:47:41.447Z" itemprop="dateModified">2020-06-15</time>)
         
       
     </div>
@@ -246,7 +246,7 @@
 <li>空间索引：空间索引是对空间数据类型的字段建立的索引，MySQL中的空间数据类型有四种，GEOMETRY、POINT、LINESTRING、POLYGON。在创建空间索引时，使用SPATIAL关键字。要求，引擎为MyISAM，创建空间索引的列，必须将其声明为NOT NULL。</li>
 </ol>
 <h2 id="执行计划"><a href="#执行计划" class="headerlink" title="执行计划"></a>执行计划</h2><p>使用<code>explain</code>语句去查看分析结果 </p>
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/执行计划.png" width="720px"/>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/执行计划.png" width="880px"/>
 
 <p>各字段含义</p>
 <ul>
@@ -272,7 +272,7 @@
 <p>用<code>EXPLAIN</code>关键字，来查看索引是否正在被使用，并且输出其使用的索引信息</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM book WHERE author &#x3D; &#39;罗贯中&#39;;</span><br></pre></td></tr></table></figure>
 
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/普通索引.png" width="720px"/>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/普通索引.png" width="880px"/>
 
 <p><strong>2、创建唯一索引</strong></p>
 <p>创建唯一索引</p>
@@ -282,7 +282,7 @@
 
 <p>查看索引使用信息</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM tab1 WHERE id &#x3D; 1;</span><br></pre></td></tr></table></figure>
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/唯一索引.png" width="720px"/>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/唯一索引.png" width="880px"/>
 
 <p><strong>3、创建主键索引</strong></p>
 <p>创建主键索引</p>
@@ -293,7 +293,7 @@
 
 <p>查看索引使用信息</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM tab2 WHERE id &#x3D; 1;</span><br></pre></td></tr></table></figure>
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/主键索引.png" width="720px"/>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/主键索引.png" width="880px"/>
 
 <p><strong>4、创建组合索引</strong></p>
 <p>创建组合索引</p>
@@ -303,10 +303,10 @@
 
 <p>查看索引使用信息</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM tab3 WHERE id &#x3D; 1 AND name &#x3D; &#39;nana&#39;;</span><br></pre></td></tr></table></figure>
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/组合索引1.png" width="720px"/>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/组合索引1.png" width="880px"/>
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM tab3 WHERE age &#x3D; 3 AND name &#x3D; &#39;nana&#39;;</span><br></pre></td></tr></table></figure>
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/组合索引2.png" width="720px"/>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/组合索引2.png" width="880px"/>
 
 <p><strong>最左前缀</strong>：组合索引遵从了最左前缀，利用索引中最左边的列集来匹配行，这样的列集称为最左前缀。例如，这里由id、name和age3个字段构成的索引，索引行中就按id/name/age的顺序存放，索引组合中的字段可以是(id，name，age)、(id，name)或者(id)。如果要查询的字段不构成最左面的前缀原则，那么就不会用索引，比如，age或者（name，age）组合就不会使用索引查询。</p>
 <p><strong>5、创建全文索引</strong></p>
@@ -318,7 +318,7 @@
 
 <p>查看索引使用信息</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM tab4 WHERE MATCH(info) AGAINST(&#39;white&#39;);</span><br></pre></td></tr></table></figure>
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/全文索引.png" width="720px"/>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/全文索引.png" width="880px"/>
 
 <p><strong>6、创建空间索引</strong></p>
 <p>创建空间索引</p>
@@ -349,7 +349,7 @@
 
 <h3 id="查看所引"><a href="#查看所引" class="headerlink" title="查看所引"></a>查看所引</h3><p>查看表的索引</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW INDEX FROM book;</span><br></pre></td></tr></table></figure>
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/索引信息.png" width="720px"/>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/索引信息.png" width="880px"/>
 
 <p>各个字段含义</p>
 <ul>
