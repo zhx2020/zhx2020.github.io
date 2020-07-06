@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="互联网软件架构演变过程传统架构SSH架构或者SSM架构，属于单点应用，把整个业务模块都会在一个项目进行开发，分为MVC架构，会拆分为控制层（controller）、业务逻辑层（service）、数据库访问层（dao）。 分布式架构基于传统架构演变过来，将传统的项目以项目模块进行拆分成n多个子项目，比如拆分成会员项目、订单项目、支付项目。 SOA架构基于分布式架构演变过来，面向服务架构，俗称服务化，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringCloud学习">
+<meta property="og:url" content="https://zhx2020.github.io/2020/07/06/SpringCloud%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="ZHX2020">
+<meta property="og:description" content="互联网软件架构演变过程传统架构SSH架构或者SSM架构，属于单点应用，把整个业务模块都会在一个项目进行开发，分为MVC架构，会拆分为控制层（controller）、业务逻辑层（service）、数据库访问层（dao）。 分布式架构基于传统架构演变过来，将传统的项目以项目模块进行拆分成n多个子项目，比如拆分成会员项目、订单项目、支付项目。 SOA架构基于分布式架构演变过来，面向服务架构，俗称服务化，">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-06T01:26:12.000Z">
+<meta property="article:modified_time" content="2020-07-06T01:27:42.318Z">
+<meta property="article:author" content="Echo">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>SpringCloud学习</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2020/07/06/SpringBoot%E5%AD%A6%E4%B9%A0/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://zhx2020.github.io/2020/07/06/SpringCloud%E5%AD%A6%E4%B9%A0/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://zhx2020.github.io/2020/07/06/SpringCloud%E5%AD%A6%E4%B9%A0/&text=SpringCloud学习" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://zhx2020.github.io/2020/07/06/SpringCloud%E5%AD%A6%E4%B9%A0/&title=SpringCloud学习" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zhx2020.github.io/2020/07/06/SpringCloud%E5%AD%A6%E4%B9%A0/&is_video=false&description=SpringCloud学习" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=SpringCloud学习&body=Check out this article: https://zhx2020.github.io/2020/07/06/SpringCloud%E5%AD%A6%E4%B9%A0/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://zhx2020.github.io/2020/07/06/SpringCloud%E5%AD%A6%E4%B9%A0/&title=SpringCloud学习" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://zhx2020.github.io/2020/07/06/SpringCloud%E5%AD%A6%E4%B9%A0/&title=SpringCloud学习" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://zhx2020.github.io/2020/07/06/SpringCloud%E5%AD%A6%E4%B9%A0/&title=SpringCloud学习" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://zhx2020.github.io/2020/07/06/SpringCloud%E5%AD%A6%E4%B9%A0/&title=SpringCloud学习" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://zhx2020.github.io/2020/07/06/SpringCloud%E5%AD%A6%E4%B9%A0/&name=SpringCloud学习&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://zhx2020.github.io/2020/07/06/SpringCloud%E5%AD%A6%E4%B9%A0/&t=SpringCloud学习" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#互联网软件架构演变过程"><span class="toc-number">1.</span> <span class="toc-text">互联网软件架构演变过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#传统架构"><span class="toc-number">1.1.</span> <span class="toc-text">传统架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分布式架构"><span class="toc-number">1.2.</span> <span class="toc-text">分布式架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SOA架构"><span class="toc-number">1.3.</span> <span class="toc-text">SOA架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#微服务架构"><span class="toc-number">1.4.</span> <span class="toc-text">微服务架构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringCloud简介"><span class="toc-number">2.</span> <span class="toc-text">SpringCloud简介</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        SpringCloud学习
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ZHX2020</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-07-06T01:26:12.000Z" itemprop="datePublished">2020-07-06</time>
+        
+        (Updated: <time datetime="2020-07-06T01:27:42.318Z" itemprop="dateModified">2020-07-06</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E6%A1%86%E6%9E%B6/">框架</a>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="互联网软件架构演变过程"><a href="#互联网软件架构演变过程" class="headerlink" title="互联网软件架构演变过程"></a>互联网软件架构演变过程</h2><h3 id="传统架构"><a href="#传统架构" class="headerlink" title="传统架构"></a>传统架构</h3><p>SSH架构或者SSM架构，属于单点应用，把整个业务模块都会在一个项目进行开发，分为MVC架构，会拆分为控制层（controller）、业务逻辑层（service）、数据库访问层（dao）。</p>
+<h3 id="分布式架构"><a href="#分布式架构" class="headerlink" title="分布式架构"></a>分布式架构</h3><p>基于传统架构演变过来，将传统的项目以项目模块进行拆分成n多个子项目，比如拆分成会员项目、订单项目、支付项目。</p>
+<h3 id="SOA架构"><a href="#SOA架构" class="headerlink" title="SOA架构"></a>SOA架构</h3><p>基于分布式架构演变过来，面向服务架构，俗称服务化，可以理解为面向于业务逻辑层。将共同的业务代码抽取出来，提供给其它接口进行调用。服务与服务之间通信采用rpc远程调用技术。</p>
+<h3 id="微服务架构"><a href="#微服务架构" class="headerlink" title="微服务架构"></a>微服务架构</h3><p>基于SOA架构演变过来，比SOA架构粒度上更加精细。目的是为了提高效率。每个服务与服务之间互不影响，每个服务必须独立部署，微服务架构更加体现轻量级，采用resuful风格提供API，也就是Http协议+JSON格式，更加轻巧，更加适合于互联网敏捷开发，快速迭代产品。</p>
+<p><strong>服务概念</strong>：将共同的业务逻辑进行拆分，拆封成独立的一个项目进行部署，没有视图层。服务概念理解为接口。</p>
+<p><strong>RPC远程调用技术框架</strong>：httpclient，springboot，dubbo，grpc。核心底层socket技术或者netty框架。</p>
+<h2 id="SpringCloud简介"><a href="#SpringCloud简介" class="headerlink" title="SpringCloud简介"></a>SpringCloud简介</h2><p>SpringCloud是基于SpringBoot基础之上开发的微服务框架，SpringCloud是一套目前非常完整的微服务解决方案框架，其内容包含服务治理、注册中心、配置管理、断路器、只能路由、微代理、控制总线、全局锁、分布式会话等。</p>
+<p>SpringCloud包含众多的子项目</p>
+<p>SpringCloud config分布式配置中心<br>SpringCloud netflix核心组件</p>
+<ul>
+<li>Eureka：服务治理、注册中心</li>
+<li>Hystrix：服务保护框架</li>
+<li>Ribbon：客户端负载均衡器</li>
+<li>Feign：基于Ribbon和Hystrix的声明式服务调用组件</li>
+<li>Zuul：网关组件，提供智能路由、访问过滤等功能</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#互联网软件架构演变过程"><span class="toc-number">1.</span> <span class="toc-text">互联网软件架构演变过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#传统架构"><span class="toc-number">1.1.</span> <span class="toc-text">传统架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分布式架构"><span class="toc-number">1.2.</span> <span class="toc-text">分布式架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SOA架构"><span class="toc-number">1.3.</span> <span class="toc-text">SOA架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#微服务架构"><span class="toc-number">1.4.</span> <span class="toc-text">微服务架构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringCloud简介"><span class="toc-number">2.</span> <span class="toc-text">SpringCloud简介</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://zhx2020.github.io/2020/07/06/SpringCloud%E5%AD%A6%E4%B9%A0/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://zhx2020.github.io/2020/07/06/SpringCloud%E5%AD%A6%E4%B9%A0/&text=SpringCloud学习" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://zhx2020.github.io/2020/07/06/SpringCloud%E5%AD%A6%E4%B9%A0/&title=SpringCloud学习" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zhx2020.github.io/2020/07/06/SpringCloud%E5%AD%A6%E4%B9%A0/&is_video=false&description=SpringCloud学习" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=SpringCloud学习&body=Check out this article: https://zhx2020.github.io/2020/07/06/SpringCloud%E5%AD%A6%E4%B9%A0/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://zhx2020.github.io/2020/07/06/SpringCloud%E5%AD%A6%E4%B9%A0/&title=SpringCloud学习" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://zhx2020.github.io/2020/07/06/SpringCloud%E5%AD%A6%E4%B9%A0/&title=SpringCloud学习" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://zhx2020.github.io/2020/07/06/SpringCloud%E5%AD%A6%E4%B9%A0/&title=SpringCloud学习" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://zhx2020.github.io/2020/07/06/SpringCloud%E5%AD%A6%E4%B9%A0/&title=SpringCloud学习" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://zhx2020.github.io/2020/07/06/SpringCloud%E5%AD%A6%E4%B9%A0/&name=SpringCloud学习&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://zhx2020.github.io/2020/07/06/SpringCloud%E5%AD%A6%E4%B9%A0/&t=SpringCloud学习" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2020
+    Echo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

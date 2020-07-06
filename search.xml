@@ -4,11 +4,68 @@
   
     
     <entry>
+      <title>SpringCloud学习</title>
+      <link href="/2020/07/06/SpringCloud%E5%AD%A6%E4%B9%A0/"/>
+      <url>/2020/07/06/SpringCloud%E5%AD%A6%E4%B9%A0/</url>
+      
+        <content type="html"><![CDATA[<h2 id="互联网软件架构演变过程"><a href="#互联网软件架构演变过程" class="headerlink" title="互联网软件架构演变过程"></a>互联网软件架构演变过程</h2><h3 id="传统架构"><a href="#传统架构" class="headerlink" title="传统架构"></a>传统架构</h3><p>SSH架构或者SSM架构，属于单点应用，把整个业务模块都会在一个项目进行开发，分为MVC架构，会拆分为控制层（controller）、业务逻辑层（service）、数据库访问层（dao）。</p><h3 id="分布式架构"><a href="#分布式架构" class="headerlink" title="分布式架构"></a>分布式架构</h3><p>基于传统架构演变过来，将传统的项目以项目模块进行拆分成n多个子项目，比如拆分成会员项目、订单项目、支付项目。</p><h3 id="SOA架构"><a href="#SOA架构" class="headerlink" title="SOA架构"></a>SOA架构</h3><p>基于分布式架构演变过来，面向服务架构，俗称服务化，可以理解为面向于业务逻辑层。将共同的业务代码抽取出来，提供给其它接口进行调用。服务与服务之间通信采用rpc远程调用技术。</p><h3 id="微服务架构"><a href="#微服务架构" class="headerlink" title="微服务架构"></a>微服务架构</h3><p>基于SOA架构演变过来，比SOA架构粒度上更加精细。目的是为了提高效率。每个服务与服务之间互不影响，每个服务必须独立部署，微服务架构更加体现轻量级，采用resuful风格提供API，也就是Http协议+JSON格式，更加轻巧，更加适合于互联网敏捷开发，快速迭代产品。</p><p><strong>服务概念</strong>：将共同的业务逻辑进行拆分，拆封成独立的一个项目进行部署，没有视图层。服务概念理解为接口。</p><p><strong>RPC远程调用技术框架</strong>：httpclient，springboot，dubbo，grpc。核心底层socket技术或者netty框架。</p><h2 id="SpringCloud简介"><a href="#SpringCloud简介" class="headerlink" title="SpringCloud简介"></a>SpringCloud简介</h2><p>SpringCloud是基于SpringBoot基础之上开发的微服务框架，SpringCloud是一套目前非常完整的微服务解决方案框架，其内容包含服务治理、注册中心、配置管理、断路器、只能路由、微代理、控制总线、全局锁、分布式会话等。</p><p>SpringCloud包含众多的子项目</p><p>SpringCloud config分布式配置中心<br>SpringCloud netflix核心组件</p><ul><li>Eureka：服务治理、注册中心</li><li>Hystrix：服务保护框架</li><li>Ribbon：客户端负载均衡器</li><li>Feign：基于Ribbon和Hystrix的声明式服务调用组件</li><li>Zuul：网关组件，提供智能路由、访问过滤等功能</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 框架 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>SpringBoot学习</title>
+      <link href="/2020/07/06/SpringBoot%E5%AD%A6%E4%B9%A0/"/>
+      <url>/2020/07/06/SpringBoot%E5%AD%A6%E4%B9%A0/</url>
+      
+        <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>敏捷开发（整合框架）<br>无需Tomcat（java应用程序运行，实际jar包），内置Tomcat<br>减少xml配置（没有xml），配置文件properties<br>SpringCloud+SpringBoot<br>注解</p><p>@SpringBootApplication：启动项目，整合常用注解，只能在当前同级包下扫包。</p><p>分布式事务解决方案：jta + atomikos</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 框架 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>vivo面经</title>
+      <link href="/2020/06/27/vivo%E9%9D%A2%E7%BB%8F/"/>
+      <url>/2020/06/27/vivo%E9%9D%A2%E7%BB%8F/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> 面经合集 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>校招投递</title>
       <link href="/2020/06/16/%E6%A0%A1%E6%8B%9B%E6%8A%95%E9%80%92/"/>
       <url>/2020/06/16/%E6%A0%A1%E6%8B%9B%E6%8A%95%E9%80%92/</url>
       
-        <content type="html"><![CDATA[<h2 id="2021届秋季提前批"><a href="#2021届秋季提前批" class="headerlink" title="2021届秋季提前批"></a>2021届秋季提前批</h2><p>后端开发工程师-抖音短视频（字节跳动）2020.06.16</p><p>Java开发实习生（快手）2020.06.17</p><p>Java开发工程师-深圳（SHEIN）2020.06.21</p><p>Java开发工程师（京东）2020.06.23</p><p>Java后台开发工程师（虎牙）2020.06.23</p><p>深圳-Java工程师（亿联网络 ）2020.06.25</p>]]></content>
+        <content type="html"><![CDATA[<h2 id="2021届秋季提前批"><a href="#2021届秋季提前批" class="headerlink" title="2021届秋季提前批"></a>2021届秋季提前批</h2><p>后端开发工程师-抖音短视频（字节跳动）2020.06.16</p><p>Java开发实习生（快手）2020.06.17</p><p>Java开发工程师-深圳（SHEIN）2020.06.21</p><p>Java开发工程师（京东）2020.06.23</p><p>Java后台开发工程师（虎牙）2020.06.23</p><p>深圳-Java工程师（亿联网络 ）2020.06.25</p><p>Java开发工程师-校招（好未来）2020.06.26</p><p>2021校招-后台开发实习生（猫眼娱乐）2020.07.06</p><p>2021校招-后端研发工程师（作业帮）2020.07.06</p><p>后端开发工程师（触宝）2020.07.06</p><p>校招提前批-Java开发工程师（好未来）2020.07.06</p><p>校园Java开发工程师（SP）（用友）2020.07.06</p>]]></content>
       
       
       <categories>
@@ -980,7 +1037,7 @@
       <link href="/2020/05/09/%E7%AE%80%E5%8E%86/"/>
       <url>/2020/05/09/%E7%AE%80%E5%8E%86/</url>
       
-        <content type="html"><![CDATA[<h2 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h2><ul><li>姓名：周文龙</li><li>手机：17343698034</li><li>邮箱：<a href="mailto:132834557@qq.com">132834557@qq.com</a></li><li>籍贯：湖南省娄底市</li><li>GitHub：<a href="https://github.com/zhx2020" target="_blank" rel="noopener">https://github.com/zhx2020</a></li><li>个人博客：<a href="https://zhx2020.github.io">https://zhx2020.github.io</a></li></ul><h2 id="教育经历"><a href="#教育经历" class="headerlink" title="教育经历"></a>教育经历</h2><ul><li>学历：本科</li><li>学校：吉首大学</li><li>专业：软件工程</li><li>在校时间：2017.09 - 2021.06</li></ul><h2 id="校内经历"><a href="#校内经历" class="headerlink" title="校内经历"></a>校内经历</h2><ul><li>加入创新创业实验室<ol><li>负责低年级的C语言入门，指导新生刷题和学习。</li><li>组织了菜鸟杯和新星杯的C语言编程比赛。</li><li>对加入实验室的低年级成员进行辅导。</li></ol></li><li>加入羽毛球协会<ol><li>和其它成员一起编写策划书。</li><li>组织过一次校内的羽毛球比赛。</li></ol></li></ul><h2 id="项目经历"><a href="#项目经历" class="headerlink" title="项目经历"></a>项目经历</h2><ul><li><p>网上商城</p><ol><li>采用前后端分离模式，后端使用 SSM ，前端使用 Bootstrap 和 Vue。项目中通过 Redis 缓存轮播图，ElasticSearch 进行商品的查找，使用 ActiveMQ 发送短信，付款调用支付宝沙箱接口模拟支付。</li><li>用户能够完成基本的网上购物，商家可以对商品和订单进行管理，管理员能够对用户和商家进行统一管理。</li><li>SSM 项目相比于传统的 JavaBean + JSP + Servlet 项目，不需要创建许多 Servlet 以及编写数据库 JDBC 的代码，首次配置可能会有点麻烦。Spring 框架的核心是控制反转和面向切面编程，它提供了对对象的可靠的管理，方便我们项目的开发。</li></ol></li><li><p>个人博客</p><ol><li>采用前后端分离的架构，使用 SpringBoot 和基础前端完成，通过媒体查询实现移动端的响应式布局。项目在线预览：<a href="http://zwln.com.cn/。" target="_blank" rel="noopener">http://zwln.com.cn/。</a></li><li>用户可以浏览博客文章并进行评论，管理员可以对文章、用户等内容进行管理。</li><li>SpringBoot 框架的原理是启动器和自动配置，在内部集成了很多其它框架，并且做好了默认配置，比如和 Mybatis、SpringMVC、Redis 的整合。使我们可以很方便的开发、部署项目。在项目中使用 SpringDataJPA 和 Mysql 能够快速地完成增删查改。</li></ol></li></ul><h2 id="获奖情况"><a href="#获奖情况" class="headerlink" title="获奖情况"></a>获奖情况</h2><ul><li>软件设计师中级</li><li>第十届蓝桥杯软件类省赛三等奖</li><li>普通话二乙</li><li>大学英语四级</li></ul><h2 id="个人技能"><a href="#个人技能" class="headerlink" title="个人技能"></a>个人技能</h2><ul><li>熟练掌握 Java 和后端框架 Spring、SpringMVC、MyBatis。</li><li>熟悉 Html、Css、JavaScript、jQuery 等前端的基础知识。</li><li>掌握前后端分离的架构，能够完成前端对后端接口的调用。</li><li>了解 RPC 远程过程调用原理和 Dubbo 分布式框架的使用。</li><li>熟悉常用的数据结构与算法、设计模式和网络通信原理。</li><li>理解 Java 多线程并发、JVM 虚拟机和 Java 容器等知识。</li><li>了解数据库的优化步骤， MySQL 索引的实现原理和调优方法。</li><li>熟练掌握基础的 Linux 命令以及 Git 和 Docker 工具的使用。</li></ul><h2 id="自我评价"><a href="#自我评价" class="headerlink" title="自我评价"></a>自我评价</h2><ul><li>热爱编程，喜欢钻研新的技术，喜欢接受各种不同的挑战。</li><li>对待工作认真负责，勇于挑战和创新，能够承担一定的工作压力。</li><li>具有良好的团队合作精神和适应能力，工作积极上进。</li></ul>]]></content>
+        <content type="html"><![CDATA[<h2 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h2><ul><li>姓名：周文龙</li><li>手机：17343698034</li><li>邮箱：<a href="mailto:132834557@qq.com">132834557@qq.com</a></li><li>籍贯：湖南省娄底市</li><li>GitHub：<a href="https://github.com/zhx2020" target="_blank" rel="noopener">https://github.com/zhx2020</a></li><li>个人博客：<a href="https://zhx2020.github.io">https://zhx2020.github.io</a></li></ul><h2 id="教育经历"><a href="#教育经历" class="headerlink" title="教育经历"></a>教育经历</h2><ul><li>学历：本科</li><li>学校：吉首大学</li><li>专业：软件工程</li><li>在校时间：2017.09 - 2021.06</li></ul><h2 id="校内经历"><a href="#校内经历" class="headerlink" title="校内经历"></a>校内经历</h2><ul><li>加入创新创业实验室<ol><li>负责低年级的C语言入门，指导新生刷题和学习。</li><li>组织了菜鸟杯和新星杯的C语言编程比赛。</li><li>对加入实验室的低年级成员进行辅导。</li></ol></li><li>加入羽毛球协会<ol><li>和其它成员一起编写策划书。</li><li>组织过一次校内的羽毛球比赛。</li></ol></li></ul><h2 id="项目经历"><a href="#项目经历" class="headerlink" title="项目经历"></a>项目经历</h2><ul><li><p>网上商城</p><ol><li>采用前后端分离模式，后端使用 SSM ，前端使用 Bootstrap 和 Vue。项目中通过 Redis 缓存轮播图，ElasticSearch 进行商品的查找，使用 ActiveMQ 发送短信，付款调用支付宝沙箱接口模拟支付。</li><li>用户能够完成基本的网上购物，商家可以对商品和订单进行管理，管理员能够对用户和商家进行统一管理。</li><li>SSM 项目相比于传统的 JavaBean + JSP + Servlet 项目，不需要创建许多 Servlet 以及编写数据库 JDBC 的代码，首次配置可能会有点麻烦。Spring 框架的核心是控制反转和面向切面编程，它提供了对对象的可靠的管理，方便我们项目的开发。</li></ol></li><li><p>个人博客</p><ol><li>采用前后端分离的架构，使用 SpringBoot 和基础前端完成，通过媒体查询实现移动端的响应式布局。项目在线预览：<a href="http://zwln.com.cn/。" target="_blank" rel="noopener">http://zwln.com.cn/。</a></li><li>用户可以浏览博客文章并进行评论，管理员可以对文章、用户等内容进行管理。</li><li>SpringBoot 框架的原理是启动器和自动配置，在内部集成了很多其它框架，并且做好了默认配置，比如和 Mybatis、SpringMVC、Redis 的整合。使我们可以很方便的开发、部署项目。在项目中使用 SpringDataJPA 和 Mysql 能够快速地完成增删查改。</li></ol></li></ul><h2 id="获奖情况"><a href="#获奖情况" class="headerlink" title="获奖情况"></a>获奖情况</h2><ul><li>软件设计师中级</li><li>第十届蓝桥杯软件类省赛三等奖</li><li>普通话二乙</li><li>大学英语四级</li></ul><h2 id="个人技能"><a href="#个人技能" class="headerlink" title="个人技能"></a>个人技能</h2><ul><li>熟练掌握 Java 和后端框架 Spring、SpringMVC、MyBatis。</li><li>掌握 SpringBoot 框架和 SpringCloud 微服务框架。</li><li>熟悉 Html、Css、JavaScript、jQuery 等前端的基础知识。</li><li>掌握前后端分离的架构，能够完成前端对后端接口的调用。</li><li>了解 RPC 远程过程调用原理和 Dubbo 分布式框架的使用。</li><li>熟悉常用的数据结构与算法、设计模式和网络通信原理。</li><li>理解 Java 多线程并发、JVM 虚拟机和 Java 容器等知识。</li><li>了解数据库的优化步骤， MySQL 索引的实现原理和调优方法。</li><li>熟练掌握基础的 Linux 命令以及 Git 和 Docker 工具的使用。</li></ul><h2 id="自我评价"><a href="#自我评价" class="headerlink" title="自我评价"></a>自我评价</h2><ul><li>热爱编程，喜欢钻研新的技术，喜欢接受各种不同的挑战。</li><li>对待工作认真负责，勇于挑战和创新，能够承担一定的工作压力。</li><li>具有良好的团队合作精神和适应能力，工作积极上进。</li></ul>]]></content>
       
       
       
