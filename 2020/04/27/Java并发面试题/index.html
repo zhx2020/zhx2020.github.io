@@ -14,7 +14,7 @@
 <meta property="og:description" content="创建一个线程的方式有哪几种  继承Thread类 实现Runnable接口  sleep()会让线程进入什么状态  sleep()方法的作用是让当前线程暂停指定的时间，只是暂时让出CPU的执行权，并不会释放锁。会让线程进入阻塞状态。  线程池相关参数介绍，原理说明  参数介绍 int corePoolSize：线程池的核心线程数量 int maximumPoolSize：线程池的最大线程数 lon">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-04-27T01:24:09.000Z">
-<meta property="article:modified_time" content="2020-05-31T10:22:01.871Z">
+<meta property="article:modified_time" content="2020-07-06T07:34:08.011Z">
 <meta property="article:author" content="Echo">
 <meta name="twitter:card" content="summary">
     
@@ -139,7 +139,7 @@
       
         <time datetime="2020-04-27T01:24:09.000Z" itemprop="datePublished">2020-04-27</time>
         
-        (Updated: <time datetime="2020-05-31T10:22:01.871Z" itemprop="dateModified">2020-05-31</time>)
+        (Updated: <time datetime="2020-07-06T07:34:08.011Z" itemprop="dateModified">2020-07-06</time>)
         
       
     </div>
@@ -246,6 +246,12 @@
 <p><strong>Unsafe类介绍</strong></p>
 <ul>
 <li>Unsafe在sun.misc下，顾名思义，这是一个不安全的类，因为Unsafe类所操作的并不属于Java标准，Java的一系列内存操作都是交给jvm的，而Unsafe类却能有像C语言的指针一样直接操作内存的能力，同时也会带来了指针的问题。过度使用Unsafe类的话，会使出错率变得更大，因此官方才命名为Unsafe，并且不建议使用，连注释的没有。而为了安全使用Unsafe，Unsafe类只允许jdk自带的类使用。</li>
+</ul>
+<p><strong>什么是Java内存模型（共享内存模型）</strong></p>
+<ul>
+<li>JMM决定一个线程对共享变量的写入何时对另一个线程可见。</li>
+<li>从抽象的角度来看，JMM定义了线程和主内存之间的抽象关系：线程之间的共享变量存储在主内存中，每个线程都有一个私有的本地内存，本地内存中存储了该线程以读/写共享变量的副本。</li>
+<li>线程A与线程B之间通信：线程A把本地内存A中更新过的共享变量刷新到主内存中去，线程B到主内存中去读取线程A之前已更新过的共享变量。</li>
 </ul>
 
   </div>
