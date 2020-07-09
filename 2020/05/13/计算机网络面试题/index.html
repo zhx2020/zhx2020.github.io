@@ -14,7 +14,7 @@
 <meta property="og:description" content="什么是HTTP协议  HTTP是基于TCP&#x2F;IP协议的应用层协议。它不涉及数据包传输，主要规定了客户端和服务器之间的通信格式，默认使用80端口。  http协议版本  HTTP&#x2F;0.9 1991年发布，只有一个命令GET 服务器只能回应HTML格式的字符串，不能回应别的格式   HTTP&#x2F;1.0 1996年5月发布，增加POST和HEAD命令 任何格式的内容都可以发送 每次通信都必须包括头信息，用">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-13T02:05:15.000Z">
-<meta property="article:modified_time" content="2020-05-29T04:51:26.887Z">
+<meta property="article:modified_time" content="2020-07-09T13:41:29.027Z">
 <meta property="article:author" content="Echo">
 <meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary">
@@ -140,7 +140,7 @@
       
         <time datetime="2020-05-13T02:05:15.000Z" itemprop="datePublished">2020-05-13</time>
         
-        (Updated: <time datetime="2020-05-29T04:51:26.887Z" itemprop="dateModified">2020-05-29</time>)
+        (Updated: <time datetime="2020-07-09T13:41:29.027Z" itemprop="dateModified">2020-07-09</time>)
         
       
     </div>
@@ -214,10 +214,22 @@
 <li>500 Internal Server Error：服务器发生不可预期的错误</li>
 <li>503 Server Unavailable：服务器当前不能处理客户端的请求，一段时间后可能恢复正常</li>
 </ul>
-<p><strong>TCP三次握手</strong></p>
+<p><strong>什么是HTTPS</strong></p>
+<p>HTTPS是在HTTP上建立SSL加密层，并对传输数据进行加密，是HTTP协议的安全版。</p>
+<p><strong>HTTPS主要作用是</strong></p>
 <ul>
-<li></li>
+<li>对数据进行加密，并建立一个信息安全通道，来保证传输过程中的数据安全。</li>
+<li>对网站服务器进行真实身份认证。</li>
 </ul>
+<p><strong>HTTPS建立连接过程</strong></p>
+<ol>
+<li>客户端向服务端发起https请求。</li>
+<li>服务端返回证书给客户端。</li>
+<li>客户端验证证书真伪，通过CA机构公钥解密出服务端的公钥key1。</li>
+<li>客户端生成密钥key2，并用服务端公钥key1加密Key2，发送给服务端。</li>
+<li>服务端用私钥进行解密，得到密钥key2。</li>
+<li>客户端和服务端用对称加密密钥Key2进行通信。</li>
+</ol>
 
   </div>
 </article>
