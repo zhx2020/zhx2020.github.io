@@ -8,7 +8,7 @@
       <link href="/2020/07/11/%E6%A0%A1%E6%8B%9B%E7%AC%94%E8%AF%95%E9%A2%98/"/>
       <url>/2020/07/11/%E6%A0%A1%E6%8B%9B%E7%AC%94%E8%AF%95%E9%A2%98/</url>
       
-        <content type="html"><![CDATA[<p>a,b,c,d,e 对应出现的频率为4，6，11，13，15；以下符合哈夫曼编码的选项是？（B）</p><p>A.a=000、b=01、c=001、d=10、e=11<br>B.a=000、b=001、c=01、d=10、e=11<br>C.a=010、b=001、c=01、d=11、e=10<br>D.a=000、b=10、c=001、d=11、e=01</p><p>二叉树的三种遍历方式</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">   &#x2F; \</span><br><span class="line">  E  C</span><br><span class="line"> &#x2F; \ &#x2F; \</span><br><span class="line">D  A H  S</span><br></pre></td></tr></table></figure><ol><li>先序遍历：GEDACHS；</li><li>中序遍历：DEAGHCS；</li><li>后序遍历：DAEHSCG。</li></ol>]]></content>
+        <content type="html"><![CDATA[<p>a,b,c,d,e 对应出现的频率为4，6，11，13，15；以下符合哈夫曼编码的选项是？（B）</p><p>A.a=000、b=01、c=001、d=10、e=11<br>B.a=000、b=001、c=01、d=10、e=11<br>C.a=010、b=001、c=01、d=11、e=10<br>D.a=000、b=10、c=001、d=11、e=01</p><p>二叉树的三种遍历方式</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    G</span><br><span class="line">   &#x2F; \</span><br><span class="line">  E   C</span><br><span class="line"> &#x2F; \ &#x2F; \</span><br><span class="line">D  A H  S</span><br></pre></td></tr></table></figure><ol><li>先序遍历：GEDACHS；</li><li>中序遍历：DEAGHCS；</li><li>后序遍历：DAEHSCG。</li></ol>]]></content>
       
       
       
