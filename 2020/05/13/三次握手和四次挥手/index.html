@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E8%BF%87%E7%A8%8B.jpg">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B.jpg">
 <meta property="article:published_time" content="2020-05-13T05:50:51.000Z">
-<meta property="article:modified_time" content="2020-06-11T08:44:35.328Z">
+<meta property="article:modified_time" content="2020-07-13T05:13:31.767Z">
 <meta property="article:author" content="Echo">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/TCP%E6%8A%A5%E6%96%87%E6%A0%BC%E5%BC%8F.png">
@@ -145,7 +145,7 @@
       
         <time datetime="2020-05-13T05:50:51.000Z" itemprop="datePublished">2020-05-13</time>
         
-        (Updated: <time datetime="2020-06-11T08:44:35.328Z" itemprop="dateModified">2020-06-11</time>)
+        (Updated: <time datetime="2020-07-13T05:13:31.767Z" itemprop="dateModified">2020-07-13</time>)
         
       
     </div>
@@ -165,7 +165,7 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h2 id="TCP报文格式"><a href="#TCP报文格式" class="headerlink" title="TCP报文格式"></a>TCP报文格式</h2><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/TCP报文格式.png" width="480px"/>
+    <h2 id="TCP报文格式"><a href="#TCP报文格式" class="headerlink" title="TCP报文格式"></a>TCP报文格式</h2><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/TCP报文格式.png" width="400px"/>
 
 <p>1、TCP报头中的源端口号和目的端口号同IP数据报中的源IP与目的IP唯一确定一条TCP连接。TCP在发送数据前必须在彼此间建立连接，这里连接意思是：双方需要保存对方信息（例如：IP，Port）。</p>
 <p>2、报文主要段的意思</p>
@@ -182,25 +182,25 @@
 </li>
 </ul>
 <h2 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h2><p><strong>三次握手过程</strong></p>
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/三次握手过程.jpg" width="640px"/>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/三次握手过程.jpg" width="560px"/>
 
 <p>第一次：客户端发送初始序号 <code>seq=x</code> 和 <code>SYN=1</code> 请求标志，客户端进入 <code>SYN_SENT</code> 状态(同步已发送)</p>
 <p>第二次：服务器发送请求标志 <code>SYN=1</code> ，发送确认标志 <code>ACK=1</code> ，发送自己的序号 <code>seq=y</code> ，发送客户端的确认序号 <code>ack=x+1</code>，服务器进入 <code>SYN_RECV</code> 状态(同步收到)</p>
 <p>第三次：客户端发送 <code>ACK=1</code> 确认号，发送自己的序号 <code>seq=x+1</code> ，发送对方的确认号 <code>ack=y+1</code>，客户端和服务器进入 <code>ESTABLISHED</code> 状态(已建立连接)</p>
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/三次握手.jpg" width="640px"/>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/三次握手.jpg" width="560px"/>
 
 <p><strong>三次握手过程分析</strong></p>
 <p>第一次：客户端发送请求到服务器，服务器知道客户端发送正常，自己接收正常。<code>SYN=1</code> , <code>seq=x</code> 。</p>
 <p>第二次：服务器发给客户端，客户端知道自己发送、接收正常，服务器接收、发送正常。<code>ACK=1</code> , <code>ack=x+1</code> , <code>SYN=1</code> , <code>seq=y</code> 。</p>
 <p>第三次：客户端发给服务器：服务器知道客户端发送、接收正常，自己接收、发送也正常。<code>seq=x+1</code> , <code>ACK=1</code> , <code>ack=y+1</code> 。</p>
 <h2 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h2><p><strong>四次挥手过程</strong></p>
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/四次挥手过程.jpg" width="640px"/>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/四次挥手过程.jpg" width="560px"/>
 
 <p>第一次挥手：客户端发出释放 <code>FIN=1</code> ，自己序列号 <code>seq=u</code> ，进入 <code>FIN-WAIT-1</code> 状态(终止等待1)</p>
 <p>第二次挥手：服务器收到客户端的回复后，发出 <code>ACK=1</code> 确认标志和客户端的确认号 <code>ack=u+1</code> ，自己的序列号 <code>seq=v</code> ，进入 <code>CLOSE-WAIT</code> 状态(关闭等待)</p>
 <p>第三次挥手：客户端收到服务器确认结果后，进入 <code>FIN-WAIT-2</code> 状态(终止等待2)。此时服务器发送释放 <code>FIN=1</code> 信号，确认标志 <code>ACK=1</code> ，确认序号 <code>ack=u+1</code> ，自己序号 <code>seq=w</code> ，服务器进入 <code>LAST-ACK</code> 状态(最后确认)</p>
 <p>第四次挥手：客户端收到回复后，发送确认 <code>ACK=1</code> ，<code>ack=w+1</code> ，自己的 <code>seq=u+1</code> ，客户端进入 <code>TIME-WAIT</code> 状态(时间等待)。客户端经过2个最长报文段寿命后，客户端进去 <code>CLOSE</code> 状态(关闭) ；服务器收到确认后，立刻进入 <code>CLOSE</code> 状态(关闭)。</p>
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/四次挥手.jpg" width="640px"/>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/四次挥手.jpg" width="560px"/>
 
 <p><strong>四次挥手过程分析</strong></p>
 <p>第一次：客户端请求断开 <code>FIN=1</code> , <code>seq=u</code> 。</p>
