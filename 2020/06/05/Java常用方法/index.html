@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="String字符串补0 12String str &#x3D; String.format(&quot;%08d&quot;, 123);System.out.println(str); &#x2F;&#x2F; 00000123  字符串替换 12345String str&#x3D;&quot;hellollo&quot;;System.out.println(str.replace(&#39;h&#39;, &#39;k&#39;)); &#x2F;&#x2F; kellolloSystem.out.println(st">
+    <meta name="description" content="String字符串前面补0 12String str &#x3D; String.format(&quot;%08d&quot;, 123);System.out.println(str); &#x2F;&#x2F; 00000123  字符串后面补0 12String str &#x3D; String.format(&quot;%-8d&quot;, 123).replace(&quot; &quot;, &quot;0&quot;);System.out.println(str); &#x2F;&#x2F; 12300000">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java常用方法">
 <meta property="og:url" content="https://zhx2020.github.io/2020/06/05/Java%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/index.html">
 <meta property="og:site_name" content="ZHX2020">
-<meta property="og:description" content="String字符串补0 12String str &#x3D; String.format(&quot;%08d&quot;, 123);System.out.println(str); &#x2F;&#x2F; 00000123  字符串替换 12345String str&#x3D;&quot;hellollo&quot;;System.out.println(str.replace(&#39;h&#39;, &#39;k&#39;)); &#x2F;&#x2F; kellolloSystem.out.println(st">
+<meta property="og:description" content="String字符串前面补0 12String str &#x3D; String.format(&quot;%08d&quot;, 123);System.out.println(str); &#x2F;&#x2F; 00000123  字符串后面补0 12String str &#x3D; String.format(&quot;%-8d&quot;, 123).replace(&quot; &quot;, &quot;0&quot;);System.out.println(str); &#x2F;&#x2F; 12300000">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-05T02:31:35.000Z">
-<meta property="article:modified_time" content="2020-06-24T07:23:48.363Z">
+<meta property="article:modified_time" content="2020-07-14T02:40:25.321Z">
 <meta property="article:author" content="Echo">
 <meta name="twitter:card" content="summary">
     
@@ -139,7 +139,7 @@
       
         <time datetime="2020-06-05T02:31:35.000Z" itemprop="datePublished">2020-06-05</time>
         
-        (Updated: <time datetime="2020-06-24T07:23:48.363Z" itemprop="dateModified">2020-06-24</time>)
+        (Updated: <time datetime="2020-07-14T02:40:25.321Z" itemprop="dateModified">2020-07-14</time>)
         
       
     </div>
@@ -159,8 +159,11 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><p>字符串补0</p>
+    <h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><p>字符串前面补0</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String str = String.format(<span class="string">"%08d"</span>, <span class="number">123</span>);</span><br><span class="line">System.out.println(str); <span class="comment">// 00000123</span></span><br></pre></td></tr></table></figure>
+
+<p>字符串后面补0</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String str = String.format(<span class="string">"%-8d"</span>, <span class="number">123</span>).replace(<span class="string">" "</span>, <span class="string">"0"</span>);</span><br><span class="line">System.out.println(str); <span class="comment">// 12300000</span></span><br></pre></td></tr></table></figure>
 
 <p>字符串替换</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String str=<span class="string">"hellollo"</span>;</span><br><span class="line">System.out.println(str.replace(<span class="string">'h'</span>, <span class="string">'k'</span>)); <span class="comment">// kellollo</span></span><br><span class="line">System.out.println(str.replace(<span class="string">"ll"</span>, <span class="string">"ww"</span>)); <span class="comment">// hewwowwo</span></span><br><span class="line">System.out.println(str.replaceFirst(<span class="string">"ll"</span>, <span class="string">"ww"</span>)); <span class="comment">// hewwollo</span></span><br><span class="line">System.out.println(str.replaceAll(<span class="string">"ll"</span>, <span class="string">"ww"</span>)); <span class="comment">// hewwowwo</span></span><br></pre></td></tr></table></figure>
