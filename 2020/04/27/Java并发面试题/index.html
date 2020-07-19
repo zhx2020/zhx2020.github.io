@@ -14,7 +14,7 @@
 <meta property="og:description" content="创建一个线程的方式有哪几种  继承Thread类 实现Runnable接口 实现Callable接口  sleep()会让线程进入什么状态  sleep()方法的作用是让当前线程暂停指定的时间，只是暂时让出CPU的执行权，并不会释放锁。会让线程进入阻塞状态。  线程池相关参数介绍，原理说明  参数介绍 int corePoolSize：线程池的核心线程数量 int maximumPoolSize：">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-04-27T01:24:09.000Z">
-<meta property="article:modified_time" content="2020-07-14T14:03:45.040Z">
+<meta property="article:modified_time" content="2020-07-17T05:28:58.414Z">
 <meta property="article:author" content="Echo">
 <meta name="twitter:card" content="summary">
     
@@ -139,7 +139,7 @@
       
         <time datetime="2020-04-27T01:24:09.000Z" itemprop="datePublished">2020-04-27</time>
         
-        (Updated: <time datetime="2020-07-14T14:03:45.040Z" itemprop="dateModified">2020-07-14</time>)
+        (Updated: <time datetime="2020-07-17T05:28:58.414Z" itemprop="dateModified">2020-07-17</time>)
         
       
     </div>
@@ -216,12 +216,12 @@
 </ul>
 <p><strong>reentrantlock和synchronized的区别</strong></p>
 <ul>
-<li>synchronized是可重入的，reentrantlock也是可重入的</li>
-<li>synchronized是关键字，reentrantlock是Java类</li>
-<li>synchronized是通过JVM的字节码实现的，每个锁对象都绑定一个monitor，进入一个synchronized同步逻辑时需要获取该monitor并在计数时加1，离开时释放并减1，reentrantlock是通过CAS操作实现的</li>
-<li>synchronized的加锁和释放锁是自动的，reentrantlock需要手动加锁和释放锁</li>
-<li>reentrantlock有读写锁实现，在有读和写的并发需求时可以实现更有效率的并发</li>
-<li>synchronized是不可中断的，reentrantlock支持超时返回和中断</li>
+<li>synchronized是可重入的，reentrantlock也是可重入。</li>
+<li>synchronized是关键字，reentrantlock是Java类。</li>
+<li>synchronized是通过JVM的字节码实现的，每个锁对象都绑定一个monitor，进入一个synchronized同步逻辑时需要获取该monitor并在计数时加1，离开时释放并减1，reentrantlock是通过CAS操作实现的。</li>
+<li>synchronized的加锁和释放锁是自动的，reentrantlock需要手动加锁和释放锁。</li>
+<li>reentrantlock有读写锁实现，在有读和写的并发需求时可以实现更有效率的并发。</li>
+<li>synchronized是不可中断的，reentrantlock支持超时返回和中断。</li>
 </ul>
 <p><strong>什么是线程安全问题</strong></p>
 <ul>
@@ -258,6 +258,37 @@
 <p>notify唤醒一个线程，notifyAll唤醒所有的线程。</p>
 <p><strong>线程的状态</strong></p>
 <p>New（新建状态），Runnable（就绪状态），Running（运行状态），Blocked（阻塞状态），Dead（死亡状态）。</p>
+<p><strong>CAS底层实现</strong></p>
+<p>比较内存中当前存在的值和外部给定的期望值，只有两者相等时，才将这个内存值修改为新的给定值。CAS操作包含三个操作数，需要读写的内存位置（V）、拟比较的预期原值（A）和拟写入的新值（B），如果V的值和A的值匹配，则将V的值更新为B，否则不做任何操作。</p>
+<p><strong>CAS存在的问题</strong></p>
+<ol>
+<li>ABA问题。</li>
+<li>循环时间长开销大。</li>
+<li>只能保证一个共享变量的原子操作。</li>
+</ol>
+<p><strong>什么是可重入锁</strong></p>
+<p>某个线程已经获得某个锁，可以再次获取锁而不会出现死锁。</p>
+<p><strong>线程池的阻塞队列（<a href="https://www.cnblogs.com/aiguona/p/10634043.html" target="_blank" rel="noopener">博客园</a>）</strong></p>
+<ul>
+<li>ArrayBlockingQueue：基于数组实现的一个阻塞队列，在创建ArrayBlockingQueue对象时必须制定容量大小。</li>
+<li>LinkedBlockingQueue：基于链表实现的一个阻塞队列，在创建LinkedBlockingQueue对象时如果不指定容量大小，则默认大小为Integer.MAX_VALUE。</li>
+<li>PriorityBlockingQueue：按照元素的优先级对元素进行排序，按照优先级顺序出队，每次出队的元素都是优先级最高的元素。</li>
+<li>DelayQueue：基于PriorityQueue，一种延时阻塞队列，DelayQueue中的元素只有当其指定的延迟时间到了，才能够从队列中获取到该元素。</li>
+</ul>
+<p><strong>线程池的4种拒绝策略</strong></p>
+<ol>
+<li>AbortPolicy：直接抛出异常。</li>
+<li>CallerRunsPolicy：直接在execute方法的调用线程中运行被拒绝的任务。</li>
+<li>DiscardOldestPolicy：丢弃最旧的一个请求，并尝试再次提交当前任务。</li>
+<li>DiscardPolicy：丢弃被拒绝的任务。</li>
+</ol>
+<p><strong>实现Runnable接口和继承Thread类的区别</strong></p>
+<ol>
+<li>实现Runnable接口可以再继承其它类。</li>
+<li>继承Thread类不能再继承其它类。</li>
+<li>实现Runnable接口可以完成资源的共享，同时处理同一资源。</li>
+<li>继承Thread类的线程间都是独立运行的，资源不共享。</li>
+</ol>
 
   </div>
 </article>

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="数据结构与算法a,b,c,d,e 对应出现的频率为4，6，11，13，15；以下符合哈夫曼编码的选项是？（B） A.a&#x3D;000、b&#x3D;01、c&#x3D;001、d&#x3D;10、e&#x3D;11B.a&#x3D;000、b&#x3D;001、c&#x3D;01、d&#x3D;10、e&#x3D;11C.a&#x3D;010、b&#x3D;001、c&#x3D;01、d&#x3D;11、e&#x3D;10D.a&#x3D;000、b&#x3D;10、c&#x3D;001、d&#x3D;11、e&#x3D;01 二叉树的三种遍历方式 12345    G   &#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="校招题集">
+<meta property="og:url" content="https://zhx2020.github.io/2020/07/11/%E6%A0%A1%E6%8B%9B%E9%A2%98%E9%9B%86/index.html">
+<meta property="og:site_name" content="ZHX2020">
+<meta property="og:description" content="数据结构与算法a,b,c,d,e 对应出现的频率为4，6，11，13，15；以下符合哈夫曼编码的选项是？（B） A.a&#x3D;000、b&#x3D;01、c&#x3D;001、d&#x3D;10、e&#x3D;11B.a&#x3D;000、b&#x3D;001、c&#x3D;01、d&#x3D;10、e&#x3D;11C.a&#x3D;010、b&#x3D;001、c&#x3D;01、d&#x3D;11、e&#x3D;10D.a&#x3D;000、b&#x3D;10、c&#x3D;001、d&#x3D;11、e&#x3D;01 二叉树的三种遍历方式 12345    G   &#x2F;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-11T13:34:42.000Z">
+<meta property="article:modified_time" content="2020-07-19T06:34:14.987Z">
+<meta property="article:author" content="Echo">
+<meta property="article:tag" content="笔试">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>校招题集</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/07/13/32%E4%B8%AAJava%E9%9D%A2%E8%AF%95%E5%BF%85%E8%80%83%E7%82%B9/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/07/09/JavaWeb%E9%9D%A2%E8%AF%95%E9%A2%98/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://zhx2020.github.io/2020/07/11/%E6%A0%A1%E6%8B%9B%E9%A2%98%E9%9B%86/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://zhx2020.github.io/2020/07/11/%E6%A0%A1%E6%8B%9B%E9%A2%98%E9%9B%86/&text=校招题集" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://zhx2020.github.io/2020/07/11/%E6%A0%A1%E6%8B%9B%E9%A2%98%E9%9B%86/&title=校招题集" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zhx2020.github.io/2020/07/11/%E6%A0%A1%E6%8B%9B%E9%A2%98%E9%9B%86/&is_video=false&description=校招题集" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=校招题集&body=Check out this article: https://zhx2020.github.io/2020/07/11/%E6%A0%A1%E6%8B%9B%E9%A2%98%E9%9B%86/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://zhx2020.github.io/2020/07/11/%E6%A0%A1%E6%8B%9B%E9%A2%98%E9%9B%86/&title=校招题集" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://zhx2020.github.io/2020/07/11/%E6%A0%A1%E6%8B%9B%E9%A2%98%E9%9B%86/&title=校招题集" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://zhx2020.github.io/2020/07/11/%E6%A0%A1%E6%8B%9B%E9%A2%98%E9%9B%86/&title=校招题集" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://zhx2020.github.io/2020/07/11/%E6%A0%A1%E6%8B%9B%E9%A2%98%E9%9B%86/&title=校招题集" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://zhx2020.github.io/2020/07/11/%E6%A0%A1%E6%8B%9B%E9%A2%98%E9%9B%86/&name=校招题集&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://zhx2020.github.io/2020/07/11/%E6%A0%A1%E6%8B%9B%E9%A2%98%E9%9B%86/&t=校招题集" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据结构与算法"><span class="toc-number">1.</span> <span class="toc-text">数据结构与算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java基础"><span class="toc-number">2.</span> <span class="toc-text">Java基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机网络"><span class="toc-number">3.</span> <span class="toc-text">计算机网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作系统"><span class="toc-number">4.</span> <span class="toc-text">操作系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设计模式"><span class="toc-number">5.</span> <span class="toc-text">设计模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux命令"><span class="toc-number">6.</span> <span class="toc-text">Linux命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编译原理"><span class="toc-number">7.</span> <span class="toc-text">编译原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#排序算法"><span class="toc-number">8.</span> <span class="toc-text">排序算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ElasticSearch"><span class="toc-number">9.</span> <span class="toc-text">ElasticSearch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ActiveMQ"><span class="toc-number">10.</span> <span class="toc-text">ActiveMQ</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        校招题集
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ZHX2020</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-07-11T13:34:42.000Z" itemprop="datePublished">2020-07-11</time>
+        
+        (Updated: <time datetime="2020-07-19T06:34:14.987Z" itemprop="dateModified">2020-07-19</time>)
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/%E7%AC%94%E8%AF%95/" rel="tag">笔试</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="数据结构与算法"><a href="#数据结构与算法" class="headerlink" title="数据结构与算法"></a>数据结构与算法</h2><p>a,b,c,d,e 对应出现的频率为4，6，11，13，15；以下符合哈夫曼编码的选项是？（<a href="https://www.nowcoder.com/test/question/done?tid=34701081&qid=982135#summary" target="_blank" rel="noopener">B</a>）</p>
+<p>A.a=000、b=01、c=001、d=10、e=11<br>B.a=000、b=001、c=01、d=10、e=11<br>C.a=010、b=001、c=01、d=11、e=10<br>D.a=000、b=10、c=001、d=11、e=01</p>
+<p>二叉树的三种遍历方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    G</span><br><span class="line">   &#x2F; \</span><br><span class="line">  E   C</span><br><span class="line"> &#x2F; \ &#x2F; \</span><br><span class="line">D  A H  S</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>先序遍历：GEDACHS。</li>
+<li>中序遍历：DEAGHCS。</li>
+<li>后序遍历：DAEHSCG。</li>
+</ol>
+<p>2019! 的末尾有多少个零？（<a href="https://www.nowcoder.com/test/question/done?tid=34749168&qid=643408#summary" target="_blank" rel="noopener">403+80+ 16+3=502</a>）</p>
+<h2 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h2><p>位运算</p>
+<ol>
+<li>与运算（&amp;）：两个位都为1时，结果才为1。</li>
+<li>或运算（|）：两个位都为0时，结果才为0。</li>
+<li>异或运算（^）：两个位相同为0，相异为1。</li>
+</ol>
+<p>Java只支持单继承，实现多重继承三种方式：</p>
+<ol>
+<li>直接实现多个接口。</li>
+<li>扩展一个类然后实现一个或多个接口。</li>
+<li>通过内部类去继承其他类。</li>
+</ol>
+<p>并发性是指若干事件在同一时间间隔发生。</p>
+<h2 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h2><p><strong>常用协议介绍</strong></p>
+<ul>
+<li>ICMP协议是因特网控制报文协议，用于在IP主机、路由器之间传递控制消息。</li>
+<li>HTTP协议是超文本传输协议，是一个属于应用层的面向对象的协议。</li>
+<li>DHCP协议是动态主机配置协议，用于为主机分配IP地址。</li>
+<li>NAT协议是一种将私有（保留）地址转化为合法IP地址的转换技术。</li>
+</ul>
+<p>UDP协议报头的内容中没有<strong>序号</strong>。</p>
+<p>路由器工作在网络层，进行分组转发。<br>物理层主要是集线器。<br>数据链路层是交换机。</p>
+<h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><p>某台计算机连接了8个相同的设备，有N个进程在竞争使用，每个进程最多会同时占用3个设备，请问当N大于等于多少时，系统可能发生死锁？（<a href="https://www.nowcoder.com/test/question/done?tid=34749168&qid=643393#summary" target="_blank" rel="noopener">4</a>）</p>
+<p>计算机从用户态切换至内核态：<strong>系统调用、异常、外围设备中断</strong>。</p>
+<p>虚拟内存的容量只受(<a href="https://www.nowcoder.com/test/question/done?tid=34749168&qid=643412#summary" target="_blank" rel="noopener">数据存放的实际地址</a>)的限制。</p>
+<p>若处理器有32位地址，则它的虚拟地址空间为(<a href="https://www.nowcoder.com/test/question/done?tid=34749168&qid=643414#summary" target="_blank" rel="noopener">4G</a>)。</p>
+<p>邮件服务需要两种不同的协议。一种是用户代理向邮件服务器发送邮件或在邮件服务器之间发送邮件，如STMP协议；另外一种是用于用户代理从邮件服务器读取邮件，如邮局协议POP3。</p>
+<p>SMTP：发件人用户代理 —-发送邮件—&gt; 发送方邮件服务器；发送方邮件服务器 —-发送邮件—&gt; 接收方邮件服务器。<br>POP3/IMAP：接受方邮件服务器—-读取邮件—&gt; 收件人用户代理。</p>
+<h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><p><strong>单例模式</strong></p>
+<ul>
+<li>优点：减少内存开支、减少系统调用、避免资源的多重占用。</li>
+<li>比较：懒汉式存在线程安全问题，属于延迟加载，在需要时才创建对象，不安全；饿汉式是安全的。</li>
+</ul>
+<h2 id="Linux命令"><a href="#Linux命令" class="headerlink" title="Linux命令"></a>Linux命令</h2><p>如果想列出当前目录以及子目录下所有扩展名为”.txt”的文件，那么可以使用以下哪个命令？（<strong>find . -name “*.txt”</strong>）</p>
+<h2 id="编译原理"><a href="#编译原理" class="headerlink" title="编译原理"></a>编译原理</h2><ul>
+<li>词法分析器：分析单词的构成（class, const , static）。</li>
+<li>语法分析器：一个句子的构成（单词组合）。</li>
+<li>语义分析器：判断程序的结构。</li>
+</ul>
+<h2 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h2><p>选择排序：每次从数组中选出一个最小数（最大数）放到数组最前面，存放在序列的起始位置，直到全部待排序的数据元素排完。<br>希尔排序：设置增量分割数组，逐步进行直接插入排序，增量逐趟减少，并最后使得整个数组基本有序，再对整体进行直接插入排序。<br>插入排序：构建有序序列，未排序数据依次从已排序数据按从后往前比较，插入到合适的位置。<br>归并排序：把序列分成两个长度为n/2的子序列，对这两个子序列分别归并排序（循环将两个数组的第一个值比较，并弹出第一个值，直到数组长度都不存在），将两个排序好的子序列合并成一个最终的排序序列。</p>
+<h2 id="ElasticSearch"><a href="#ElasticSearch" class="headerlink" title="ElasticSearch"></a>ElasticSearch</h2><p><strong>什么是倒排索引（反向索引）</strong></p>
+<p>以诗句内容中的一些关键字作为索引，来找到诗句。</p>
+<p><strong>搜索引擎三大过程</strong></p>
+<p>爬取内容、进行分词、建立反向索引。</p>
+<p><strong>ElasticSearch介绍</strong></p>
+<p>其实很早以前，业界有一个叫做Lucene的库，用它就可以方便地建立倒排索引。但是Lucene还是一个库，必须要懂一点搜索引擎原理的人才能用的好，所以后来又有人基于lucene进行封装，写出了ElasticSearch。ElasticSearch将对搜索引擎的操作都封装成了resuful的api，通过http请求就能对其进行操作。同时，它还考虑了海量数据，实现了分布式，是一个可以存储海量数据的分布式搜索引擎。</p>
+<p><strong>Elasticsearch基本概念</strong></p>
+<p>要了解ElasticSearch，首先要了解里面的几个专有名称，索引（数据库）、类型（表）、文档（行）、字段（列）。ElasticSearch中的索引是存放数据的地方，可以理解为mysql中的一个数据库。类型是用来定义数据结构的，可以认为是mysql中的一张表。文档就是最终的数据，可以认为一个文档就是一条记录。</p>
+<p><strong>一个数据怎么存储到elasticsearch</strong></p>
+<ul>
+<li>比如一首诗，有诗题、作者、朝代、字数、诗内容等字段，那么首先，我们可以建立一个名叫 Poems 的索引，然后创建一个名叫 Poem 的类型，类型是通过 Mapping 来定义每个字段的类型。</li>
+<li>比如诗题、作者、朝代都是 Keyword 类型，诗内容是 Text 类型，而字数是 Integer 类型，最后就是把数据组织成 Json 格式存放进去了。</li>
+<li>keyword 类型是不会分词的，直接根据字符串内容建立反向索引，Text 类型在存入 Elasticsearch 的时候，会先分词，然后根据分词后的内容建立反向索引。</li>
+<li>使用 curl -XPUT ‘<a href="http://ip:port/poems&#39;，就能建立一个名为">http://ip:port/poems&#39;，就能建立一个名为</a> Poems 的索引，其他操作也是类似的。</li>
+</ul>
+<p><strong>搜索引擎总结</strong></p>
+<ul>
+<li>反向索引又叫倒排索引，是根据文章内容中的关键字建立索引。</li>
+<li>搜索引擎原理就是建立反向索引。</li>
+<li>ElasticSearch 在 Lucene 的基础上进行封装，实现了分布式搜索引擎。</li>
+<li>ElasticSearch 中的索引、类型和文档的概念比较重要，类似于 MySQL 中的数据库、表和行。</li>
+<li>ElasticSearch 也是 Master-slave 架构，也实现了数据的分片和备份。</li>
+<li>ElasticSearch 一个典型应用就是 ELK 日志分析系统。</li>
+</ul>
+<p><strong>参考</strong></p>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/62892586" target="_blank" rel="noopener">终于有人把Elasticsearch原理讲透了！</a></li>
+</ul>
+<h2 id="ActiveMQ"><a href="#ActiveMQ" class="headerlink" title="ActiveMQ"></a>ActiveMQ</h2><p><strong>浅谈ActiveMQ与使用（<a href="https://www.cnblogs.com/xiguadadage/p/11217604.html" target="_blank" rel="noopener">博客园</a>）</strong></p>
+<p><strong>什么是消息中间件</strong></p>
+<p>实现的就是在两个系统或两个客户端之间进行消息传送。</p>
+<p><strong>什么是ActiveMQ</strong></p>
+<p>ActiveMQ是一种开源的基于JMS（Java Message Servie）规范的一种消息中间件的实现，ActiveMQ的设计目标是提供标准的，面向消息的，能够跨越多语言和多系统的应用集成消息通信中间件。</p>
+<p><strong>什么时候需要用ActiveMQ</strong></p>
+<p>系统业务的解耦，异步消息的推送，增加系统并发量，提高用户体验。</p>
+<p><strong>ActiveMQ的两种消息传递类型</strong></p>
+<ul>
+<li>点对点传输，即一个生产者对应一个消费者，生产者向broke推送数据，数据存储在broke的一个队列中，当消费者接受该条队列里的数据。</li>
+<li>基于发布/订阅模式的传输，即根据订阅话题来接收相应数据，一个生产者可向多个消费者推送数据，与MQTT协议的实现是类似的。</li>
+<li>区别：点对点传输消费者可以接收到在连接之前生产者所推送的数据，而基于发布/订阅模式的传输方式消费者只能接收到连接之后生产者推送的数据。</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据结构与算法"><span class="toc-number">1.</span> <span class="toc-text">数据结构与算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java基础"><span class="toc-number">2.</span> <span class="toc-text">Java基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机网络"><span class="toc-number">3.</span> <span class="toc-text">计算机网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作系统"><span class="toc-number">4.</span> <span class="toc-text">操作系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设计模式"><span class="toc-number">5.</span> <span class="toc-text">设计模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux命令"><span class="toc-number">6.</span> <span class="toc-text">Linux命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编译原理"><span class="toc-number">7.</span> <span class="toc-text">编译原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#排序算法"><span class="toc-number">8.</span> <span class="toc-text">排序算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ElasticSearch"><span class="toc-number">9.</span> <span class="toc-text">ElasticSearch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ActiveMQ"><span class="toc-number">10.</span> <span class="toc-text">ActiveMQ</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://zhx2020.github.io/2020/07/11/%E6%A0%A1%E6%8B%9B%E9%A2%98%E9%9B%86/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://zhx2020.github.io/2020/07/11/%E6%A0%A1%E6%8B%9B%E9%A2%98%E9%9B%86/&text=校招题集" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://zhx2020.github.io/2020/07/11/%E6%A0%A1%E6%8B%9B%E9%A2%98%E9%9B%86/&title=校招题集" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zhx2020.github.io/2020/07/11/%E6%A0%A1%E6%8B%9B%E9%A2%98%E9%9B%86/&is_video=false&description=校招题集" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=校招题集&body=Check out this article: https://zhx2020.github.io/2020/07/11/%E6%A0%A1%E6%8B%9B%E9%A2%98%E9%9B%86/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://zhx2020.github.io/2020/07/11/%E6%A0%A1%E6%8B%9B%E9%A2%98%E9%9B%86/&title=校招题集" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://zhx2020.github.io/2020/07/11/%E6%A0%A1%E6%8B%9B%E9%A2%98%E9%9B%86/&title=校招题集" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://zhx2020.github.io/2020/07/11/%E6%A0%A1%E6%8B%9B%E9%A2%98%E9%9B%86/&title=校招题集" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://zhx2020.github.io/2020/07/11/%E6%A0%A1%E6%8B%9B%E9%A2%98%E9%9B%86/&title=校招题集" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://zhx2020.github.io/2020/07/11/%E6%A0%A1%E6%8B%9B%E9%A2%98%E9%9B%86/&name=校招题集&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://zhx2020.github.io/2020/07/11/%E6%A0%A1%E6%8B%9B%E9%A2%98%E9%9B%86/&t=校招题集" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2020
+    Echo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
