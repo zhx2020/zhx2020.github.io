@@ -14,7 +14,7 @@
 <meta property="og:description" content="垃圾收集算法  标记-清除算法：首先标记出所有需要回收的对象，在标记完成后统一回收掉所有被标记的对象。 复制算法：将内存分为大小相同的两块，每次使用其中的一块。当这一块的内存使用完后，就将还存活的对象复制到另一块去，然后再把使用的空间一次清理掉，这样就使每次的内存回收都是对内存区间的一半进行回收。 标记-整理算法：让所有存活的对象向一端移动，然后直接清理掉端边界以外的内存。 分代收集算法 新生代选">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-24T13:48:28.000Z">
-<meta property="article:modified_time" content="2020-07-17T03:08:13.266Z">
+<meta property="article:modified_time" content="2020-07-22T01:51:47.836Z">
 <meta property="article:author" content="Echo">
 <meta name="twitter:card" content="summary">
     
@@ -139,7 +139,7 @@
       
         <time datetime="2020-05-24T13:48:28.000Z" itemprop="datePublished">2020-05-24</time>
         
-        (Updated: <time datetime="2020-07-17T03:08:13.266Z" itemprop="dateModified">2020-07-17</time>)
+        (Updated: <time datetime="2020-07-22T01:51:47.836Z" itemprop="dateModified">2020-07-22</time>)
         
       
     </div>
@@ -182,11 +182,11 @@
 <p>类的加载指将编译好的 Class 类文件中的字节码读入内存中，将其放在方法区内并创建对应的 Class 对象。</p>
 <p><strong>类的加载分为哪几步</strong></p>
 <ol>
-<li>加载：文件到内存的过程。</li>
-<li>验证：对类文件内容验证。</li>
-<li>准备：进行内存分配。</li>
-<li>解析：解析字段、接口、方法。</li>
-<li>初始化：完成静态块执行与静态变量的赋值。</li>
+<li>加载：把class字节码文件通过类加载器装载入内存中。</li>
+<li>验证：保证加载进来的字节码文件符合虚拟机规范，不会造成安全错误。</li>
+<li>准备：为类变量分配内存，并且赋予初值。</li>
+<li>解析：将常量池内的符号引用替换为直接引用的过程。</li>
+<li>初始化：是对类变量初始化，是执行类构造器的过程。</li>
 </ol>
 <p><strong>类加载器有哪些</strong></p>
 <p>启动类加载器、扩展类加载器、应用加载器（系统加载器）、自定义类加载器。</p>
@@ -210,6 +210,20 @@
 <p><strong>JVM对象创建到销毁的过程</strong></p>
 <p>加载、验证、准备、解析、初始化、使用、卸载。</p>
 <p><strong>CMS垃圾回收的过程</strong></p>
+<p><strong>类加载的三种方式</strong></p>
+<ul>
+<li>通过new关键字来创建类的实例对象。（静态加载）</li>
+<li>通过Class.forName()来加载类，然后调用类的newInstance()方法实例化对象。（动态加载）</li>
+<li>通过类加载器的loadClass()方法来加载类，然后调用类的newInstance()方法实例化对象。（动态加载）</li>
+</ul>
+<p><strong>类加载三种方式的区别</strong></p>
+<ul>
+<li>通过new关键字实例化类的对象和通过Class.forName()加载类是当前类加载器，即this.getClass.getClassLoader，只能在当前类路径或者导入的类路径下寻找类。而用指定的ClassLoader来加载类可以从当前类路径外寻找类，这里的ClassLoader甚至可以用户自定义。</li>
+<li>我们知道类加载机制的三个过程主要是加载–&gt;连接–&gt;初始化。Class.forName()实际调用的是Class.forName(className,true,this.getClass.getClassLoader)，第二个参数表示加载完后是否立即初始化，第三个参数即前文提到的表示是当前类加载器。classLoader.loadClass()实际调用的是classLoader.loadClass(className,false)，第二个参数表示加载完成后是否连接，即用此方法加载类，加载完成后不会去初始化，而用Class.forName()加载类加载完成后可以被初始化。所以有些类如果加载完成后需要立即被初始化则必须使用Class.forName()。例如在加载数据库驱动时，一般用Class.forName(“com.mysql.jdbc.Driver”)。这是因为该驱动有一个在静态代码块中注册驱动的过程，所以需要被初始化。</li>
+<li>有两个异常：静态加载类时出现的一般是NoClassDefFoundError，动态加载类时出现的一般是ClassNotFoundException。</li>
+</ul>
+<p><strong>Class.forName加载类与ClassLoader加载类有什么区别</strong></p>
+<p>Class.forName加载类，加载完后立即初始化；ClassLoader加载类，加载完成后不会去初始化。</p>
 
   </div>
 </article>
