@@ -14,8 +14,9 @@
 <meta property="og:description" content="ThreadLocal是什么ThreadLocal是一种变量类型，我们称之为”线程局部变量”；每个线程访问这种变量的时候都会创建该变量的副本，这个变量副本为线程私有；ThreadLocal类型的变量一般用private static加以修饰。 ThreadLocal示例示例代码 123456789101112131415161718192021222324252627282930313233343">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/ThreadLocal%E5%8E%9F%E7%90%86.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/ThreadLocal%E5%8E%9F%E7%90%862.png">
 <meta property="article:published_time" content="2020-08-02T02:54:14.000Z">
-<meta property="article:modified_time" content="2020-08-02T05:47:31.332Z">
+<meta property="article:modified_time" content="2020-08-02T05:54:07.567Z">
 <meta property="article:author" content="Echo">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/ThreadLocal%E5%8E%9F%E7%90%86.png">
@@ -139,7 +140,7 @@
       
         <time datetime="2020-08-02T02:54:14.000Z" itemprop="datePublished">2020-08-02</time>
         
-        (Updated: <time datetime="2020-08-02T05:47:31.332Z" itemprop="dateModified">2020-08-02</time>)
+        (Updated: <time datetime="2020-08-02T05:54:07.567Z" itemprop="dateModified">2020-08-02</time>)
         
       
     </div>
@@ -172,7 +173,9 @@
 <p><strong>get方法</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">get</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Thread t = Thread.currentThread();</span><br><span class="line">    ThreadLocalMap map = getMap(t);</span><br><span class="line">    <span class="keyword">if</span> (map != <span class="keyword">null</span>) &#123;</span><br><span class="line">        ThreadLocalMap.Entry e = map.getEntry(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">if</span> (e != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line">            T result = (T)e.value;</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> setInitialValue();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/ThreadLocal原理.png" width="560px"/>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/ThreadLocal原理.png" width="400px"/>
+
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/ThreadLocal原理2.png" width="400px"/>
 
 <p><strong>总结</strong></p>
 <p>每个线程自身都维护着一个 ThreadLocalMap ，用来存储线程本地的数据，可以简单理解成 ThreadLocalMap 的 key 是 ThreadLocal 变量， value 是线程本地的数据。这样就实现了线程本地数据存储和交互访问。</p>
