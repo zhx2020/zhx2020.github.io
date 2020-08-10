@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="JavaSE部分Java基础为什么重写 equals 还要重写 hashcode 将对象放入到HashMap或HashSet中时，hashCode方法决定了对象会被放到数组的哪个下标，当多个对象的哈希值冲突时，equals方法决定了这些对象是否是同一个对象。 说一下 map 的分类和常见的情况">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java开发校招面试考点汇总">
+<meta property="og:url" content="https://zhx2020.github.io/2020/08/10/Java%E5%BC%80%E5%8F%91%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95%E8%80%83%E7%82%B9%E6%B1%87%E6%80%BB/index.html">
+<meta property="og:site_name" content="ZHX2020">
+<meta property="og:description" content="JavaSE部分Java基础为什么重写 equals 还要重写 hashcode 将对象放入到HashMap或HashSet中时，hashCode方法决定了对象会被放到数组的哪个下标，当多个对象的哈希值冲突时，equals方法决定了这些对象是否是同一个对象。 说一下 map 的分类和常见的情况">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-10T13:22:27.000Z">
+<meta property="article:modified_time" content="2020-08-10T13:52:41.409Z">
+<meta property="article:author" content="Echo">
+<meta property="article:tag" content="面试">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Java开发校招面试考点汇总</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2020/08/07/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E9%A2%98/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://zhx2020.github.io/2020/08/10/Java%E5%BC%80%E5%8F%91%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95%E8%80%83%E7%82%B9%E6%B1%87%E6%80%BB/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://zhx2020.github.io/2020/08/10/Java%E5%BC%80%E5%8F%91%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95%E8%80%83%E7%82%B9%E6%B1%87%E6%80%BB/&text=Java开发校招面试考点汇总" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://zhx2020.github.io/2020/08/10/Java%E5%BC%80%E5%8F%91%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95%E8%80%83%E7%82%B9%E6%B1%87%E6%80%BB/&title=Java开发校招面试考点汇总" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zhx2020.github.io/2020/08/10/Java%E5%BC%80%E5%8F%91%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95%E8%80%83%E7%82%B9%E6%B1%87%E6%80%BB/&is_video=false&description=Java开发校招面试考点汇总" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Java开发校招面试考点汇总&body=Check out this article: https://zhx2020.github.io/2020/08/10/Java%E5%BC%80%E5%8F%91%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95%E8%80%83%E7%82%B9%E6%B1%87%E6%80%BB/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://zhx2020.github.io/2020/08/10/Java%E5%BC%80%E5%8F%91%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95%E8%80%83%E7%82%B9%E6%B1%87%E6%80%BB/&title=Java开发校招面试考点汇总" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://zhx2020.github.io/2020/08/10/Java%E5%BC%80%E5%8F%91%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95%E8%80%83%E7%82%B9%E6%B1%87%E6%80%BB/&title=Java开发校招面试考点汇总" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://zhx2020.github.io/2020/08/10/Java%E5%BC%80%E5%8F%91%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95%E8%80%83%E7%82%B9%E6%B1%87%E6%80%BB/&title=Java开发校招面试考点汇总" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://zhx2020.github.io/2020/08/10/Java%E5%BC%80%E5%8F%91%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95%E8%80%83%E7%82%B9%E6%B1%87%E6%80%BB/&title=Java开发校招面试考点汇总" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://zhx2020.github.io/2020/08/10/Java%E5%BC%80%E5%8F%91%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95%E8%80%83%E7%82%B9%E6%B1%87%E6%80%BB/&name=Java开发校招面试考点汇总&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://zhx2020.github.io/2020/08/10/Java%E5%BC%80%E5%8F%91%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95%E8%80%83%E7%82%B9%E6%B1%87%E6%80%BB/&t=Java开发校招面试考点汇总" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaSE部分"><span class="toc-number">1.</span> <span class="toc-text">JavaSE部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java基础"><span class="toc-number">1.1.</span> <span class="toc-text">Java基础</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Java开发校招面试考点汇总
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ZHX2020</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-08-10T13:22:27.000Z" itemprop="datePublished">2020-08-10</time>
+        
+        (Updated: <time datetime="2020-08-10T13:52:41.409Z" itemprop="dateModified">2020-08-10</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/Java%E9%9D%A2%E8%AF%95/">Java面试</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="JavaSE部分"><a href="#JavaSE部分" class="headerlink" title="JavaSE部分"></a>JavaSE部分</h2><h3 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h3><p><strong>为什么重写 equals 还要重写 hashcode</strong></p>
+<p>将对象放入到HashMap或HashSet中时，hashCode方法决定了对象会被放到数组的哪个下标，当多个对象的哈希值冲突时，equals方法决定了这些对象是否是同一个对象。</p>
+<p><strong>说一下 map 的分类和常见的情况</strong></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaSE部分"><span class="toc-number">1.</span> <span class="toc-text">JavaSE部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java基础"><span class="toc-number">1.1.</span> <span class="toc-text">Java基础</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://zhx2020.github.io/2020/08/10/Java%E5%BC%80%E5%8F%91%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95%E8%80%83%E7%82%B9%E6%B1%87%E6%80%BB/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://zhx2020.github.io/2020/08/10/Java%E5%BC%80%E5%8F%91%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95%E8%80%83%E7%82%B9%E6%B1%87%E6%80%BB/&text=Java开发校招面试考点汇总" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://zhx2020.github.io/2020/08/10/Java%E5%BC%80%E5%8F%91%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95%E8%80%83%E7%82%B9%E6%B1%87%E6%80%BB/&title=Java开发校招面试考点汇总" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zhx2020.github.io/2020/08/10/Java%E5%BC%80%E5%8F%91%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95%E8%80%83%E7%82%B9%E6%B1%87%E6%80%BB/&is_video=false&description=Java开发校招面试考点汇总" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Java开发校招面试考点汇总&body=Check out this article: https://zhx2020.github.io/2020/08/10/Java%E5%BC%80%E5%8F%91%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95%E8%80%83%E7%82%B9%E6%B1%87%E6%80%BB/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://zhx2020.github.io/2020/08/10/Java%E5%BC%80%E5%8F%91%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95%E8%80%83%E7%82%B9%E6%B1%87%E6%80%BB/&title=Java开发校招面试考点汇总" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://zhx2020.github.io/2020/08/10/Java%E5%BC%80%E5%8F%91%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95%E8%80%83%E7%82%B9%E6%B1%87%E6%80%BB/&title=Java开发校招面试考点汇总" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://zhx2020.github.io/2020/08/10/Java%E5%BC%80%E5%8F%91%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95%E8%80%83%E7%82%B9%E6%B1%87%E6%80%BB/&title=Java开发校招面试考点汇总" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://zhx2020.github.io/2020/08/10/Java%E5%BC%80%E5%8F%91%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95%E8%80%83%E7%82%B9%E6%B1%87%E6%80%BB/&title=Java开发校招面试考点汇总" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://zhx2020.github.io/2020/08/10/Java%E5%BC%80%E5%8F%91%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95%E8%80%83%E7%82%B9%E6%B1%87%E6%80%BB/&name=Java开发校招面试考点汇总&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://zhx2020.github.io/2020/08/10/Java%E5%BC%80%E5%8F%91%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95%E8%80%83%E7%82%B9%E6%B1%87%E6%80%BB/&t=Java开发校招面试考点汇总" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2020
+    Echo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

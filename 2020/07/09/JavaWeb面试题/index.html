@@ -14,7 +14,7 @@
 <meta property="og:description" content="Servlet是什么 Servlet就是一个Java接口。(Java - Servlet究竟是什么) Maven是什么 项目构建，管理，jar包下载。(maven是干嘛的？) cookie和session的区别  cookie数据存放在客户端，session数据放在服务器上。 cookie不是很安全，别人可以分析存放在本地的Cookie并进行Cookie欺骗，考虑到安全应当使用session。 s">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-09T07:20:18.000Z">
-<meta property="article:modified_time" content="2020-07-09T09:00:15.515Z">
+<meta property="article:modified_time" content="2020-08-10T08:50:14.590Z">
 <meta property="article:author" content="Echo">
 <meta name="twitter:card" content="summary">
     
@@ -139,7 +139,7 @@
       
         <time datetime="2020-07-09T07:20:18.000Z" itemprop="datePublished">2020-07-09</time>
         
-        (Updated: <time datetime="2020-07-09T09:00:15.515Z" itemprop="dateModified">2020-07-09</time>)
+        (Updated: <time datetime="2020-08-10T08:50:14.590Z" itemprop="dateModified">2020-08-10</time>)
         
       
     </div>
@@ -174,8 +174,14 @@
 <ul>
 <li>本质区别：转发是服务器行为，重定向是客户端行为。</li>
 <li>重定向特点：两次请求，浏览器地址发生变化，可以访问自己web之外的资源，传输数据会丢失。 </li>
-<li>请求转发特点：一次请求，浏览器地址不变，访问的是自己本身的web资源，传输的数据不会丢失。</li>
+<li>转发特点：一次请求，浏览器地址不变，访问的是自己本身的web资源，传输的数据不会丢失。</li>
 </ul>
+<p><strong>GET和POST的区别</strong></p>
+<ol>
+<li>GET提交的数据会放在URL之后，以?分割URL和传输数据，参数之间以&amp;相连，POST提交的数据放在主体中。</li>
+<li>GET提交的数据大小有限制，POST提交的数据大小没有限制。</li>
+<li>GET提交数据会带来安全问题，POST提交数据不会带来安全问题。</li>
+</ol>
 
   </div>
 </article>
