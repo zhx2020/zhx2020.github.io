@@ -8,7 +8,7 @@
       <link href="/2020/08/10/Java%E5%BC%80%E5%8F%91%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95%E8%80%83%E7%82%B9%E6%B1%87%E6%80%BB/"/>
       <url>/2020/08/10/Java%E5%BC%80%E5%8F%91%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95%E8%80%83%E7%82%B9%E6%B1%87%E6%80%BB/</url>
       
-        <content type="html"><![CDATA[<h2 id="JavaSE部分"><a href="#JavaSE部分" class="headerlink" title="JavaSE部分"></a>JavaSE部分</h2><h3 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h3><p><strong>为什么重写 equals 还要重写 hashcode</strong></p><p>将对象放入到HashMap或HashSet中时，hashCode方法决定了对象会被放到数组的哪个下标，当多个对象的哈希值冲突时，equals方法决定了这些对象是否是同一个对象。</p><p><strong>说一下 map 的分类和常见的情况</strong></p>]]></content>
+        <content type="html"><![CDATA[<h2 id="JavaSE部分"><a href="#JavaSE部分" class="headerlink" title="JavaSE部分"></a>JavaSE部分</h2><h3 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h3><p><strong>为什么重写 equals 还要重写 hashcode</strong></p><p>将对象放入到HashMap或HashSet中时，hashCode方法决定了对象会被放到数组的哪个下标，当多个对象的哈希值冲突时，equals方法决定了这些对象是否是同一个对象。</p><p><strong>说一下 map 的分类和常见的情况</strong></p><ul><li>HashMap：无序，key可以为null，value可以为null，线程不安全。</li><li>HashTable：无序，key不能为null，value不能为null，线程安全。</li><li>TreeMap：有序，key不能为null，value可以为null，线程不安全。</li><li>ConcurrentHashMap：有序，key不能为null，value不能为null，线程安全。</li></ul><p><strong>Object 若不重写 hashCode()的话，hashCode()如何计算出来的？</strong></p><p>Object的hashCode方法是本地方法，也就是说是使用C或者C++语言实现的，该方法直接返回对象的内存地址。</p><p><strong>==比较的是什么？</strong></p><p>基本数据类型的变量，比较的是数值；引用类型的变量，比较的是地址。</p><p><strong>若对一个类不重写，它的 equals()方法是如何比较的？</strong></p><p>比较的是引用类型的变量所指向的对象的地址。</p>]]></content>
       
       
       <categories>
