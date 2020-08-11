@@ -14,7 +14,7 @@
 <meta property="og:description" content="JavaSE部分Java基础为什么重写 equals 还要重写 hashcode 将对象放入到HashMap或HashSet中时，hashCode方法决定了对象会被放到数组的哪个下标，当多个对象的哈希值冲突时，equals方法决定了这些对象是否是同一个对象。 说一下 map 的分类和常见的情况  HashMap：无序，key可以为null，value可以为null，线程不安全。 HashTable">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-10T13:22:27.000Z">
-<meta property="article:modified_time" content="2020-08-10T14:33:17.931Z">
+<meta property="article:modified_time" content="2020-08-11T09:21:08.456Z">
 <meta property="article:author" content="Echo">
 <meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary">
@@ -112,7 +112,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaSE部分"><span class="toc-number">1.</span> <span class="toc-text">JavaSE部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java基础"><span class="toc-number">1.1.</span> <span class="toc-text">Java基础</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaSE部分"><span class="toc-number">1.</span> <span class="toc-text">JavaSE部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java基础"><span class="toc-number">1.1.</span> <span class="toc-text">Java基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关键字"><span class="toc-number">1.2.</span> <span class="toc-text">关键字</span></a></li></ol></li></ol>
     </div>
   </span>
 </div>
@@ -138,7 +138,7 @@
       
         <time datetime="2020-08-10T13:22:27.000Z" itemprop="datePublished">2020-08-10</time>
         
-        (Updated: <time datetime="2020-08-10T14:33:17.931Z" itemprop="dateModified">2020-08-10</time>)
+        (Updated: <time datetime="2020-08-11T09:21:08.456Z" itemprop="dateModified">2020-08-11</time>)
         
       
     </div>
@@ -178,6 +178,128 @@
 <p>基本数据类型的变量，比较的是数值；引用类型的变量，比较的是地址。</p>
 <p><strong>若对一个类不重写，它的 equals()方法是如何比较的？</strong></p>
 <p>比较的是引用类型的变量所指向的对象的地址。</p>
+<p><strong>java8 新特性</strong></p>
+<ul>
+<li>接口的默认方法和静态方法。</li>
+<li>函数式接口：要求接口中有且仅有一个抽象方法。</li>
+<li>lambda表达式：匿名函数，是一段没有函数名的函数体。</li>
+<li>方法引用：为了进一步简化lambda表达式。</li>
+<li>Stream流：一种新的数据处理方式。</li>
+<li>Optional：可以解决空指针异常。</li>
+<li>Date/Time日期时间API的改进.</li>
+</ul>
+<p><strong>说说 Lambda 表达式的优缺点。</strong></p>
+<ul>
+<li>优点：<ol>
+<li>代码简洁，开发迅速。</li>
+<li>方便函数式编程。</li>
+<li>改善了集合操作（Stream流）。</li>
+</ol>
+</li>
+<li>缺点：<ol>
+<li>代码可读性变差。</li>
+<li>学习难度提升。</li>
+<li>不容易进行调试。</li>
+</ol>
+</li>
+</ul>
+<p><strong>一个十进制的数在内存中是怎么存的？</strong></p>
+<ul>
+<li>以二进制补码形式存储，最高位是符号位，正数的补码是它的原码，负数的补码是它的反码加1，在求反码时符号位不变，符号位为1，其他位取反。</li>
+<li>因为原码和反码计算不准确，而补码是准确的。 </li>
+</ul>
+<p><strong>为啥有时会出现 4.0-3.6=0.40000001 这种现象？</strong></p>
+<p>2进制的小数无法精确的表达10进制小数，计算机在计算10进制小数的过程中要先转换为2进制进行计算，这个过程中出现了误差。</p>
+<p><strong>Java 支持的数据类型有哪些？什么是自动拆装箱？</strong></p>
+<ul>
+<li>八大基本数据类型：byte、int、short、long、float、double、char、boolean。</li>
+<li>将基本数据类型转换为所对应的包装类的过程叫做装箱，将包装类转换为基本数据类型的过程叫做拆箱。装箱和拆箱的过程是自动进行的，所以叫做自动拆装箱。</li>
+<li>原理：自动装箱时编译器调用valueOf()将基本数据类型转换成包装类，自动拆箱时编译器调用intValue()将包装类转换为基本数据类型。</li>
+</ul>
+<p><strong>什么是值传递和引用传递？</strong></p>
+<ul>
+<li>值传递是相对于基本数据类型的变量而言的，传递的是该变量的一个副本，改变副本不影响原变量。</li>
+<li>引用传递是相对于引用类型的变量而言的，传递的是该对象地址的一个副本，并不是原对象本身，对该副本所指向的对象进行操作会同时改变原对象。</li>
+</ul>
+<p><strong>数组(Array)和列表(ArrayList)有什么区别？什么时候应该使用 Array 而不是 ArrayList？</strong></p>
+<ul>
+<li>区别：数组大小固定，只能存储相同数据类型的数据；列表大小可动态扩展，可以存储各种类型的数据。</li>
+<li>使用场景：不需要复杂功能和确定长度的情况下，使用数组效率更高，通常情况建议使用List。</li>
+</ul>
+<p><strong>你了解大 O 符号(big-O notation)么？你能给出不同数据结构的例子么？</strong></p>
+<ul>
+<li>大O符号表示算法的时间或者空间复杂度上界。</li>
+<li>数组的插入删除时间复杂度为O(N)，查找时间复杂度为O(1)，空间复杂度为O(1)。</li>
+<li>链表的插入删除时间复杂度为O(1)，查找时间复杂度为O(N)，空间复杂度为O(1)。</li>
+</ul>
+<p><strong>String 是最基本的数据类型吗?</strong></p>
+<p>不是，是引用类型。</p>
+<p><strong>int 和 Integer 有什么区别</strong></p>
+<ul>
+<li>int是基本数据类型，Integer是引用类型。</li>
+<li>int默认值是0，Integer默认值是null。</li>
+<li>int存储在栈中，Integer存储在堆中。</li>
+<li>int变量存储的是数值，Integer变量存储的是引用地址。</li>
+</ul>
+<p><strong>String、StringBuffer、StringBuilder 的区别</strong></p>
+<ul>
+<li>String使用字符数组保存字符串，数组有final修饰，String对象是不可变的，可以理解为常量，线程安全。</li>
+<li>StringBuffer使用字符数组保存字符串，StringBuffer对象是可变的，对方法加了同步锁，线程安全。</li>
+<li>StringBuilder使用字符数组保存字符串，StringBuilder对象是可变的，没有对方法加同步锁，线程不安全。</li>
+</ul>
+<p><strong>&amp;和&amp;&amp;的区别？</strong></p>
+<ul>
+<li>&amp;是位运算符，&amp;&amp;是逻辑运算符。</li>
+<li>&amp;是逻辑与，&amp;&amp;是短路与。</li>
+</ul>
+<p><strong>我们在 web 应用开发过程中经常遇到输出某种编码的字符，如 iso8859-1 等，如何输出一个某种编码的字符串？(<a href="https://www.cnblogs.com/ysocean/p/6850811.html?utm_source=itdadao&utm_medium=referral" target="_blank" rel="noopener">Java 字符编码与解码</a>)</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String str = <span class="keyword">new</span> String(<span class="string">"hello"</span>);</span><br><span class="line"><span class="keyword">byte</span>[] bytes = str.getBytes(<span class="string">"iso8859-1"</span>); <span class="comment">//使用iso8859-1进行编码</span></span><br><span class="line">str = <span class="keyword">new</span> String(bytes);</span><br></pre></td></tr></table></figure>
+
+<p><strong>在 Java 中，如何跳出当前的多重嵌套循环？</strong></p>
+<p>在最外层循环前加一个标记如A，然后用break A；可以跳出多重循环。</p>
+<p><strong>你能比较一下 Java 和 JavaSciprt 吗？</strong></p>
+<ul>
+<li>Java是面向对象的语言，JavaScript基于对象的语言。</li>
+<li>Java要先编译后解释执行，JavaScript不需要编译，直接解释执行。</li>
+<li>Java的变量在使用前必须声明，JavaScript的变量在使用前不需要声明。</li>
+<li>Java和JavaScript的代码格式不一样。</li>
+</ul>
+<p><strong>简述正则表达式及其用途。</strong></p>
+<ul>
+<li>正则表达式就是一个按照一种规则定义的字符串。</li>
+<li>正则表达式通常被用来检索、替换那些符合某个模式(规则)的文本。</li>
+</ul>
+<p><strong>Java 中是如何支持正则表达式操作的？</strong></p>
+<p>Java中的String类提供了支持正则表达式操作的方法，包括：matches()、replaceAll()、replaceFirst()、split()。此外，Java中可以用Pattern类表示正则表达式对象，它提供了丰富的API进行各种正则表达式操作。</p>
+<p><strong>请你说说 Java 和 PHP 的区别？</strong></p>
+<p>无。</p>
+<h3 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h3><p><strong>介绍一下 Synchronized 锁，如果用这个关键字修饰一个静态方法，锁住了什么？如果修饰成员方法，锁住了什么？如果修饰代码块，锁住了什么？</strong></p>
+<ul>
+<li>保证同一时候，只有一个线程可以执行某个代码块或方法，保证了代码在执行完后所修改的数据对其它线程是可见的，可以保证原子性、可见性、有序的。</li>
+<li>修饰成员方法，锁住的是当前对象。</li>
+<li>修饰静态方法，锁住的是当前类的Class对象。</li>
+<li>修饰代码块，锁住的是括号里的对象。</li>
+</ul>
+<p><strong>介绍一下 volatile？</strong></p>
+<ul>
+<li>禁止指令重排，保证了有序性。</li>
+<li>保证变量的读写及时从缓存刷新到主存，保证了可见性。</li>
+</ul>
+<p><strong>锁有了解嘛，说一下 Synchronized 和 lock</strong></p>
+<ul>
+<li>synchronized是可重入的，reentrantlock也是可重入的。</li>
+<li>synchronized是关键字，reentrantlock是Java类。</li>
+<li>synchronized是通过JVM的字节码实现的，每个锁对象都绑定一个monitor，进入一个synchronized同步逻辑时需要获取该monitor并在计数时加1，离开时释放并减1，reentrantlock是通过CAS操作实现的。</li>
+<li>synchronized的加锁和释放锁是自动的，reentrantlock需要手动加锁和释放锁。</li>
+<li>reentrantlock有读写锁实现，在有读和写的并发需求时可以实现更有效率的并发。</li>
+<li>synchronized是不可中断的，reentrantlock支持超时返回和中断。</li>
+</ul>
+<p><strong>讲一讲 Java 里面的 final 关键字怎么用的？</strong></p>
+<ul>
+<li>修饰类，类不能被继承。</li>
+<li>修饰变量，变量就变成了常量，只能被赋值一次。</li>
+<li>修饰方法，方法不能被重写。</li>
+</ul>
 
   </div>
 </article>
@@ -209,7 +331,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaSE部分"><span class="toc-number">1.</span> <span class="toc-text">JavaSE部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java基础"><span class="toc-number">1.1.</span> <span class="toc-text">Java基础</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaSE部分"><span class="toc-number">1.</span> <span class="toc-text">JavaSE部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java基础"><span class="toc-number">1.1.</span> <span class="toc-text">Java基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关键字"><span class="toc-number">1.2.</span> <span class="toc-text">关键字</span></a></li></ol></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
