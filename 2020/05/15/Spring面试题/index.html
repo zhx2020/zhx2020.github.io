@@ -14,7 +14,7 @@
 <meta property="og:description" content="IOC和DI的理解IOC（控制反转）是一种设计思想  控制就是指对对象的创建、维护、销毁等生命周期的控制，这个过程一般是由我们的程序去主动控制的，如使用 new 关键字去创建一个对象（创建），在使用过程中保持引用（维护），在失去全部引用后由 GC 去回收对象（销毁）。  反转就是指对对象的创建、维护、销毁等生命周期的控制由程序控制改为由 IOC 容器控制，需要某个对象时就直接通过名字去 IOC 容">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-15T02:40:06.000Z">
-<meta property="article:modified_time" content="2020-08-02T06:01:07.987Z">
+<meta property="article:modified_time" content="2020-08-19T04:08:27.294Z">
 <meta property="article:author" content="Echo">
 <meta property="article:tag" content="spring">
 <meta name="twitter:card" content="summary">
@@ -114,7 +114,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#IOC和DI的理解"><span class="toc-number">1.</span> <span class="toc-text">IOC和DI的理解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AOP相关"><span class="toc-number">2.</span> <span class="toc-text">AOP相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bean的scope"><span class="toc-number">3.</span> <span class="toc-text">Bean的scope</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它"><span class="toc-number">4.</span> <span class="toc-text">其它</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#IOC和DI的理解"><span class="toc-number">1.</span> <span class="toc-text">IOC和DI的理解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AOP相关"><span class="toc-number">2.</span> <span class="toc-text">AOP相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bean的scope"><span class="toc-number">3.</span> <span class="toc-text">Bean的scope</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它"><span class="toc-number">4.</span> <span class="toc-text">其它</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringBoot"><span class="toc-number">5.</span> <span class="toc-text">SpringBoot</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注解说明"><span class="toc-number">6.</span> <span class="toc-text">注解说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringCloud"><span class="toc-number">7.</span> <span class="toc-text">SpringCloud</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">8.</span> <span class="toc-text">参考</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -140,7 +140,7 @@
       
         <time datetime="2020-05-15T02:40:06.000Z" itemprop="datePublished">2020-05-15</time>
         
-        (Updated: <time datetime="2020-08-02T06:01:07.987Z" itemprop="dateModified">2020-08-02</time>)
+        (Updated: <time datetime="2020-08-19T04:08:27.294Z" itemprop="dateModified">2020-08-19</time>)
         
       
     </div>
@@ -228,6 +228,44 @@
 <p><strong>AOP的应用场景</strong></p>
 <p>性能统计／计数、事务处理、缓存处理、协议转换、日志打印。</p>
 <p><strong>spring和springboot的区别？</strong></p>
+<h2 id="SpringBoot"><a href="#SpringBoot" class="headerlink" title="SpringBoot"></a>SpringBoot</h2><p><strong>SpringBoot自动配置原理（<a href="https://www.cnblogs.com/wenbochang/p/9851314.html" target="_blank" rel="noopener">博客园</a>）</strong></p>
+<ul>
+<li>SpringBoot主程序类上有@SpringBootApplication注解，运行这个启动类，SpringBoot就启动成功了，并且自动加载了好多Java配置类。</li>
+<li>@SpringBootApplication注解是个组合注解，包含3个注解，@SpringBootConfiguration注解：标注在某个类上，表示这是一个SpringBoot的配置类。@EnableAutoConfiguration注解：开启自动配置功能。@ComponentScan：进行包扫描。</li>
+<li>@EnableAutoConfiguration注解包含2个重要的注解，@AutoConfigurationPackage注解：自动配置包，内部使用@Import({Registrar.class})注解，通过new PackageImport(metadata).getPackageName()方法返回了当前主程序类的同级以及子级的包组件。@Import(AutoConfigurationImportSelector.class)注解: 导入自动配置的组件，内部通过加载META-INF/spring.factories外部文件，这个文件包含很多Java配置类。</li>
+</ul>
+<p><strong>SpringBoot启动类</strong></p>
+<p>启动Spring Boot项目，是基于Main方法来运行的。启动类在启动时会做注解扫描，扫描位置为同包或者子包下的注解，所以启动类应的位置应放于包的根目录下。</p>
+<p><strong>SpringBoot启动器</strong></p>
+<p>Spring Boot将所有的功能场景都抽取出来，做成一个个的starter(启动器)，只需要在项目里面引入这些starter，相关场景的的所有依赖都会导入进来，要用什么功能就导入什么场景，在jar包的管理上非常方便，最终实现一站式开发。</p>
+<p><strong>启动类与启动器的区别</strong></p>
+<p>启动类表示项目的启动入口，启动器表示jar的坐标。</p>
+<p><strong>SpringBoot是什么</strong></p>
+<p>Spring Boot是Spring框架的扩展，它消除了设置Spring应用程序所需的XML配置，开发更快、更高效。</p>
+<p><strong>SpringBoot优点（<a href="https://www.cnblogs.com/echola/p/10996214.html" target="_blank" rel="noopener">博客园</a>）</strong></p>
+<ul>
+<li>创建独立的Spring应用程序。</li>
+<li>嵌入的Tomcat，Jetty或者Undertow，无须部署WAR文件。</li>
+<li>允许通过maven来根据需要获取starter。</li>
+<li>尽可能自动配置Spring。</li>
+<li>提供生产就绪型功能，如指标、健康检查和外部配置。</li>
+<li>绝对没有代码生成，对XML没有要求配置。</li>
+</ul>
+<h2 id="注解说明"><a href="#注解说明" class="headerlink" title="注解说明"></a>注解说明</h2><p><strong>@Configuration</strong></p>
+<p>标记在类上，将这个类作为配置类。</p>
+<p><strong>@Bean</strong></p>
+<p>标记在方法上，将方法的返回值作为一个bean注入IOC容器。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MyBean <span class="title">myBean</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// instantiate, configure and return bean ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="SpringCloud"><a href="#SpringCloud" class="headerlink" title="SpringCloud"></a>SpringCloud</h2><p><strong>SpringCloud的结构</strong></p>
+<ol>
+<li>请求统一通过API网关(Zuul)来访问内部服务。</li>
+<li>网关接收到请求后，从注册中心(Eureka)获取可用服务。</li>
+<li>由(Ribbon)进行负载均衡后，分发到后端具体实例。</li>
+<li>微服务之间通过(Feign)客户端进行通信，处理业务。</li>
+<li>(Hystrix)断路器负责处理服务超时熔断。</li>
+<li>(Turbine)监控服务间的调用和熔断相关指标。</li>
+</ol>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="https://www.cnblogs.com/shan1393/p/8997429.html" target="_blank" rel="noopener">框架面试题:谈谈我对Spring IOC与DI的理解-阿善9</a></li>
 <li><a href="https://www.cnblogs.com/Eddyer/p/10984270.html" target="_blank" rel="noopener">静态代理和动态代理的区别</a></li>
@@ -263,7 +301,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#IOC和DI的理解"><span class="toc-number">1.</span> <span class="toc-text">IOC和DI的理解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AOP相关"><span class="toc-number">2.</span> <span class="toc-text">AOP相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bean的scope"><span class="toc-number">3.</span> <span class="toc-text">Bean的scope</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它"><span class="toc-number">4.</span> <span class="toc-text">其它</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#IOC和DI的理解"><span class="toc-number">1.</span> <span class="toc-text">IOC和DI的理解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AOP相关"><span class="toc-number">2.</span> <span class="toc-text">AOP相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bean的scope"><span class="toc-number">3.</span> <span class="toc-text">Bean的scope</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它"><span class="toc-number">4.</span> <span class="toc-text">其它</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringBoot"><span class="toc-number">5.</span> <span class="toc-text">SpringBoot</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注解说明"><span class="toc-number">6.</span> <span class="toc-text">注解说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringCloud"><span class="toc-number">7.</span> <span class="toc-text">SpringCloud</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">8.</span> <span class="toc-text">参考</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">

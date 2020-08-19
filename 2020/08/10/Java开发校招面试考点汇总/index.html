@@ -14,7 +14,7 @@
 <meta property="og:description" content="JavaSE部分Java基础为什么重写 equals 还要重写 hashcode 将对象放入到HashMap或HashSet中时，hashCode方法决定了对象会被放到数组的哪个下标，当多个对象的哈希值冲突时，equals方法决定了这些对象是否是同一个对象。 说一下 map 的分类和常见的情况  HashMap：无序，key可以为null，value可以为null，线程不安全。 HashTable">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-10T13:22:27.000Z">
-<meta property="article:modified_time" content="2020-08-15T15:57:15.821Z">
+<meta property="article:modified_time" content="2020-08-19T02:34:46.359Z">
 <meta property="article:author" content="Echo">
 <meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary">
@@ -112,7 +112,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaSE部分"><span class="toc-number">1.</span> <span class="toc-text">JavaSE部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java基础"><span class="toc-number">1.1.</span> <span class="toc-text">Java基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关键字"><span class="toc-number">1.2.</span> <span class="toc-text">关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#面向对象"><span class="toc-number">1.3.</span> <span class="toc-text">面向对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#集合"><span class="toc-number">1.4.</span> <span class="toc-text">集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程"><span class="toc-number">1.5.</span> <span class="toc-text">线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#锁"><span class="toc-number">1.6.</span> <span class="toc-text">锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JDK"><span class="toc-number">1.7.</span> <span class="toc-text">JDK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#反射"><span class="toc-number">1.8.</span> <span class="toc-text">反射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JVM"><span class="toc-number">1.9.</span> <span class="toc-text">JVM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GC"><span class="toc-number">1.10.</span> <span class="toc-text">GC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IO-和-NIO、AIO"><span class="toc-number">1.11.</span> <span class="toc-text">IO 和 NIO、AIO</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaEE部分"><span class="toc-number">2.</span> <span class="toc-text">JavaEE部分</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaSE部分"><span class="toc-number">1.</span> <span class="toc-text">JavaSE部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java基础"><span class="toc-number">1.1.</span> <span class="toc-text">Java基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关键字"><span class="toc-number">1.2.</span> <span class="toc-text">关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#面向对象"><span class="toc-number">1.3.</span> <span class="toc-text">面向对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#集合"><span class="toc-number">1.4.</span> <span class="toc-text">集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程"><span class="toc-number">1.5.</span> <span class="toc-text">线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#锁"><span class="toc-number">1.6.</span> <span class="toc-text">锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JDK"><span class="toc-number">1.7.</span> <span class="toc-text">JDK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#反射"><span class="toc-number">1.8.</span> <span class="toc-text">反射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JVM"><span class="toc-number">1.9.</span> <span class="toc-text">JVM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GC"><span class="toc-number">1.10.</span> <span class="toc-text">GC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IO-和-NIO、AIO"><span class="toc-number">1.11.</span> <span class="toc-text">IO 和 NIO、AIO</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaEE部分"><span class="toc-number">2.</span> <span class="toc-text">JavaEE部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaWeb编程"><span class="toc-number">3.</span> <span class="toc-text">JavaWeb编程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring"><span class="toc-number">3.1.</span> <span class="toc-text">Spring</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hibernate"><span class="toc-number">3.2.</span> <span class="toc-text">Hibernate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Struts"><span class="toc-number">3.3.</span> <span class="toc-text">Struts</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mybatis"><span class="toc-number">3.4.</span> <span class="toc-text">Mybatis</span></a></li></ol></li></ol>
     </div>
   </span>
 </div>
@@ -138,7 +138,7 @@
       
         <time datetime="2020-08-10T13:22:27.000Z" itemprop="datePublished">2020-08-10</time>
         
-        (Updated: <time datetime="2020-08-15T15:57:15.821Z" itemprop="dateModified">2020-08-15</time>)
+        (Updated: <time datetime="2020-08-19T02:34:46.359Z" itemprop="dateModified">2020-08-19</time>)
         
       
     </div>
@@ -186,7 +186,7 @@
 <li>方法引用：为了进一步简化lambda表达式。</li>
 <li>Stream流：一种新的数据处理方式。</li>
 <li>Optional：可以解决空指针异常。</li>
-<li>Date/Time日期时间API的改进.</li>
+<li>Date/Time日期时间API的改进。</li>
 </ul>
 <p><strong>说说 Lambda 表达式的优缺点。</strong></p>
 <ul>
@@ -319,6 +319,9 @@
 <h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p><strong>多线程中的 i++线程安全吗？为什么？</strong></p>
 <p>不安全，i++不是原子性操作。i++分为读取i值，对i值加一，再赋值给i，执行期间任何一步都有可能被其它线程抢占。</p>
 <h3 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h3><p><strong>讲一下非公平锁和公平锁在 reetrantlock 里的实现。</strong></p>
+<p>基于AQS的锁(比如ReentrantLock)原理大体是这样：有一个state变量，初始值为0，假设当前线程为A，每当A获取一次锁，state++。释放一次，state–。锁会记录当前持有的线程。当A线程拥有锁的时候，state&gt;0。B线程尝试获取锁的时候会对这个state有一个CAS(0,1)的操作，尝试几次失败后就挂起线程，进入一个等待队列。如果A线程恰好释放，–status==0, A线程会去唤醒等待队列中第一个线程，即刚刚进入等待队列的B线程，B线程被唤醒之后回去检查这个status的值，尝试CAS(0,1)，而如果这时恰好C线程也尝试去争抢这把锁。</p>
+<p>非公平锁实现：C直接尝试对这个status CAS(0,1)操作，并成功改变了status的值，B线程获取锁失败，再次挂起，这就是非公平锁，B在C之前尝试获取锁，而最终是C抢到了锁。</p>
+<p>公平锁：C发现有线程在等待队列，直接将自己进入等待队列并挂起，B获取锁。</p>
 <p><strong>讲一下 synchronized，可重入怎么实现。(<a href="https://zhuanlan.zhihu.com/p/134085332" target="_blank" rel="noopener">知乎</a>)</strong></p>
 <ul>
 <li>作用：保证同一时刻，只有一个线程可以执行某个代码块或方法，保证了代码在执行完后所修改的数据对其它线程是可见的，可以保证有序性，可见性，原子性。</li>
@@ -397,6 +400,8 @@
 <li>线程私有：Java虚拟机栈、本地方法栈、程序计数器。</li>
 <li>线程共享：Java堆、方法区。</li>
 </ul>
+<p><strong>JAVA 虚拟机的作用?</strong></p>
+<p>解释Java源文件编译后产生的字节码文件，消除平台差异性.。</p>
 <p><strong>GC 中如何判断对象需要被回收？</strong></p>
 <ul>
 <li>引用计数法：给对象中添加一个引用计数器，每当有一个地方引用它，计数器就加 1；当引用失效，计数器就减 1；任何时候计数器为 0 的对象就是不可能再被使用的。</li>
@@ -497,7 +502,73 @@
 <li>Error：是程序无法处理的错误。</li>
 <li>Exception：是程序本身可以处理的异常。</li>
 </ul>
-<h2 id="JavaEE部分"><a href="#JavaEE部分" class="headerlink" title="JavaEE部分"></a>JavaEE部分</h2>
+<h2 id="JavaEE部分"><a href="#JavaEE部分" class="headerlink" title="JavaEE部分"></a>JavaEE部分</h2><h2 id="JavaWeb编程"><a href="#JavaWeb编程" class="headerlink" title="JavaWeb编程"></a>JavaWeb编程</h2><h3 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h3><p><strong>说一下 IOC 和 AOP?</strong></p>
+<p><strong>介绍一下 bean 的生命周期</strong></p>
+<ol>
+<li>实例化（Instantiation）：实例化一个bean对象。</li>
+<li>属性赋值（Populate）：为bean设置相关属性和依赖。</li>
+<li>初始化（Initialization）：有Aware接口的依赖注入、BeanPostProcessor在初始化前后的处理以及InitializingBean和init-method的初始化操作。</li>
+<li>销毁（Destruction）：有注册相关销毁回调接口，最后通过DisposableBean和distory-method进行销毁。</li>
+</ol>
+<p><strong>Spring 里面注解用过没有？@Autowired 和 @Resource 区别？（<a href="https://www.cnblogs.com/mr-wuxiansheng/p/6392190.html" target="_blank" rel="noopener">博客园</a>）</strong></p>
+<ul>
+<li>@Autowired与@Resource都可以用来装配bean，都可以写在字段上，或写在setter方法上。 </li>
+<li>@Autowired默认按类型装配（这个注解是属业spring的），默认情况下要求依赖对象必须存在，如果要允许null 值，可以设置它的required属性为false，如：@Autowired(required=false) ，如果我们想使用名称装配可以结合@Qualifier注解进行使用。</li>
+<li>@Resource（这个注解属于J2EE的），默认按照名称进行装配，名称可以通过name属性进行指定，如果没有指定name属性，当注解写在字段上时，默认取字段名进行按照名称查找，如果注解写在setter方法上默认取属性名进行装配。 当找不到与名称匹配的bean时才按照类型进行装配。但是需要注意的是，如果name属性一旦指定，就只会按照名称进行装配。</li>
+</ul>
+<p><strong>@Controller和@RestController 的区别？</strong></p>
+<ul>
+<li>@Controller注解可以返回页面，如果要返回json数据，需要加@ResponseBody注解。</li>
+<li>@RestController = @Controller + @ResponseBody，返回json数据不需要加@ResponseBody注解，不能返回页面。</li>
+</ul>
+<p><strong>依赖注入的方式有几种，哪几种？</strong></p>
+<p>set注入、构造函数注入、p命名空间注入。</p>
+<p><strong>springIOC 原理？自己实现 IOC 要怎么做，哪些步骤？</strong></p>
+<ul>
+<li>控制反转，对对象的生命周期的控制由程序控制改为由 IOC 容器控制，需要某个对象时就直接通过名字去 IOC 容器中获取。</li>
+<li>解析xml文件，获取所有bean节点信息，创建一个Map对象，获取bean节点的class信息，使用反射机制实例化对象，通过bean节点的子节点中的信息进行对象属性赋值，将bean节点的id信息作为key，将实例化对象作为value，存放到map中，最后通过beanId获取到容器中的对象。</li>
+</ul>
+<p><strong>Spring 中 BeanFactory 和 ApplicationContext 的区别？</strong></p>
+<p>BeanFactory仅在调用getBean()方法时实例化bean，而ApplicationContext在容器启动时实例化bean，而不等待getBean()被调用。</p>
+<p><strong>什么是 IoC 和 DI？DI 是如何实现的？</strong></p>
+<p><strong>请问 Spring 中 Bean 的作用域有哪些？</strong></p>
+<p>singleton（单例模式）、prototype（原型模式）、request（HTTP请求）、session（会话）、globalsession（全局会话）。</p>
+<p><strong>谈谈 Spring 中自动装配的方式有哪些？（<a href="https://zhuanlan.zhihu.com/p/68225768" target="_blank" rel="noopener">知乎</a>）</strong></p>
+<p>在Spring框架中，开启自动装配，只需要在xml配置文件<bean>中定义”autowire”属性。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"cutomer"</span> <span class="attr">class</span>=<span class="string">"com.xxx.xxx.Customer"</span> <span class="attr">autowire</span>=<span class="string">""</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>autowire属性有五种自动装配的方式</p>
+<ul>
+<li>no：缺省情况下，自动配置是通过”ref”属性手动设定。</li>
+<li>byName：根据bean的属性名称进行自动装配。</li>
+<li>byType：根据bean的类型进行自动装配。</li>
+<li>constructor：类似byType，不过是应用于构造器的参数。如果一个bean与构造器参数的类型形同，则进行自动装配，否则导致异常。</li>
+<li>autodetect：如果有默认的构造器，则通过constructor方式进行自动装配，否则使用byType方式进行自动装配。</li>
+</ul>
+<p><strong>aop 的应用场景？</strong></p>
+<p>性能统计／计数、事务处理、缓存处理、协议转换、日志打印。</p>
+<p><strong>AOP 的原理是什么？</strong></p>
+<p><strong>你如何理解 AOP 中的连接点（Joinpoint）、切点（Pointcut）、增强（Advice）、引介（Introduction）、织入（Weaving）、切面（Aspect）这些概念？</strong></p>
+<ul>
+<li>Joinpoint（连接点）：目标对象中所有可以增强的方法。</li>
+<li>Pointcut(切入点)：目标对象中要增强的的方法。</li>
+<li>Advice（通知/增强）：增强的代码。</li>
+<li>Target（目标对象）：被代理对象。</li>
+<li>Weaving（织入）：将通知应用到连接点的过程。</li>
+<li>Proxy(代理)：生成的代理对象。</li>
+<li>Aspect（切面）：切入点+通知就形成了切面。</li>
+</ul>
+<p><strong>Spring 支持的事务管理类型有哪些？你在项目中使用哪种方式？</strong></p>
+<ul>
+<li>编程式事务：在代码中进行硬编码，使用TransactionTemplate来进行事务管理。</li>
+<li>声明式事务：通过注解形式和配置形式来管理事务，操作简单。</li>
+</ul>
+<p><strong>介绍一下 spring？</strong></p>
+<p>Spring是一种可以解决对象创建以及对象之间依赖关系的框架，核心是IOC和AOP。</p>
+<h3 id="Hibernate"><a href="#Hibernate" class="headerlink" title="Hibernate"></a>Hibernate</h3><h3 id="Struts"><a href="#Struts" class="headerlink" title="Struts"></a>Struts</h3><h3 id="Mybatis"><a href="#Mybatis" class="headerlink" title="Mybatis"></a>Mybatis</h3><p><strong>解释一下 MyBatis 中命名空间（namespace）的作用。</strong></p>
+<p>在mybatis中，映射文件中的namespace是用于绑定Dao接口的，即面向接口编程。当namespace绑定接口后，可以不用写接口实现类，mybatis会通过该绑定自动找到对应要执行的SQL语句。</p>
+<p><strong>MyBatis 中的动态 SQL 是什么意思？</strong></p>
+<p>MyBatis的动态SQL是基于OGNL表达式的，它可以帮助我们方便的在SQL语句中实现某些逻辑。</p>
+
   </div>
 </article>
 
@@ -528,7 +599,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaSE部分"><span class="toc-number">1.</span> <span class="toc-text">JavaSE部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java基础"><span class="toc-number">1.1.</span> <span class="toc-text">Java基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关键字"><span class="toc-number">1.2.</span> <span class="toc-text">关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#面向对象"><span class="toc-number">1.3.</span> <span class="toc-text">面向对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#集合"><span class="toc-number">1.4.</span> <span class="toc-text">集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程"><span class="toc-number">1.5.</span> <span class="toc-text">线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#锁"><span class="toc-number">1.6.</span> <span class="toc-text">锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JDK"><span class="toc-number">1.7.</span> <span class="toc-text">JDK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#反射"><span class="toc-number">1.8.</span> <span class="toc-text">反射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JVM"><span class="toc-number">1.9.</span> <span class="toc-text">JVM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GC"><span class="toc-number">1.10.</span> <span class="toc-text">GC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IO-和-NIO、AIO"><span class="toc-number">1.11.</span> <span class="toc-text">IO 和 NIO、AIO</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaEE部分"><span class="toc-number">2.</span> <span class="toc-text">JavaEE部分</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaSE部分"><span class="toc-number">1.</span> <span class="toc-text">JavaSE部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java基础"><span class="toc-number">1.1.</span> <span class="toc-text">Java基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关键字"><span class="toc-number">1.2.</span> <span class="toc-text">关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#面向对象"><span class="toc-number">1.3.</span> <span class="toc-text">面向对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#集合"><span class="toc-number">1.4.</span> <span class="toc-text">集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程"><span class="toc-number">1.5.</span> <span class="toc-text">线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#锁"><span class="toc-number">1.6.</span> <span class="toc-text">锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JDK"><span class="toc-number">1.7.</span> <span class="toc-text">JDK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#反射"><span class="toc-number">1.8.</span> <span class="toc-text">反射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JVM"><span class="toc-number">1.9.</span> <span class="toc-text">JVM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GC"><span class="toc-number">1.10.</span> <span class="toc-text">GC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IO-和-NIO、AIO"><span class="toc-number">1.11.</span> <span class="toc-text">IO 和 NIO、AIO</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaEE部分"><span class="toc-number">2.</span> <span class="toc-text">JavaEE部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaWeb编程"><span class="toc-number">3.</span> <span class="toc-text">JavaWeb编程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring"><span class="toc-number">3.1.</span> <span class="toc-text">Spring</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hibernate"><span class="toc-number">3.2.</span> <span class="toc-text">Hibernate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Struts"><span class="toc-number">3.3.</span> <span class="toc-text">Struts</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mybatis"><span class="toc-number">3.4.</span> <span class="toc-text">Mybatis</span></a></li></ol></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
