@@ -14,7 +14,7 @@
 <meta property="og:description" content="区别 InnoDB 支持事务，MyISAM 不支持事务。这是 MySQL 将默认存储引擎从 MyISAM 变成 InnoDB 的重要原因之一；  InnoDB 支持外键，而 MyISAM 不支持。对一个包含外键的 InnoDB 表转为 MYISAM 会失败；  InnoDB 是聚集索引，MyISAM 是非聚集索引。聚簇索引的文件存放在主键索引的叶子节点上，因此 InnoDB 必须要有主键，通过主键">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-02T08:09:32.000Z">
-<meta property="article:modified_time" content="2020-05-29T15:03:05.273Z">
+<meta property="article:modified_time" content="2020-08-22T02:00:18.242Z">
 <meta property="article:author" content="Echo">
 <meta name="twitter:card" content="summary">
     
@@ -139,7 +139,7 @@
       
         <time datetime="2020-05-02T08:09:32.000Z" itemprop="datePublished">2020-05-02</time>
         
-        (Updated: <time datetime="2020-05-29T15:03:05.273Z" itemprop="dateModified">2020-05-29</time>)
+        (Updated: <time datetime="2020-08-22T02:00:18.242Z" itemprop="dateModified">2020-08-22</time>)
         
       
     </div>
@@ -172,11 +172,11 @@
 </li>
 </ol>
 <h2 id="如何选择"><a href="#如何选择" class="headerlink" title="如何选择"></a>如何选择</h2><ol>
-<li><p>是否要支持事务，如果要请选择 InnoDB，如果不需要可以考虑 MyISAM；</p>
+<li><p>是否要支持事务，如果要请选择 InnoDB，如果不需要可以考虑 MyISAM。</p>
 </li>
 <li><p>如果表中绝大多数都只是读查询，可以考虑 MyISAM，如果既有读写也挺频繁，请使用InnoDB。</p>
 </li>
-<li><p>系统奔溃后，MyISAM恢复起来更困难，能否接受，不能接受就选 InnoDB；</p>
+<li><p>系统奔溃后，MyISAM恢复起来更困难，能否接受，不能接受就选 InnoDB。</p>
 </li>
 <li><p>MySQL5.5版本开始Innodb已经成为Mysql的默认引擎(之前是MyISAM)，说明其优势是有目共睹的。如果你不知道用什么存储引擎，那就用InnoDB，至少不会差。</p>
 </li>

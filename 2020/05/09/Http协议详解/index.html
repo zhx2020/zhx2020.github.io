@@ -15,7 +15,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/TCP_IP%E6%A8%A1%E5%9E%8B.png">
 <meta property="article:published_time" content="2020-05-09T14:10:57.000Z">
-<meta property="article:modified_time" content="2020-08-01T11:49:10.016Z">
+<meta property="article:modified_time" content="2020-08-21T01:28:17.644Z">
 <meta property="article:author" content="Echo">
 <meta property="article:tag" content="协议">
 <meta name="twitter:card" content="summary">
@@ -142,7 +142,7 @@
       
         <time datetime="2020-05-09T14:10:57.000Z" itemprop="datePublished">2020-05-09</time>
         
-        (Updated: <time datetime="2020-08-01T11:49:10.016Z" itemprop="dateModified">2020-08-01</time>)
+        (Updated: <time datetime="2020-08-21T01:28:17.644Z" itemprop="dateModified">2020-08-21</time>)
         
       
     </div>
@@ -218,7 +218,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1xx：指示信息--表示请求已接收，继续处理</span><br><span class="line"></span><br><span class="line">2xx：成功--表示请求已被成功接收、理解、接受</span><br><span class="line"></span><br><span class="line">3xx：重定向--要完成请求必须进行更进一步的操作</span><br><span class="line"></span><br><span class="line">4xx：客户端错误--请求有语法错误或请求无法实现</span><br><span class="line"></span><br><span class="line">5xx：服务器端错误--服务器未能实现合法的请求</span><br></pre></td></tr></table></figure>
 
 <p>常见状态码（<a href="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/常见状态码.png" target="_blank" rel="noopener">图片</a>）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">200 OK                     &#x2F;&#x2F;客户端请求成功</span><br><span class="line">400 Bad Request            &#x2F;&#x2F;客户端请求有语法错误，不能被服务器所理解</span><br><span class="line">401 Unauthorized           &#x2F;&#x2F;请求未经授权，这个状态码必须和WWW-Authenticate报头域一起使用</span><br><span class="line">403 Forbidden              &#x2F;&#x2F;服务器收到请求，但是拒绝提供服务</span><br><span class="line">404 Not Found              &#x2F;&#x2F;请求资源不存在，eg：输入了错误的URL</span><br><span class="line">500 Internal Server Error  &#x2F;&#x2F;服务器发生不可预期的错误</span><br><span class="line">503 Server Unavailable     &#x2F;&#x2F;服务器当前不能处理客户端的请求，一段时间后可能恢复正常</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">200 OK                     &#x2F;&#x2F;客户端请求成功</span><br><span class="line">301                        &#x2F;&#x2F;永久重定向，比如使用域名跳转</span><br><span class="line">302                        &#x2F;&#x2F;临时重定向，比如未登陆的用户访问用户中心重定向到登录页面</span><br><span class="line">400 Bad Request            &#x2F;&#x2F;客户端请求有语法错误，不能被服务器所理解</span><br><span class="line">401 Unauthorized           &#x2F;&#x2F;请求未经授权，这个状态码必须和WWW-Authenticate报头域一起使用</span><br><span class="line">403 Forbidden              &#x2F;&#x2F;服务器收到请求，但是拒绝提供服务</span><br><span class="line">404 Not Found              &#x2F;&#x2F;请求资源不存在，eg：输入了错误的URL</span><br><span class="line">500 Internal Server Error  &#x2F;&#x2F;服务器发生不可预期的错误</span><br><span class="line">503 Server Unavailable     &#x2F;&#x2F;服务器当前不能处理客户端的请求，一段时间后可能恢复正常</span><br></pre></td></tr></table></figure>
 
 <h2 id="HTTP请求方法"><a href="#HTTP请求方法" class="headerlink" title="HTTP请求方法"></a>HTTP请求方法</h2><p>根据HTTP标准，HTTP请求可以使用多种请求方法（<a href="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/请求方法.png" target="_blank" rel="noopener">图片</a>）。</p>
 <p><strong>HTTP1.0</strong>定义了三种请求方法： <code>GET</code> , <code>POST</code> 和 <code>HEAD</code> 方法。</p>
