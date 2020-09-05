@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Dubbo%E6%9E%B6%E6%9E%84.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Zookeeper%E7%BB%93%E6%9E%84%E5%9B%BE.png">
 <meta property="article:published_time" content="2020-05-24T01:39:25.000Z">
-<meta property="article:modified_time" content="2020-06-14T05:22:29.900Z">
+<meta property="article:modified_time" content="2020-09-05T06:14:36.579Z">
 <meta property="article:author" content="Echo">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Dubbo%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86.png">
@@ -143,7 +143,7 @@
       
         <time datetime="2020-05-24T01:39:25.000Z" itemprop="datePublished">2020-05-24</time>
         
-        (Updated: <time datetime="2020-06-14T05:22:29.900Z" itemprop="dateModified">2020-06-14</time>)
+        (Updated: <time datetime="2020-09-05T06:14:36.579Z" itemprop="dateModified">2020-09-05</time>)
         
       
     </div>
@@ -165,17 +165,17 @@
   <div class="content" itemprop="articleBody">
     <h2 id="什么是Dubbo"><a href="#什么是Dubbo" class="headerlink" title="什么是Dubbo"></a>什么是Dubbo</h2><p>​Dubbo 是阿里巴巴提供的开源的 SOA 服务化治理的技术框架。它最大的特点是按照分层的方式来架构，使用这种方式可以使各个层之间解耦合（或者最大限度地松耦合）。从服务模型的角度来看，Dubbo 采用的是一种非常简单的模型，要么是提供方提供服务，要么是消费方消费服务，所以基于这一点可以抽象出服务提供方（Provider）和服务消费方（Consumer）两个角色。 除了提供<strong>服务</strong>之外，它还提供了<strong>负载均衡</strong>，<strong>监控中心</strong>和<strong>调度中心</strong>。</p>
 <p>下图展示了它涉及的服务治理：</p>
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Dubbo服务治理.png" width="480px"/>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Dubbo服务治理.png" width="360px"/>
 
 <p>​在大规模服务化之前，应用可能只是通过 RMI 或 Hessian 等工具，简单的暴露和引用远程服务，通过配置服务的URL地址进行调用，通过 F5 等硬件进行负载均衡。当服务越来越多时，服务 URL 配置管理变得非常困难，F5 硬件负载均衡器的单点压力也越来越大。 此时需要一个服务注册中心，动态的注册和发现服务，使服务的位置透明。并通过在消费方获取服务提供方地址列表，实现软负载均衡和 Failover，降低对 F5 硬件负载均衡器的依赖，也能减少部分成本。</p>
-<h2 id="如何使用Dubbo"><a href="#如何使用Dubbo" class="headerlink" title="如何使用Dubbo"></a>如何使用Dubbo</h2><h3 id="Dubbo的架构"><a href="#Dubbo的架构" class="headerlink" title="Dubbo的架构"></a>Dubbo的架构</h3><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Dubbo架构.png" width="480px"/>
+<h2 id="如何使用Dubbo"><a href="#如何使用Dubbo" class="headerlink" title="如何使用Dubbo"></a>如何使用Dubbo</h2><h3 id="Dubbo的架构"><a href="#Dubbo的架构" class="headerlink" title="Dubbo的架构"></a>Dubbo的架构</h3><img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Dubbo架构.png" width="320px"/>
 
 <p>节点角色说明：</p>
 <ul>
 <li>Provider：暴露服务的服务提供方。</li>
 <li>Consumer：调用远程服务的服务消费方。</li>
 <li>Registry：服务注册与发现的注册中心。</li>
-<li>Monitor：统计服务的调用次调和调用时间的监控中心。</li>
+<li>Monitor：统计服务的调用次数和调用时间的监控中心。</li>
 <li>Container：服务运行容器。</li>
 </ul>
 <p>调用关系说明：</p>
@@ -190,7 +190,7 @@
 <p>我们从上面的架构可以看出，使用 dubbo 之后我们不需要关注服务是如何被远程调用，服务之间调用好像在本地调用一样，充分发掘其强大的服务治理，我们可以减少运维成本，将注意力专注于业务本身的开发。</p>
 <h3 id="Dubbo注册中心"><a href="#Dubbo注册中心" class="headerlink" title="Dubbo注册中心"></a>Dubbo注册中心</h3><p>​Zookeeper 是 hadoop 的一个子项目，是分布式的，开放源码的分布式应用程序协调服务，它包含一个简单的原语集，分布式应用程序可以基于它实现同步服务，配置维护和命名服务等。在与 dubbo 结合使用时，作为其注册中心，负责 dubbo 的所有服务地址列表维护，并且可以通过在 ZooKeeper 节点中设置相应的值来实现对这个服务的权重、优先级、是否可用、路由、权限等的控制。</p>
 <p>下图是 zookeeper 的结构图</p>
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Zookeeper结构图.png" width="420px"/>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/Zookeeper结构图.png" width="320px"/>
 
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="http://luckylau.tech/2018/01/09/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B9%8BDubbo-1/" target="_blank" rel="noopener">微服务架构之Dubbo简介</a></li>
