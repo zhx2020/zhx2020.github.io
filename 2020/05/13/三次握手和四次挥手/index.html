@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="TCP报文格式  1、TCP报头中的源端口号和目的端口号同IP数据报中的源IP与目的IP唯一确定一条TCP连接。TCP在发送数据前必须在彼此间建立连接，这里连接意思是：双方需要保存对方信息（例如：IP，Port）。 2、报文主要段的意思  序号(seq)：表示发送的数据字节流，确保TCP传输有序，对每个字节编号  确认序号(ack)：发送方期待接收的下一序列号，接收成功后的数据字节序列号加 1 。">
+    <meta name="description" content="TCP报文格式  1、TCP报头中的源端口号和目的端口号同IP数据报中的源IP与目的IP唯一确定一条TCP连接。TCP在发送数据前必须在彼此间建立连接，这里连接意思是：双方需要保存对方信息（例如：IP，Port）。 2、报文主要段的意思  序号(seq)：表示发送的数据字节流，确保TCP传输有序，对每个字节编号。  确认序号(ack)：发送方期待接收的下一序列号，接收成功后的数据字节序列号加 1">
 <meta property="og:type" content="article">
 <meta property="og:title" content="三次握手和四次挥手">
 <meta property="og:url" content="https://zhx2020.github.io/2020/05/13/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%92%8C%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/index.html">
 <meta property="og:site_name" content="ZHX2020">
-<meta property="og:description" content="TCP报文格式  1、TCP报头中的源端口号和目的端口号同IP数据报中的源IP与目的IP唯一确定一条TCP连接。TCP在发送数据前必须在彼此间建立连接，这里连接意思是：双方需要保存对方信息（例如：IP，Port）。 2、报文主要段的意思  序号(seq)：表示发送的数据字节流，确保TCP传输有序，对每个字节编号  确认序号(ack)：发送方期待接收的下一序列号，接收成功后的数据字节序列号加 1 。">
+<meta property="og:description" content="TCP报文格式  1、TCP报头中的源端口号和目的端口号同IP数据报中的源IP与目的IP唯一确定一条TCP连接。TCP在发送数据前必须在彼此间建立连接，这里连接意思是：双方需要保存对方信息（例如：IP，Port）。 2、报文主要段的意思  序号(seq)：表示发送的数据字节流，确保TCP传输有序，对每个字节编号。  确认序号(ack)：发送方期待接收的下一序列号，接收成功后的数据字节序列号加 1">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/TCP%E6%8A%A5%E6%96%87%E6%A0%BC%E5%BC%8F.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B.jpg">
@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E8%BF%87%E7%A8%8B.jpg">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B.jpg">
 <meta property="article:published_time" content="2020-05-13T05:50:51.000Z">
-<meta property="article:modified_time" content="2020-07-13T05:13:31.767Z">
+<meta property="article:modified_time" content="2020-09-05T09:38:26.715Z">
 <meta property="article:author" content="Echo">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/TCP%E6%8A%A5%E6%96%87%E6%A0%BC%E5%BC%8F.png">
@@ -145,7 +145,7 @@
       
         <time datetime="2020-05-13T05:50:51.000Z" itemprop="datePublished">2020-05-13</time>
         
-        (Updated: <time datetime="2020-07-13T05:13:31.767Z" itemprop="dateModified">2020-07-13</time>)
+        (Updated: <time datetime="2020-09-05T09:38:26.715Z" itemprop="dateModified">2020-09-05</time>)
         
       
     </div>
@@ -170,15 +170,15 @@
 <p>1、TCP报头中的源端口号和目的端口号同IP数据报中的源IP与目的IP唯一确定一条TCP连接。TCP在发送数据前必须在彼此间建立连接，这里连接意思是：双方需要保存对方信息（例如：IP，Port）。</p>
 <p>2、报文主要段的意思</p>
 <ul>
-<li><p><strong>序号(seq)</strong>：表示发送的数据字节流，确保TCP传输有序，对每个字节编号</p>
+<li><p><strong>序号(seq)</strong>：表示发送的数据字节流，确保TCP传输有序，对每个字节编号。</p>
 </li>
 <li><p><strong>确认序号(ack)</strong>：发送方期待接收的下一序列号，接收成功后的数据字节序列号加 <code>1</code> 。只有 <code>ACK=1</code> 时才有效。</p>
 </li>
-<li><p><strong>ACK</strong>：确认序号的标志，<code>ACK=1</code> 表示确认序号有效，<code>ACK=0</code> 表示报文不含确认序号信息</p>
+<li><p><strong>ACK</strong>：确认序号的标志，<code>ACK=1</code> 表示确认序号有效，<code>ACK=0</code> 表示报文不含确认序号信息。</p>
 </li>
-<li><p><strong>SYN</strong>：连接请求序号标志，用于建立连接，<code>SYN=1</code> 表示请求连接</p>
+<li><p><strong>SYN</strong>：连接请求序号标志，用于建立连接，<code>SYN=1</code> 表示请求连接。</p>
 </li>
-<li><p><strong>FIN</strong>：结束标志，用于释放连接，为 <code>1</code> 表示关闭本方数据流</p>
+<li><p><strong>FIN</strong>：结束标志，用于释放连接，为 <code>1</code> 表示关闭本方数据流。</p>
 </li>
 </ul>
 <h2 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h2><p><strong>三次握手过程</strong></p>
