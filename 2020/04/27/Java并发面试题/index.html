@@ -13,10 +13,12 @@
 <meta property="og:site_name" content="ZHX2020">
 <meta property="og:description" content="创建一个线程的方式有哪几种  继承Thread类 实现Runnable接口 实现Callable接口  sleep()会让线程进入什么状态  sleep()方法的作用是让当前线程暂停指定的时间，只是暂时让出CPU的执行权，并不会释放锁。会让线程进入阻塞状态。  线程池相关参数介绍，原理说明  参数介绍 int corePoolSize：线程池的核心线程数量 int maximumPoolSize：">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-1b7171e77a484cd094078227982c283a_720w.jpg">
 <meta property="article:published_time" content="2020-04-27T01:24:09.000Z">
-<meta property="article:modified_time" content="2020-08-25T06:57:53.746Z">
+<meta property="article:modified_time" content="2020-09-10T09:34:45.950Z">
 <meta property="article:author" content="Echo">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic1.zhimg.com/80/v2-1b7171e77a484cd094078227982c283a_720w.jpg">
     
     
         
@@ -139,7 +141,7 @@
       
         <time datetime="2020-04-27T01:24:09.000Z" itemprop="datePublished">2020-04-27</time>
         
-        (Updated: <time datetime="2020-08-25T06:57:53.746Z" itemprop="dateModified">2020-08-25</time>)
+        (Updated: <time datetime="2020-09-10T09:34:45.950Z" itemprop="dateModified">2020-09-10</time>)
         
       
     </div>
@@ -323,6 +325,24 @@
 <ul>
 <li>共享变量。</li>
 <li>wait/notify机制。</li>
+</ul>
+<p><strong>Synchronized原理</strong></p>
+<ul>
+<li>对象锁原理。</li>
+<li>代码块加锁解锁过程。</li>
+<li>方法体加锁解锁过程。</li>
+</ul>
+<p><strong>对象锁原理</strong></p>
+<p>在Java中，每个锁对象内部都有一个monitor对象（监视器锁）。Java虚拟机中，monitor由ObjectMonitor实现，ObjectMonitor的三个成员变量：_owner（指向获得monitor的线程）、_EntryList（处于block状态的线程，会被加入到entry set）、_WaitSet（处于wait状态的线程，会被加入到wait set）。多个线程同时访问一段同步代码时，首先会进入_EntryList集合，进行阻塞等待，当线程获取到锁对象的monitor之后进入到_owner区域，并把monitor中的_owner变量指向该线程，同时monitor中的计数器count加一，若线程调用同步对象的wait()方法将释放当前持有的monitor，_owner变量重置为null，count置为0，同时该线程进入_WaitSet中等待唤醒，线程执行完同步代码后，也将_owner和count变量重置。</p>
+<img src="https://pic1.zhimg.com/80/v2-1b7171e77a484cd094078227982c283a_720w.jpg" width="320px"/>
+
+<p><strong>代码块加锁解锁过程</strong></p>
+<p>反编译字节码，底层使用monitorenter和monitorexit指令实现。执行monitorenter指令，线程尝试获取锁对象的monitor对象，若monitor的count变量为0，则将count设置为1，_owner设置为当前线程，如果线程已经获取到monitor对象，则可以重入该锁，将count计数器的值加一。执行monitorexit指令，会将计数器count的值减一，当计数器为0时，当前线程释放monitor对象，其它线程有机会获得monitor对象。</p>
+<p><strong>方法体加锁解锁过程</strong></p>
+<p>反编译字节码，底层通过ACC_SYNCHRONIZED访问标志判断一个方法是否同步方法。调用方法时，检测这个标志是否被设置，如果设置了，线程需要先获得锁对象的monitor对象，然后执行方法，最后在方法完成时释放monitor对象。</p>
+<p><strong>参考</strong></p>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/132742291" target="_blank" rel="noopener">面试官，别挂电话，Synchronized，我还能说上半小时</a></li>
 </ul>
 
   </div>
