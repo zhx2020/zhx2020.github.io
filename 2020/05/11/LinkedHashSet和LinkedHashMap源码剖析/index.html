@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/LinkedHashMap_put.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/LinkedHashMap_remove.png">
 <meta property="article:published_time" content="2020-05-11T15:07:53.000Z">
-<meta property="article:modified_time" content="2020-06-15T08:34:34.588Z">
+<meta property="article:modified_time" content="2020-09-14T12:21:47.279Z">
 <meta property="article:author" content="Echo">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/LinkedHashMap%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0.png">
@@ -143,7 +143,7 @@
       
         <time datetime="2020-05-11T15:07:53.000Z" itemprop="datePublished">2020-05-11</time>
         
-        (Updated: <time datetime="2020-06-15T08:34:34.588Z" itemprop="dateModified">2020-06-15</time>)
+        (Updated: <time datetime="2020-09-14T12:21:47.279Z" itemprop="dateModified">2020-09-14</time>)
         
       
     </div>
@@ -165,7 +165,7 @@
   <div class="content" itemprop="articleBody">
     <h2 id="总体介绍"><a href="#总体介绍" class="headerlink" title="总体介绍"></a>总体介绍</h2><p><em>LinkedHashSet</em>和<em>LinkedHashMap</em>在Java里也有着相同的实现，前者仅仅是对后者做了一层包装，也就是说<em>LinkedHashSet</em>里面有一个<em>LinkedHashMap</em>（适配器模式）。</p>
 <p><em>LinkedHashMap</em>实现了<em>Map</em>接口，即允许放入 <code>key</code> 为 <code>null</code> 的元素，也允许插入 <code>value</code> 为 <code>null</code> 的元素。从名字上可以看出该容器是<em>LinkedList</em>和<em>HashMap</em>的混合体，也就是说它同时满足<em>HashMap</em>和<em>LinkedList</em>的某些特性。可将<em>LinkedHashMap</em>看作采用<em>LinkedList</em>增强的<em>HashMap</em>。</p>
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/LinkedHashMap底层实现.png" width="560px"/>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/LinkedHashMap底层实现.png" width="480px"/>
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">transient</span> Entry&lt;K,V&gt; header;</span><br></pre></td></tr></table></figure>
 
@@ -187,7 +187,7 @@
 <li>从 <code>table</code> 的角度看，新的 <code>entry</code> 需要插入到对应的 <code>bucket</code> 里，当有哈希冲突时，采用头插法将新的 <code>entry</code> 插入到冲突链表的头部。</li>
 <li>从 <code>header</code> 的角度看，新的 <code>entry</code> 需要插入到双向链表的尾部。</li>
 </ol>
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/LinkedHashMap_put.png" width="560px"/>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/LinkedHashMap_put.png" width="480px"/>
 
 <p><code>addEntry()</code> 代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// LinkedHashMap.addEntry()</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addEntry</span><span class="params">(<span class="keyword">int</span> hash, K key, V value, <span class="keyword">int</span> bucketIndex)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ((size &gt;= threshold) &amp;&amp; (<span class="keyword">null</span> != table[bucketIndex])) &#123;</span><br><span class="line">        resize(<span class="number">2</span> * table.length);<span class="comment">// 自动扩容，并重新哈希</span></span><br><span class="line">        hash = (<span class="keyword">null</span> != key) ? hash(key) : <span class="number">0</span>;</span><br><span class="line">        bucketIndex = hash &amp; (table.length-<span class="number">1</span>);<span class="comment">// hash%table.length</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 1.在冲突链表头部插入新的entry</span></span><br><span class="line">    HashMap.Entry&lt;K,V&gt; old = table[bucketIndex];</span><br><span class="line">    Entry&lt;K,V&gt; e = <span class="keyword">new</span> Entry&lt;&gt;(hash, key, value, old);</span><br><span class="line">    table[bucketIndex] = e;</span><br><span class="line">    <span class="comment">// 2.在双向链表的尾部插入新的entry</span></span><br><span class="line">    e.addBefore(header);</span><br><span class="line">    size++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -202,7 +202,7 @@
 <li>从 <code>table</code> 的角度看，需要将该 <code>entry</code> 从对应的 <code>bucket</code> 里删除，如果对应的冲突链表不空，需要修改冲突链表的相应引用。</li>
 <li>从 <code>header</code> 的角度来看，需要将该 <code>entry</code> 从双向链表中删除，同时修改链表中前面以及后面元素的相应引用。</li>
 </ol>
-<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/LinkedHashMap_remove.png" width="560px"/>
+<img src="https://cdn.jsdelivr.net/gh/zhx2020/picture/img/LinkedHashMap_remove.png" width="480px"/>
 
 <p><code>removeEntryForKey()</code> 对应的代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// LinkedHashMap.removeEntryForKey()，删除key值对应的entry</span></span><br><span class="line"><span class="function"><span class="keyword">final</span> Entry&lt;K,V&gt; <span class="title">removeEntryForKey</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">	......</span><br><span class="line">	<span class="keyword">int</span> hash = (key == <span class="keyword">null</span>) ? <span class="number">0</span> : hash(key);</span><br><span class="line">    <span class="keyword">int</span> i = indexFor(hash, table.length);<span class="comment">// hash&amp;(table.length-1)</span></span><br><span class="line">    Entry&lt;K,V&gt; prev = table[i];<span class="comment">// 得到冲突链表</span></span><br><span class="line">    Entry&lt;K,V&gt; e = prev;</span><br><span class="line">    <span class="keyword">while</span> (e != <span class="keyword">null</span>) &#123;<span class="comment">// 遍历冲突链表</span></span><br><span class="line">        Entry&lt;K,V&gt; next = e.next;</span><br><span class="line">        Object k;</span><br><span class="line">        <span class="keyword">if</span> (e.hash == hash &amp;&amp;</span><br><span class="line">            ((k = e.key) == key || (key != <span class="keyword">null</span> &amp;&amp; key.equals(k)))) &#123;<span class="comment">// 找到要删除的entry</span></span><br><span class="line">            modCount++; size--;</span><br><span class="line">            <span class="comment">// 1. 将e从对应bucket的冲突链表中删除</span></span><br><span class="line">            <span class="keyword">if</span> (prev == e) table[i] = next;</span><br><span class="line">            <span class="keyword">else</span> prev.next = next;</span><br><span class="line">            <span class="comment">// 2. 将e从双向链表中删除</span></span><br><span class="line">            e.before.after = e.after;</span><br><span class="line">            e.after.before = e.before;</span><br><span class="line">            <span class="keyword">return</span> e;</span><br><span class="line">        &#125;</span><br><span class="line">        prev = e; e = next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> e;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
