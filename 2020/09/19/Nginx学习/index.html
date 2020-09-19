@@ -14,7 +14,7 @@
 <meta property="og:description" content="Nginx介绍Nginx介绍 Nginx是由俄罗斯人研发的，应对Rambler的网站，并且2004年发布的第一个版本。 Nginx的特点  稳定性极强。 提供了非常丰富的配置实例。 占用内存小，并发能力强。  Nginx的安装nginx安装及其配置详细教程 Nginx的配置文件 1234567891011121314151617181920212223242526272829303132# ngi">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-09-19T02:20:23.000Z">
-<meta property="article:modified_time" content="2020-09-19T02:24:19.703Z">
+<meta property="article:modified_time" content="2020-09-19T02:36:54.351Z">
 <meta property="article:author" content="Echo">
 <meta name="twitter:card" content="summary">
     
@@ -139,7 +139,7 @@
       
         <time datetime="2020-09-19T02:20:23.000Z" itemprop="datePublished">2020-09-19</time>
         
-        (Updated: <time datetime="2020-09-19T02:24:19.703Z" itemprop="dateModified">2020-09-19</time>)
+        (Updated: <time datetime="2020-09-19T02:36:54.351Z" itemprop="dateModified">2020-09-19</time>)
         
       
     </div>
@@ -199,9 +199,9 @@
 <p><strong>ip_hash</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">upstream my-server &#123;</span><br><span class="line">	ip_hash;</span><br><span class="line">	server 192.168.235.128:8081;</span><br><span class="line">	server 192.168.235.128:8082;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  localhost;</span><br><span class="line"></span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">    	proxy_pass http:&#x2F;&#x2F;my-server&#x2F;;   </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="Nginx动静分离"><a href="#Nginx动静分离" class="headerlink" title="Nginx动静分离"></a>Nginx动静分离</h2><p>Nginx的并发能力公式：worker_processes * worker_connections / 4 | 2 = Nginx最终的并发能力</p>
-<p>动态资源需要 / 4，静态资源需要 / 2</p>
-<p>Nginx通过动静分离，来提升Nginx的并发能力，更快的给用户响应</p>
+<h2 id="Nginx动静分离"><a href="#Nginx动静分离" class="headerlink" title="Nginx动静分离"></a>Nginx动静分离</h2><p>Nginx的并发能力公式：worker_processes * worker_connections / 4 | 2 = Nginx最终的并发能力。</p>
+<p>动态资源需要 / 4，静态资源需要 / 2。</p>
+<p>Nginx通过动静分离，来提升Nginx的并发能力，更快的给用户响应。</p>
 <p><strong>动态资源代理</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 配置如下</span><br><span class="line">location &#x2F; &#123;</span><br><span class="line">	proxy_pass http:&#x2F;&#x2F;192.168.235.128:8080&#x2F;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
