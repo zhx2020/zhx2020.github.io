@@ -9,12 +9,12 @@
     <meta name="description" content="商品库存中心有个最基本的需求是减库存和补库存。 定义状态接口： 123public interface State &amp;#123;    public void doAction(Context context);&amp;#125;  定义减库存的状态： 123456789101112public class DeductState implements State &amp;#123;    public vo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="状态模式">
-<meta property="og:url" content="https://zhx2020.github.io/2020/09/22/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:url" content="https://zhx2020.github.io/2020/08/10/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="ZHX2020">
 <meta property="og:description" content="商品库存中心有个最基本的需求是减库存和补库存。 定义状态接口： 123public interface State &amp;#123;    public void doAction(Context context);&amp;#125;  定义减库存的状态： 123456789101112public class DeductState implements State &amp;#123;    public vo">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-09-22T11:28:25.000Z">
-<meta property="article:modified_time" content="2020-09-22T11:47:29.185Z">
+<meta property="article:published_time" content="2020-08-10T11:28:25.000Z">
+<meta property="article:modified_time" content="2020-09-22T12:20:11.684Z">
 <meta property="article:author" content="Echo">
 <meta name="twitter:card" content="summary">
     
@@ -82,10 +82,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" href="/2020/09/22/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" href="/2020/08/10/Java%E5%BC%80%E5%8F%91%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95%E8%80%83%E7%82%B9%E6%B1%87%E6%80%BB/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" href="/2020/09/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E9%9D%A2%E8%AF%95%E9%A2%98/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" href="/2020/08/07/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E9%A2%98/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -98,17 +98,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://zhx2020.github.io/2020/09/22/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://zhx2020.github.io/2020/09/22/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&text=状态模式" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://zhx2020.github.io/2020/09/22/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&title=状态模式" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zhx2020.github.io/2020/09/22/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&is_video=false&description=状态模式" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=状态模式&body=Check out this article: https://zhx2020.github.io/2020/09/22/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://zhx2020.github.io/2020/09/22/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&title=状态模式" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://zhx2020.github.io/2020/09/22/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&title=状态模式" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://zhx2020.github.io/2020/09/22/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&title=状态模式" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://zhx2020.github.io/2020/09/22/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&title=状态模式" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://zhx2020.github.io/2020/09/22/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&name=状态模式&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://zhx2020.github.io/2020/09/22/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&t=状态模式" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://zhx2020.github.io/2020/08/10/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://zhx2020.github.io/2020/08/10/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&text=状态模式" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://zhx2020.github.io/2020/08/10/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&title=状态模式" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zhx2020.github.io/2020/08/10/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&is_video=false&description=状态模式" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=状态模式&body=Check out this article: https://zhx2020.github.io/2020/08/10/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://zhx2020.github.io/2020/08/10/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&title=状态模式" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://zhx2020.github.io/2020/08/10/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&title=状态模式" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://zhx2020.github.io/2020/08/10/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&title=状态模式" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://zhx2020.github.io/2020/08/10/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&title=状态模式" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://zhx2020.github.io/2020/08/10/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&name=状态模式&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://zhx2020.github.io/2020/08/10/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&t=状态模式" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -137,9 +137,9 @@
       
     <div class="postdate">
       
-        <time datetime="2020-09-22T11:28:25.000Z" itemprop="datePublished">2020-09-22</time>
+        <time datetime="2020-08-10T11:28:25.000Z" itemprop="datePublished">2020-08-10</time>
         
-        (Updated: <time datetime="2020-09-22T11:47:29.185Z" itemprop="dateModified">2020-09-22</time>)
+        (Updated: <time datetime="2020-09-22T12:20:11.684Z" itemprop="dateModified">2020-09-22</time>)
         
       
     </div>
@@ -215,17 +215,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://zhx2020.github.io/2020/09/22/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://zhx2020.github.io/2020/09/22/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&text=状态模式" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://zhx2020.github.io/2020/09/22/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&title=状态模式" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zhx2020.github.io/2020/09/22/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&is_video=false&description=状态模式" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=状态模式&body=Check out this article: https://zhx2020.github.io/2020/09/22/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://zhx2020.github.io/2020/09/22/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&title=状态模式" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://zhx2020.github.io/2020/09/22/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&title=状态模式" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://zhx2020.github.io/2020/09/22/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&title=状态模式" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://zhx2020.github.io/2020/09/22/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&title=状态模式" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://zhx2020.github.io/2020/09/22/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&name=状态模式&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://zhx2020.github.io/2020/09/22/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&t=状态模式" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://zhx2020.github.io/2020/08/10/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://zhx2020.github.io/2020/08/10/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&text=状态模式" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://zhx2020.github.io/2020/08/10/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&title=状态模式" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zhx2020.github.io/2020/08/10/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&is_video=false&description=状态模式" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=状态模式&body=Check out this article: https://zhx2020.github.io/2020/08/10/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://zhx2020.github.io/2020/08/10/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&title=状态模式" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://zhx2020.github.io/2020/08/10/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&title=状态模式" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://zhx2020.github.io/2020/08/10/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&title=状态模式" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://zhx2020.github.io/2020/08/10/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&title=状态模式" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://zhx2020.github.io/2020/08/10/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&name=状态模式&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://zhx2020.github.io/2020/08/10/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/&t=状态模式" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
