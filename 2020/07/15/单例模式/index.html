@@ -14,7 +14,7 @@
 <meta property="og:description" content="保证一个类仅有一个实例，并提供一个全局访问点。 饿汉式12345678910&#x2F;&#x2F; 在类初始化时，已经自行实例化  public class Singleton &amp;#123;    private Singleton() &amp;#123;&amp;#125;;        private static Singleton instance &#x3D; new Singleton();        public st">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-15T06:55:23.000Z">
-<meta property="article:modified_time" content="2020-07-22T00:05:22.025Z">
+<meta property="article:modified_time" content="2020-09-22T14:48:30.251Z">
 <meta property="article:author" content="Echo">
 <meta name="twitter:card" content="summary">
     
@@ -139,7 +139,7 @@
       
         <time datetime="2020-07-15T06:55:23.000Z" itemprop="datePublished">2020-07-15</time>
         
-        (Updated: <time datetime="2020-07-22T00:05:22.025Z" itemprop="dateModified">2020-07-22</time>)
+        (Updated: <time datetime="2020-09-22T14:48:30.251Z" itemprop="dateModified">2020-09-22</time>)
         
       
     </div>
@@ -165,6 +165,12 @@
 <h2 id="懒汉式"><a href="#懒汉式" class="headerlink" title="懒汉式"></a>懒汉式</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在第一次调用的时候实例化自己   </span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Singleton instance = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton<span class="class">.<span class="keyword">class</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 属于懒汉式</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Holder</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Holder.instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>参考</p>
+<ul>
+<li><a href="https://www.javadoop.com/post/design-pattern#toc_4" target="_blank" rel="noopener">设计模式也可以这么简单 - 单例模式</a></li>
+</ul>
+
   </div>
 </article>
 

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="有一个接口需要实现，但是我们现成的对象都不满足，需要加一层适配器来进行适配。 默认适配器模式我们用 Appache commons-io 包中的 FileAlterationListener 做例子，此接口定义了很多的方法，用于对文件或文件夹进行监控，一旦发生了对应的操作，就会触发相应的方法。 12345678910public interface FileAlterationListener &amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="适配器模式">
+<meta property="og:url" content="https://zhx2020.github.io/2020/09/18/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:site_name" content="ZHX2020">
+<meta property="og:description" content="有一个接口需要实现，但是我们现成的对象都不满足，需要加一层适配器来进行适配。 默认适配器模式我们用 Appache commons-io 包中的 FileAlterationListener 做例子，此接口定义了很多的方法，用于对文件或文件夹进行监控，一旦发生了对应的操作，就会触发相应的方法。 12345678910public interface FileAlterationListener &amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-18T12:50:10.000Z">
+<meta property="article:modified_time" content="2020-09-22T14:47:46.239Z">
+<meta property="article:author" content="Echo">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>适配器模式</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/09/19/Nginx%E5%AD%A6%E4%B9%A0/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/09/15/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://zhx2020.github.io/2020/09/18/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://zhx2020.github.io/2020/09/18/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/&text=适配器模式" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://zhx2020.github.io/2020/09/18/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/&title=适配器模式" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zhx2020.github.io/2020/09/18/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/&is_video=false&description=适配器模式" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=适配器模式&body=Check out this article: https://zhx2020.github.io/2020/09/18/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://zhx2020.github.io/2020/09/18/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/&title=适配器模式" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://zhx2020.github.io/2020/09/18/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/&title=适配器模式" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://zhx2020.github.io/2020/09/18/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/&title=适配器模式" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://zhx2020.github.io/2020/09/18/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/&title=适配器模式" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://zhx2020.github.io/2020/09/18/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/&name=适配器模式&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://zhx2020.github.io/2020/09/18/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/&t=适配器模式" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#默认适配器模式"><span class="toc-number">1.</span> <span class="toc-text">默认适配器模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对象适配器模式"><span class="toc-number">2.</span> <span class="toc-text">对象适配器模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类适配器模式"><span class="toc-number">3.</span> <span class="toc-text">类适配器模式</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        适配器模式
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ZHX2020</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-09-18T12:50:10.000Z" itemprop="datePublished">2020-09-18</time>
+        
+        (Updated: <time datetime="2020-09-22T14:47:46.239Z" itemprop="dateModified">2020-09-22</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>有一个接口需要实现，但是我们现成的对象都不满足，需要加一层适配器来进行适配。</p>
+<h2 id="默认适配器模式"><a href="#默认适配器模式" class="headerlink" title="默认适配器模式"></a>默认适配器模式</h2><p>我们用 Appache commons-io 包中的 FileAlterationListener 做例子，此接口定义了很多的方法，用于对文件或文件夹进行监控，一旦发生了对应的操作，就会触发相应的方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">FileAlterationListener</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onStart</span><span class="params">(<span class="keyword">final</span> FileAlterationObserver observer)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onDirectoryCreate</span><span class="params">(<span class="keyword">final</span> File directory)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onDirectoryChange</span><span class="params">(<span class="keyword">final</span> File directory)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onDirectoryDelete</span><span class="params">(<span class="keyword">final</span> File directory)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onFileCreate</span><span class="params">(<span class="keyword">final</span> File file)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onFileChange</span><span class="params">(<span class="keyword">final</span> File file)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onFileDelete</span><span class="params">(<span class="keyword">final</span> File file)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onStop</span><span class="params">(<span class="keyword">final</span> FileAlterationObserver observer)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此接口的一大问题是抽象方法太多了，如果我们要用这个接口，意味着我们要实现每一个抽象方法，如果我们只是想要监控文件夹中的文件创建和文件删除事件，可是我们还是不得不实现所有的方法，很明显，这不是我们想要的。</p>
+<p>所以，我们需要下面的一个适配器，它用于实现上面的接口，但是所有的方法都是空方法，这样，我们就可以转而定义自己的类来继承下面这个类即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileAlterationListenerAdapter</span> <span class="keyword">implements</span> <span class="title">FileAlterationListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onStart</span><span class="params">(<span class="keyword">final</span> FileAlterationObserver observer)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDirectoryCreate</span><span class="params">(<span class="keyword">final</span> File directory)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDirectoryChange</span><span class="params">(<span class="keyword">final</span> File directory)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDirectoryDelete</span><span class="params">(<span class="keyword">final</span> File directory)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFileCreate</span><span class="params">(<span class="keyword">final</span> File file)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFileChange</span><span class="params">(<span class="keyword">final</span> File file)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFileDelete</span><span class="params">(<span class="keyword">final</span> File file)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onStop</span><span class="params">(<span class="keyword">final</span> FileAlterationObserver observer)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>比如我们可以定义以下类，我们仅仅需要实现我们想实现的方法就可以了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileMonitor</span> <span class="keyword">extends</span> <span class="title">FileAlterationListenerAdapter</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFileCreate</span><span class="params">(<span class="keyword">final</span> File file)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 文件创建</span></span><br><span class="line">        doSomething();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFileDelete</span><span class="params">(<span class="keyword">final</span> File file)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 文件删除</span></span><br><span class="line">        doSomething();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="对象适配器模式"><a href="#对象适配器模式" class="headerlink" title="对象适配器模式"></a>对象适配器模式</h2><p>来看一个《Head First 设计模式》中的一个例子，我稍微修改了一下，看看怎么将鸡适配成鸭，这样鸡也能当鸭来用。因为，现在鸭这个接口，我们没有合适的实现类可以用，所以需要适配器。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Duck</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">quack</span><span class="params">()</span></span>; <span class="comment">// 鸭的呱呱叫</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span></span>; <span class="comment">// 飞</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Cock</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">gobble</span><span class="params">()</span></span>; <span class="comment">// 鸡的咕咕叫</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span></span>; <span class="comment">// 飞</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WildCock</span> <span class="keyword">implements</span> <span class="title">Cock</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">gobble</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"咕咕叫"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"鸡也会飞哦"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>鸭接口有 fly() 和 quare() 两个方法，鸡 Cock 如果要冒充鸭，fly() 方法是现成的，但是鸡不会鸭的呱呱叫，没有 quack() 方法。这个时候就需要适配了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 毫无疑问，首先，这个适配器肯定需要 implements Duck，这样才能当做鸭来用</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CockAdapter</span> <span class="keyword">implements</span> <span class="title">Duck</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    Cock cock;</span><br><span class="line">    <span class="comment">// 构造方法中需要一个鸡的实例，此类就是将这只鸡适配成鸭来用</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CockAdapter</span><span class="params">(Cock cock)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.cock = cock;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 实现鸭的呱呱叫方法</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">quack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 内部其实是一只鸡的咕咕叫</span></span><br><span class="line">        cock.gobble();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        cock.fly();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>客户端调用很简单了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 有一只野鸡</span></span><br><span class="line">        Cock wildCock = <span class="keyword">new</span> WildCock();</span><br><span class="line">        <span class="comment">// 成功将野鸡适配成鸭</span></span><br><span class="line">        Duck duck = <span class="keyword">new</span> CockAdapter(wildCock);</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="类适配器模式"><a href="#类适配器模式" class="headerlink" title="类适配器模式"></a>类适配器模式</h2><p>通过继承的方法，适配器自动获得了所需要的大部分方法。</p>
+<p>实现的适配器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这个适配器 extends WildCock，implements Duck</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CockAdapter</span> <span class="keyword">extends</span> <span class="title">WildCock</span> <span class="keyword">implements</span> <span class="title">Duck</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">quack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        gobble();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>客户端调用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Duck duck = <span class="keyword">new</span> CockAdapter();</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>参考</p>
+<ul>
+<li><a href="https://www.javadoop.com/post/design-pattern#toc_10" target="_blank" rel="noopener">设计模式也可以这么简单 - 适配器模式</a></li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#默认适配器模式"><span class="toc-number">1.</span> <span class="toc-text">默认适配器模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对象适配器模式"><span class="toc-number">2.</span> <span class="toc-text">对象适配器模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类适配器模式"><span class="toc-number">3.</span> <span class="toc-text">类适配器模式</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://zhx2020.github.io/2020/09/18/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://zhx2020.github.io/2020/09/18/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/&text=适配器模式" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://zhx2020.github.io/2020/09/18/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/&title=适配器模式" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zhx2020.github.io/2020/09/18/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/&is_video=false&description=适配器模式" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=适配器模式&body=Check out this article: https://zhx2020.github.io/2020/09/18/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://zhx2020.github.io/2020/09/18/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/&title=适配器模式" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://zhx2020.github.io/2020/09/18/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/&title=适配器模式" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://zhx2020.github.io/2020/09/18/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/&title=适配器模式" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://zhx2020.github.io/2020/09/18/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/&title=适配器模式" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://zhx2020.github.io/2020/09/18/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/&name=适配器模式&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://zhx2020.github.io/2020/09/18/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/&t=适配器模式" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2020
+    Echo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
