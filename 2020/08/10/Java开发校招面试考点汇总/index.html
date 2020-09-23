@@ -14,7 +14,7 @@
 <meta property="og:description" content="JavaSE部分Java基础为什么重写 equals 还要重写 hashcode 将对象放入到HashMap或HashSet中时，hashCode方法决定了对象会被放到数组的哪个下标，当多个对象的哈希值冲突时，equals方法决定了这些对象是否是同一个对象。 说一下 map 的分类和常见的情况  HashMap：无序，key可以为null，value可以为null，线程不安全。 HashTable">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-10T13:22:27.000Z">
-<meta property="article:modified_time" content="2020-09-11T08:05:10.580Z">
+<meta property="article:modified_time" content="2020-09-23T09:50:01.721Z">
 <meta property="article:author" content="Echo">
 <meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary">
@@ -140,7 +140,7 @@
       
         <time datetime="2020-08-10T13:22:27.000Z" itemprop="datePublished">2020-08-10</time>
         
-        (Updated: <time datetime="2020-09-11T08:05:10.580Z" itemprop="dateModified">2020-09-11</time>)
+        (Updated: <time datetime="2020-09-23T09:50:01.721Z" itemprop="dateModified">2020-09-23</time>)
         
       
     </div>
@@ -326,9 +326,9 @@
 <h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p><strong>多线程中的 i++线程安全吗？为什么？</strong></p>
 <p>不安全，i++不是原子性操作。i++分为读取i值，对i值加一，再赋值给i，执行期间任何一步都有可能被其它线程抢占。</p>
 <h3 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h3><p><strong>讲一下非公平锁和公平锁在 reetrantlock 里的实现。</strong></p>
-<p>基于AQS的锁(比如ReentrantLock)原理大体是这样：有一个state变量，初始值为0，假设当前线程为A，每当A获取一次锁，state++。释放一次，state–。锁会记录当前持有的线程。当A线程拥有锁的时候，state&gt;0。B线程尝试获取锁的时候会对这个state有一个CAS(0,1)的操作，尝试几次失败后就挂起线程，进入一个等待队列。如果A线程恰好释放，–state==0, A线程会去唤醒等待队列中第一个线程，即刚刚进入等待队列的B线程，B线程被唤醒之后回去检查这个state的值，尝试CAS(0,1)，而如果这时恰好C线程也尝试去争抢这把锁。</p>
+<p>基于AQS的锁(比如ReentrantLock)原理大体是这样：有一个state变量，初始值为0，假设当前线程为A，每当A获取一次锁，state++。释放一次，state–。锁会记录当前持有的线程。当A线程拥有锁的时候，state&gt;0。B线程尝试获取锁的时候会对这个state有一个CAS(0,1)的操作，尝试几次失败后就挂起线程，进入一个等待队列。如果A线程恰好释放，–state==0, A线程会去唤醒等待队列中第一个线程，即刚刚进入等待队列的B线程，B线程被唤醒之后会去检查这个state的值，尝试CAS(0,1)，而如果这时恰好C线程也尝试去争抢这把锁。</p>
 <p>非公平锁实现：C直接尝试对这个state CAS(0,1)操作，并成功改变了state的值，B线程获取锁失败，再次挂起，这就是非公平锁，B在C之前尝试获取锁，而最终是C抢到了锁。</p>
-<p>公平锁：C发现有线程在等待队列，直接将自己进入等待队列并挂起，B获取锁。</p>
+<p>公平锁实现：C发现有线程在等待队列，直接将自己进入等待队列并挂起，B获取锁。</p>
 <p><strong>讲一下 synchronized，可重入怎么实现。(<a href="https://zhuanlan.zhihu.com/p/134085332" target="_blank" rel="noopener">知乎</a>)</strong></p>
 <ul>
 <li>作用：保证同一时刻，只有一个线程可以执行某个代码块或方法，保证了代码在执行完后所修改的数据对其它线程是可见的，可以保证有序性，可见性，原子性。</li>
