@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="BIO字节流FileOutputStream 123456789101112131415161718192021&#x2F;&#x2F; 字节输出流public class Main &amp;#123;    public static void main(String[] args) throws Exception &amp;#123;        FileOutputStream fos &#x3D; new FileOutputS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaIO总结">
+<meta property="og:url" content="https://zhx2020.github.io/2020/08/04/JavaIO%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="ZHX2020">
+<meta property="og:description" content="BIO字节流FileOutputStream 123456789101112131415161718192021&#x2F;&#x2F; 字节输出流public class Main &amp;#123;    public static void main(String[] args) throws Exception &amp;#123;        FileOutputStream fos &#x3D; new FileOutputS">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-04T11:30:11.000Z">
+<meta property="article:modified_time" content="2020-10-04T11:32:03.273Z">
+<meta property="article:author" content="Echo">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>JavaIO总结</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/08/07/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E9%A2%98/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/08/02/ThreadLocal%E5%8E%9F%E7%90%86/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://zhx2020.github.io/2020/08/04/JavaIO%E6%80%BB%E7%BB%93/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://zhx2020.github.io/2020/08/04/JavaIO%E6%80%BB%E7%BB%93/&text=JavaIO总结" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://zhx2020.github.io/2020/08/04/JavaIO%E6%80%BB%E7%BB%93/&title=JavaIO总结" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zhx2020.github.io/2020/08/04/JavaIO%E6%80%BB%E7%BB%93/&is_video=false&description=JavaIO总结" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JavaIO总结&body=Check out this article: https://zhx2020.github.io/2020/08/04/JavaIO%E6%80%BB%E7%BB%93/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://zhx2020.github.io/2020/08/04/JavaIO%E6%80%BB%E7%BB%93/&title=JavaIO总结" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://zhx2020.github.io/2020/08/04/JavaIO%E6%80%BB%E7%BB%93/&title=JavaIO总结" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://zhx2020.github.io/2020/08/04/JavaIO%E6%80%BB%E7%BB%93/&title=JavaIO总结" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://zhx2020.github.io/2020/08/04/JavaIO%E6%80%BB%E7%BB%93/&title=JavaIO总结" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://zhx2020.github.io/2020/08/04/JavaIO%E6%80%BB%E7%BB%93/&name=JavaIO总结&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://zhx2020.github.io/2020/08/04/JavaIO%E6%80%BB%E7%BB%93/&t=JavaIO总结" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#BIO"><span class="toc-number">1.</span> <span class="toc-text">BIO</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#字节流"><span class="toc-number">1.1.</span> <span class="toc-text">字节流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符流"><span class="toc-number">1.2.</span> <span class="toc-text">字符流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#转换流"><span class="toc-number">1.3.</span> <span class="toc-text">转换流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字节缓冲流"><span class="toc-number">1.4.</span> <span class="toc-text">字节缓冲流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符缓冲流"><span class="toc-number">1.5.</span> <span class="toc-text">字符缓冲流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对象流"><span class="toc-number">1.6.</span> <span class="toc-text">对象流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#打印流"><span class="toc-number">1.7.</span> <span class="toc-text">打印流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标准输入输出流"><span class="toc-number">1.8.</span> <span class="toc-text">标准输入输出流</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网络编程"><span class="toc-number">2.</span> <span class="toc-text">网络编程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#UDP通信"><span class="toc-number">2.1.</span> <span class="toc-text">UDP通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP通信"><span class="toc-number">2.2.</span> <span class="toc-text">TCP通信</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NIO"><span class="toc-number">3.</span> <span class="toc-text">NIO</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#三大组件"><span class="toc-number">3.1.</span> <span class="toc-text">三大组件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Netty"><span class="toc-number">4.</span> <span class="toc-text">Netty</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#传统IO与NIO比较"><span class="toc-number">4.1.</span> <span class="toc-text">传统IO与NIO比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#netty介绍"><span class="toc-number">4.2.</span> <span class="toc-text">netty介绍</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        JavaIO总结
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ZHX2020</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-08-04T11:30:11.000Z" itemprop="datePublished">2020-08-04</time>
+        
+        (Updated: <time datetime="2020-10-04T11:32:03.273Z" itemprop="dateModified">2020-10-04</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/Java%E5%9F%BA%E7%A1%80/">Java基础</a>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h2><h3 id="字节流"><a href="#字节流" class="headerlink" title="字节流"></a>字节流</h3><p><strong>FileOutputStream</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 字节输出流</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"file.txt"</span>);</span><br><span class="line">        <span class="comment">// 写一个字节</span></span><br><span class="line">        fos.write(<span class="number">100</span>); <span class="comment">// d</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 写字节数组</span></span><br><span class="line">        <span class="keyword">byte</span>[] bytes = &#123;<span class="number">65</span>, <span class="number">66</span>, <span class="number">67</span>, <span class="number">68</span>&#125;; <span class="comment">// ABCD</span></span><br><span class="line">        fos.write(bytes);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 写字节数组的一部分</span></span><br><span class="line">        fos.write(bytes, <span class="number">1</span>, <span class="number">1</span>); <span class="comment">// B</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 写字节数组的简便方式</span></span><br><span class="line">        fos.write(<span class="string">"hello"</span>.getBytes()); <span class="comment">// hello</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//关闭资源</span></span><br><span class="line">        fos.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>FileInputStream</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 字节输入流</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"file.txt"</span>);</span><br><span class="line">        <span class="comment">// 读取一个字节</span></span><br><span class="line">        <span class="comment">/*int len = 0;</span></span><br><span class="line"><span class="comment">        while ((len = fis.read()) != -1) &#123;</span></span><br><span class="line"><span class="comment">            System.out.print((char)len);</span></span><br><span class="line"><span class="comment">        &#125;*/</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 读取到字节数组</span></span><br><span class="line">        <span class="keyword">byte</span>[] bytes = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">        <span class="keyword">int</span> len = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> ((len = fis.read(bytes)) != -<span class="number">1</span>) &#123;</span><br><span class="line">            System.out.print(<span class="keyword">new</span> String(bytes, <span class="number">0</span>, len));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 关闭资源</span></span><br><span class="line">        fis.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="字符流"><a href="#字符流" class="headerlink" title="字符流"></a>字符流</h3><p><strong>FileWriter</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 字符输出流</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        FileWriter fw = <span class="keyword">new</span> FileWriter(<span class="string">"file.txt"</span>);</span><br><span class="line">        <span class="comment">// 写一个字符</span></span><br><span class="line">        fw.write(<span class="number">100</span>); <span class="comment">// d</span></span><br><span class="line">        fw.flush();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 写一个字符数组</span></span><br><span class="line">        <span class="keyword">char</span>[] c = &#123;<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>&#125;;</span><br><span class="line">        fw.write(c);</span><br><span class="line">        fw.flush();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 写字符数组一部分</span></span><br><span class="line">        fw.write(c, <span class="number">2</span>, <span class="number">2</span>); <span class="comment">// cd</span></span><br><span class="line">        fw.flush();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 写入字符串</span></span><br><span class="line">        fw.write(<span class="string">"hello"</span>);</span><br><span class="line">        fw.flush();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 关闭资源</span></span><br><span class="line">        fw.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>FileReader</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 字符输入流</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        FileReader fr = <span class="keyword">new</span> FileReader(<span class="string">"file.txt"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 读取单个字符</span></span><br><span class="line">        <span class="comment">/*int len = 0;</span></span><br><span class="line"><span class="comment">        while ((len = fr.read()) != -1) &#123;</span></span><br><span class="line"><span class="comment">            System.out.print((char)len);</span></span><br><span class="line"><span class="comment">        &#125;*/</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 读取到字符数组</span></span><br><span class="line">        <span class="keyword">char</span>[] c = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">1024</span>];</span><br><span class="line">        <span class="keyword">int</span> len = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> ((len = fr.read(c)) != -<span class="number">1</span>) &#123;</span><br><span class="line">            System.out.print(<span class="keyword">new</span> String(c, <span class="number">0</span>, len));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 关闭资源</span></span><br><span class="line">        fr.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="转换流"><a href="#转换流" class="headerlink" title="转换流"></a>转换流</h3><p><strong>OutputStreamWriter</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将字节输出流转换为字符输出流</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">OutputStreamWriter</span><span class="params">(OutputStream out, Charset cs)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(out);</span><br><span class="line">    <span class="keyword">if</span> (cs == <span class="keyword">null</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException(<span class="string">"charset"</span>);</span><br><span class="line">    se = StreamEncoder.forOutputStreamWriter(out, <span class="keyword">this</span>, cs);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>InputStreamReader</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将字节输入流转换为字符输入流</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">InputStreamReader</span><span class="params">(InputStream in)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(in);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        sd = StreamDecoder.forInputStreamReader(in, <span class="keyword">this</span>, (String)<span class="keyword">null</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (UnsupportedEncodingException e) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> Error(e);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="字节缓冲流"><a href="#字节缓冲流" class="headerlink" title="字节缓冲流"></a>字节缓冲流</h3><p><strong>BufferedOutputStream</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 字节输出缓冲流</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"file.txt"</span>);</span><br><span class="line">        BufferedOutputStream bos = <span class="keyword">new</span> BufferedOutputStream(fos);</span><br><span class="line"></span><br><span class="line">        bos.write(<span class="number">55</span>); <span class="comment">// 7</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">byte</span>[] bytes = <span class="string">"hello"</span>.getBytes();</span><br><span class="line">        bos.write(bytes); <span class="comment">// hello</span></span><br><span class="line">        bos.write(bytes, <span class="number">3</span>, <span class="number">2</span>); <span class="comment">//lo</span></span><br><span class="line"></span><br><span class="line">        bos.close();</span><br><span class="line">        fos.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>BufferedInputStream</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 字节输入缓冲流</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"file.txt"</span>);</span><br><span class="line">        BufferedInputStream bis = <span class="keyword">new</span> BufferedInputStream(fis);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">byte</span>[] bytes = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">        <span class="keyword">int</span> len = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> ((len = bis.read(bytes)) != -<span class="number">1</span>) &#123;</span><br><span class="line">            System.out.print(<span class="keyword">new</span> String(bytes, <span class="number">0</span>, len));</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        bis.close();</span><br><span class="line">        fis.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="字符缓冲流"><a href="#字符缓冲流" class="headerlink" title="字符缓冲流"></a>字符缓冲流</h3><p><strong>BufferedWriter</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 字符输出缓冲流</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        FileWriter fw = <span class="keyword">new</span> FileWriter(<span class="string">"file.txt"</span>);</span><br><span class="line">        BufferedWriter bw = <span class="keyword">new</span> BufferedWriter(fw);</span><br><span class="line"></span><br><span class="line">        bw.write(<span class="number">100</span>); <span class="comment">// d</span></span><br><span class="line">        bw.flush();</span><br><span class="line"></span><br><span class="line">        bw.write(<span class="string">"你好"</span>.toCharArray());</span><br><span class="line">        bw.newLine(); <span class="comment">// 写换行</span></span><br><span class="line">        bw.flush();</span><br><span class="line"></span><br><span class="line">        bw.write(<span class="string">"大家好"</span>);</span><br><span class="line">        bw.flush();</span><br><span class="line"></span><br><span class="line">        bw.close();</span><br><span class="line">        fw.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>BufferedReader</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 字符输入缓冲流</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        FileReader fr = <span class="keyword">new</span> FileReader(<span class="string">"file.txt"</span>);</span><br><span class="line">        BufferedReader br = <span class="keyword">new</span> BufferedReader(fr);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*char[] c = new char[1024];</span></span><br><span class="line"><span class="comment">        int len = 0;</span></span><br><span class="line"><span class="comment">        while ((len = br.read(c)) != -1) &#123;</span></span><br><span class="line"><span class="comment">            System.out.print(new String(c, 0, len));</span></span><br><span class="line"><span class="comment">        &#125;*/</span></span><br><span class="line"></span><br><span class="line">        String line = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">while</span> ((line = br.readLine()) != <span class="keyword">null</span>) &#123; <span class="comment">// 读取一个文本行</span></span><br><span class="line">            System.out.println(line);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        br.close();</span><br><span class="line">        fr.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="对象流"><a href="#对象流" class="headerlink" title="对象流"></a>对象流</h3><p><strong>User</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 用户类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123; <span class="comment">// 实现序列化接口</span></span><br><span class="line">    <span class="keyword">int</span> id;</span><br><span class="line">    String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">(<span class="keyword">int</span> id, String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>ObjectOutputStream</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对象输出流</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"file.txt"</span>);</span><br><span class="line">        ObjectOutputStream oos = <span class="keyword">new</span> ObjectOutputStream(fos);</span><br><span class="line">        User user = <span class="keyword">new</span> User(<span class="number">1</span>, <span class="string">"echo"</span>);</span><br><span class="line">        oos.writeObject(user);</span><br><span class="line">        oos.close();</span><br><span class="line">        fos.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>ObjectInputStream</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对象输入流</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"file.txt"</span>);</span><br><span class="line">        ObjectInputStream ois = <span class="keyword">new</span> ObjectInputStream(fis);</span><br><span class="line">        User user = (User) ois.readObject();</span><br><span class="line">        System.out.println(user);</span><br><span class="line">        ois.close();</span><br><span class="line">        fis.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="打印流"><a href="#打印流" class="headerlink" title="打印流"></a>打印流</h3><p><strong>PrintStream</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 字节打印流</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"file.txt"</span>);</span><br><span class="line">        PrintStream ps = <span class="keyword">new</span> PrintStream(fos);</span><br><span class="line">        ps.print(<span class="string">"a"</span>);</span><br><span class="line">        ps.println(<span class="string">"b"</span>);</span><br><span class="line">        ps.print(<span class="string">"c"</span>);</span><br><span class="line">        ps.close();</span><br><span class="line">        fos.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>PrintWriter</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 字符打印流</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        FileWriter fw = <span class="keyword">new</span> FileWriter(<span class="string">"file.txt"</span>);</span><br><span class="line">        PrintWriter pw = <span class="keyword">new</span> PrintWriter(fw);</span><br><span class="line">        pw.print(<span class="string">"a"</span>);</span><br><span class="line">        pw.println(<span class="string">"b"</span>);</span><br><span class="line">        pw.print(<span class="string">"c"</span>);</span><br><span class="line">        pw.close();</span><br><span class="line">        fw.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="标准输入输出流"><a href="#标准输入输出流" class="headerlink" title="标准输入输出流"></a>标准输入输出流</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// System.in 默认指键盘输入</span></span><br><span class="line"><span class="comment">// System.out 向显示器输出</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        String s = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">while</span> ((s = br.readLine()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="string">"886"</span>.equals(s)) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(s);</span><br><span class="line">        &#125;</span><br><span class="line">        br.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="网络编程"><a href="#网络编程" class="headerlink" title="网络编程"></a>网络编程</h2><h3 id="UDP通信"><a href="#UDP通信" class="headerlink" title="UDP通信"></a>UDP通信</h3><p><strong>UDP发送端</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UDPSend</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 创建数据包对象,封装要发送的数据,接收端IP,端口</span></span><br><span class="line">        <span class="keyword">byte</span>[] data = <span class="string">"你好UDP"</span>.getBytes();</span><br><span class="line">        <span class="comment">// 创建InetAddress对象,封装自己的IP地址</span></span><br><span class="line">        InetAddress inet = InetAddress.getByName(<span class="string">"127.0.0.1"</span>);</span><br><span class="line">        DatagramPacket dp = <span class="keyword">new</span> DatagramPacket(data, data.length, inet, <span class="number">8080</span>);</span><br><span class="line">        <span class="comment">// 创建DatagramSocket对象,数据包的发送和接收对象</span></span><br><span class="line">        DatagramSocket ds = <span class="keyword">new</span> DatagramSocket();</span><br><span class="line">        <span class="comment">// 调用ds对象的方法send,发送数据包</span></span><br><span class="line">        ds.send(dp);</span><br><span class="line">        <span class="comment">// 关闭资源</span></span><br><span class="line">        ds.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>UDP接收端</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UDPReceive</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 创建数据包传输对象DatagramSocket,绑定端口号</span></span><br><span class="line">        DatagramSocket ds = <span class="keyword">new</span> DatagramSocket(<span class="number">8080</span>);</span><br><span class="line">        <span class="comment">// 创建字节数组</span></span><br><span class="line">        <span class="keyword">byte</span>[] data = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">        <span class="comment">// 创建数据包对象,传递字节数组</span></span><br><span class="line">        DatagramPacket dp = <span class="keyword">new</span> DatagramPacket(data, data.length);</span><br><span class="line">        <span class="comment">// 调用ds对象的方法receive传递数据包</span></span><br><span class="line">        ds.receive(dp);</span><br><span class="line">        <span class="comment">// 获取发送端的IP地址对象</span></span><br><span class="line">        String ip = dp.getAddress().getHostAddress();</span><br><span class="line">        <span class="comment">//获取发送的端口号</span></span><br><span class="line">        <span class="keyword">int</span> port = dp.getPort();</span><br><span class="line">        <span class="comment">//获取接收到的字节个数</span></span><br><span class="line">        <span class="keyword">int</span> length = dp.getLength();</span><br><span class="line">        System.out.println(ip + <span class="string">" "</span> + port + <span class="string">":"</span> + <span class="keyword">new</span> String(data, <span class="number">0</span>, length));</span><br><span class="line">        ds.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="TCP通信"><a href="#TCP通信" class="headerlink" title="TCP通信"></a>TCP通信</h3><p><strong>TCP服务器</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TCPServer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        ServerSocket serverSocket = <span class="keyword">new</span> ServerSocket(<span class="number">8080</span>);</span><br><span class="line">        <span class="comment">// 调用服务器套接字对象中的方法accept(),获取客户端套接字对象</span></span><br><span class="line">        Socket socket = serverSocket.accept();</span><br><span class="line">        <span class="comment">// 通过客户端套接字对象Socket,获取字节输入流,读取客户端发送来的消息</span></span><br><span class="line">        InputStream in = socket.getInputStream();</span><br><span class="line">        <span class="keyword">byte</span>[] data = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">        <span class="keyword">int</span> len = in.read(data);</span><br><span class="line">        System.out.println(<span class="keyword">new</span> String(data, <span class="number">0</span>, len));</span><br><span class="line">        <span class="comment">// 服务器向客户端回数据,字节输出流,通过客户端套接字对象获取字节输出流</span></span><br><span class="line">        OutputStream out = socket.getOutputStream();</span><br><span class="line">        out.write(<span class="string">"收到,谢谢!!!"</span>.getBytes());</span><br><span class="line">        <span class="comment">// 关闭资源</span></span><br><span class="line">        out.close();</span><br><span class="line">        in.close();</span><br><span class="line">        socket.close();</span><br><span class="line">        serverSocket.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>TCP客户端</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TCPClient</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 创建Socket对象,连接服务器</span></span><br><span class="line">        Socket socket = <span class="keyword">new</span> Socket(<span class="string">"127.0.0.1"</span>, <span class="number">8080</span>);</span><br><span class="line">        <span class="comment">// 通过客户端的套接字对象Socket方法,获取字节输出流将数据写向服务器</span></span><br><span class="line">        OutputStream out = socket.getOutputStream();</span><br><span class="line">        out.write(<span class="string">"服务器ok!"</span>.getBytes());</span><br><span class="line">        <span class="comment">//读取服务器发回的数据,使用socket套接字对象中字节输入流</span></span><br><span class="line">        InputStream in = socket.getInputStream();</span><br><span class="line">        <span class="keyword">byte</span>[] data = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">        <span class="keyword">int</span> len = in.read(data);</span><br><span class="line">        System.out.println(<span class="keyword">new</span> String(data, <span class="number">0</span>, len));</span><br><span class="line">        <span class="comment">// 关闭资源</span></span><br><span class="line">        in.close();</span><br><span class="line">        out.close();</span><br><span class="line">        socket.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h2><p>在单线程的情况下，BIO是无法处理并发的。</p>
+<p>服务器端如果不活跃的线程比较多，应该考虑单线程。</p>
+<p><strong>NIO</strong>：new io，noblocking io。</p>
+<h3 id="三大组件"><a href="#三大组件" class="headerlink" title="三大组件"></a>三大组件</h3><p>Buffer、Channel、Selector。</p>
+<h2 id="Netty"><a href="#Netty" class="headerlink" title="Netty"></a>Netty</h2><h3 id="传统IO与NIO比较"><a href="#传统IO与NIO比较" class="headerlink" title="传统IO与NIO比较"></a>传统IO与NIO比较</h3><p><strong>传统IO特点</strong></p>
+<p>阻塞点：server.accept()、in.read(bytes)<br>单线程情况下只能有一个客户端<br>用线程池可以有多个客户端连接，但是非常消耗性能</p>
+<p><strong>NIO的特点</strong></p>
+<p>ServerSocketChannel<br>SocketChannel<br>Selector<br>SelectionKey</p>
+<h3 id="netty介绍"><a href="#netty介绍" class="headerlink" title="netty介绍"></a>netty介绍</h3><p><strong>netty版本</strong></p>
+<ul>
+<li>netty3.x</li>
+<li>netty4.x</li>
+<li>netty5.x</li>
+</ul>
+<p><strong>netty可以运用在哪些领域</strong></p>
+<ul>
+<li>分布式进程通信：例如hadoop、dubbo、akka等具有分布式功能的框架，底层RPC通信都是基于netty实现的，这些框架版本通常还在用netty3.x。</li>
+<li>游戏客户端开发：最新的游戏服务器有部分公司可能已经开始采用netty4.x或netty5.x。</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#BIO"><span class="toc-number">1.</span> <span class="toc-text">BIO</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#字节流"><span class="toc-number">1.1.</span> <span class="toc-text">字节流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符流"><span class="toc-number">1.2.</span> <span class="toc-text">字符流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#转换流"><span class="toc-number">1.3.</span> <span class="toc-text">转换流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字节缓冲流"><span class="toc-number">1.4.</span> <span class="toc-text">字节缓冲流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符缓冲流"><span class="toc-number">1.5.</span> <span class="toc-text">字符缓冲流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对象流"><span class="toc-number">1.6.</span> <span class="toc-text">对象流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#打印流"><span class="toc-number">1.7.</span> <span class="toc-text">打印流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标准输入输出流"><span class="toc-number">1.8.</span> <span class="toc-text">标准输入输出流</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网络编程"><span class="toc-number">2.</span> <span class="toc-text">网络编程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#UDP通信"><span class="toc-number">2.1.</span> <span class="toc-text">UDP通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP通信"><span class="toc-number">2.2.</span> <span class="toc-text">TCP通信</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NIO"><span class="toc-number">3.</span> <span class="toc-text">NIO</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#三大组件"><span class="toc-number">3.1.</span> <span class="toc-text">三大组件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Netty"><span class="toc-number">4.</span> <span class="toc-text">Netty</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#传统IO与NIO比较"><span class="toc-number">4.1.</span> <span class="toc-text">传统IO与NIO比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#netty介绍"><span class="toc-number">4.2.</span> <span class="toc-text">netty介绍</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://zhx2020.github.io/2020/08/04/JavaIO%E6%80%BB%E7%BB%93/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://zhx2020.github.io/2020/08/04/JavaIO%E6%80%BB%E7%BB%93/&text=JavaIO总结" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://zhx2020.github.io/2020/08/04/JavaIO%E6%80%BB%E7%BB%93/&title=JavaIO总结" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zhx2020.github.io/2020/08/04/JavaIO%E6%80%BB%E7%BB%93/&is_video=false&description=JavaIO总结" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JavaIO总结&body=Check out this article: https://zhx2020.github.io/2020/08/04/JavaIO%E6%80%BB%E7%BB%93/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://zhx2020.github.io/2020/08/04/JavaIO%E6%80%BB%E7%BB%93/&title=JavaIO总结" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://zhx2020.github.io/2020/08/04/JavaIO%E6%80%BB%E7%BB%93/&title=JavaIO总结" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://zhx2020.github.io/2020/08/04/JavaIO%E6%80%BB%E7%BB%93/&title=JavaIO总结" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://zhx2020.github.io/2020/08/04/JavaIO%E6%80%BB%E7%BB%93/&title=JavaIO总结" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://zhx2020.github.io/2020/08/04/JavaIO%E6%80%BB%E7%BB%93/&name=JavaIO总结&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://zhx2020.github.io/2020/08/04/JavaIO%E6%80%BB%E7%BB%93/&t=JavaIO总结" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2020
+    Echo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
