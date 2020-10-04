@@ -14,7 +14,7 @@
 <meta property="og:description" content="数据结构与算法a,b,c,d,e 对应出现的频率为4，6，11，13，15；以下符合哈夫曼编码的选项是？（B） A.a&#x3D;000、b&#x3D;01、c&#x3D;001、d&#x3D;10、e&#x3D;11B.a&#x3D;000、b&#x3D;001、c&#x3D;01、d&#x3D;10、e&#x3D;11C.a&#x3D;010、b&#x3D;001、c&#x3D;01、d&#x3D;11、e&#x3D;10D.a&#x3D;000、b&#x3D;10、c&#x3D;001、d&#x3D;11、e&#x3D;01 二叉树的三种遍历方式 12345    G   &#x2F;">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-11T13:34:42.000Z">
-<meta property="article:modified_time" content="2020-10-03T12:15:32.825Z">
+<meta property="article:modified_time" content="2020-10-04T09:11:32.306Z">
 <meta property="article:author" content="Echo">
 <meta property="article:tag" content="笔试">
 <meta name="twitter:card" content="summary">
@@ -140,7 +140,7 @@
       
         <time datetime="2020-07-11T13:34:42.000Z" itemprop="datePublished">2020-07-11</time>
         
-        (Updated: <time datetime="2020-10-03T12:15:32.825Z" itemprop="dateModified">2020-10-03</time>)
+        (Updated: <time datetime="2020-10-04T09:11:32.306Z" itemprop="dateModified">2020-10-04</time>)
         
       
     </div>
@@ -199,12 +199,21 @@
 <p>缓冲流、转换流、数据流。</p>
 <p><strong>某递归算法的递归关系式为T( n ) = 2*T(n/2) + O( n )，那么它所对应的时间复杂度为</strong></p>
 <p>n * log n</p>
+<p><strong>散列函数构造方法</strong></p>
+<ol>
+<li>直接定址法：H(key) = a*key + b</li>
+<li>除留余数法：H(key) = key % p(p为不大于散列表表长，但最接近或等于表长的质数p)</li>
+<li>数字分析法：选取r进制数数码分布较为均匀的若干位作为散列地址</li>
+<li>平方取中法：取关键字的平方值的中间几位作为散列地址</li>
+<li>折叠法：将关键字分割成位数相同的几部分，然后取这几部份的叠加和作为散列地址</li>
+</ol>
 <p><strong>散列冲突及解决</strong></p>
 <ol>
 <li>开放寻址法<ul>
 <li>线性探测法。</li>
 <li>二次探测：线性探测每次探测的步长为1，即在数组中一个一个探测，而二次探测的步长变为原来的平方。</li>
 <li>双重散列：使用一组散列函数，直到找到空闲位置为止。</li>
+<li>伪随机数法。</li>
 </ul>
 </li>
 <li>冲突链表法</li>
