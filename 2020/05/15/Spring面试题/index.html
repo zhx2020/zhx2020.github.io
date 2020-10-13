@@ -14,7 +14,7 @@
 <meta property="og:description" content="IOC和DI的理解IOC（控制反转）是一种设计思想  控制就是指对对象的创建、维护、销毁等生命周期的控制，这个过程一般是由我们的程序去主动控制的，如使用 new 关键字去创建一个对象（创建），在使用过程中保持引用（维护），在失去全部引用后由 GC 去回收对象（销毁）。  反转就是指对对象的创建、维护、销毁等生命周期的控制由程序控制改为由 IOC 容器控制，需要某个对象时就直接通过名字去 IOC 容">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-15T02:40:06.000Z">
-<meta property="article:modified_time" content="2020-09-05T01:22:36.054Z">
+<meta property="article:modified_time" content="2020-10-12T03:54:17.714Z">
 <meta property="article:author" content="Echo">
 <meta property="article:tag" content="spring">
 <meta name="twitter:card" content="summary">
@@ -114,7 +114,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#IOC和DI的理解"><span class="toc-number">1.</span> <span class="toc-text">IOC和DI的理解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AOP相关"><span class="toc-number">2.</span> <span class="toc-text">AOP相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bean的scope"><span class="toc-number">3.</span> <span class="toc-text">Bean的scope</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它"><span class="toc-number">4.</span> <span class="toc-text">其它</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringMVC"><span class="toc-number">5.</span> <span class="toc-text">SpringMVC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring"><span class="toc-number">6.</span> <span class="toc-text">Spring</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringBoot"><span class="toc-number">7.</span> <span class="toc-text">SpringBoot</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注解说明"><span class="toc-number">8.</span> <span class="toc-text">注解说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringCloud"><span class="toc-number">9.</span> <span class="toc-text">SpringCloud</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis"><span class="toc-number">10.</span> <span class="toc-text">Redis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">11.</span> <span class="toc-text">参考</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#IOC和DI的理解"><span class="toc-number">1.</span> <span class="toc-text">IOC和DI的理解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AOP相关"><span class="toc-number">2.</span> <span class="toc-text">AOP相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bean的scope"><span class="toc-number">3.</span> <span class="toc-text">Bean的scope</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它"><span class="toc-number">4.</span> <span class="toc-text">其它</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringMVC"><span class="toc-number">5.</span> <span class="toc-text">SpringMVC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring"><span class="toc-number">6.</span> <span class="toc-text">Spring</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringBoot"><span class="toc-number">7.</span> <span class="toc-text">SpringBoot</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注解说明"><span class="toc-number">8.</span> <span class="toc-text">注解说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringCloud"><span class="toc-number">9.</span> <span class="toc-text">SpringCloud</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis"><span class="toc-number">10.</span> <span class="toc-text">Redis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MyBatis"><span class="toc-number">11.</span> <span class="toc-text">MyBatis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">12.</span> <span class="toc-text">参考</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -140,7 +140,7 @@
       
         <time datetime="2020-05-15T02:40:06.000Z" itemprop="datePublished">2020-05-15</time>
         
-        (Updated: <time datetime="2020-09-05T01:22:36.054Z" itemprop="dateModified">2020-09-05</time>)
+        (Updated: <time datetime="2020-10-12T03:54:17.714Z" itemprop="dateModified">2020-10-12</time>)
         
       
     </div>
@@ -288,7 +288,14 @@
 <li>(Hystrix)断路器负责处理服务超时熔断。</li>
 <li>(Turbine)监控服务间的调用和熔断相关指标。</li>
 </ol>
-<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><h2 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h2><p><strong>mybatis中#{}和${}的区别</strong></p>
+<ul>
+<li>Mybatis本身是基于JDBC封装的。</li>
+<li>#{para}是预编译处理（PreparedStatement）范畴的。</li>
+<li>${para}是字符串替换。</li>
+<li>Mybatis在处理#时，会调用PreparedStatement的set系列方法来赋值；处理$时，就是把${para}替换成变量的值。使用#{para}可以有效的防止SQL注入，提高系统安全性。</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="https://www.cnblogs.com/shan1393/p/8997429.html" target="_blank" rel="noopener">框架面试题:谈谈我对Spring IOC与DI的理解-阿善9</a></li>
 <li><a href="https://www.cnblogs.com/Eddyer/p/10984270.html" target="_blank" rel="noopener">静态代理和动态代理的区别</a></li>
 </ul>
@@ -323,7 +330,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#IOC和DI的理解"><span class="toc-number">1.</span> <span class="toc-text">IOC和DI的理解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AOP相关"><span class="toc-number">2.</span> <span class="toc-text">AOP相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bean的scope"><span class="toc-number">3.</span> <span class="toc-text">Bean的scope</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它"><span class="toc-number">4.</span> <span class="toc-text">其它</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringMVC"><span class="toc-number">5.</span> <span class="toc-text">SpringMVC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring"><span class="toc-number">6.</span> <span class="toc-text">Spring</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringBoot"><span class="toc-number">7.</span> <span class="toc-text">SpringBoot</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注解说明"><span class="toc-number">8.</span> <span class="toc-text">注解说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringCloud"><span class="toc-number">9.</span> <span class="toc-text">SpringCloud</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis"><span class="toc-number">10.</span> <span class="toc-text">Redis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">11.</span> <span class="toc-text">参考</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#IOC和DI的理解"><span class="toc-number">1.</span> <span class="toc-text">IOC和DI的理解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AOP相关"><span class="toc-number">2.</span> <span class="toc-text">AOP相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bean的scope"><span class="toc-number">3.</span> <span class="toc-text">Bean的scope</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它"><span class="toc-number">4.</span> <span class="toc-text">其它</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringMVC"><span class="toc-number">5.</span> <span class="toc-text">SpringMVC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring"><span class="toc-number">6.</span> <span class="toc-text">Spring</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringBoot"><span class="toc-number">7.</span> <span class="toc-text">SpringBoot</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注解说明"><span class="toc-number">8.</span> <span class="toc-text">注解说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringCloud"><span class="toc-number">9.</span> <span class="toc-text">SpringCloud</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis"><span class="toc-number">10.</span> <span class="toc-text">Redis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MyBatis"><span class="toc-number">11.</span> <span class="toc-text">MyBatis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">12.</span> <span class="toc-text">参考</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">

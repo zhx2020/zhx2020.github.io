@@ -14,7 +14,7 @@
 <meta property="og:description" content="数据库范式  第一范式：原子性（列不可分） 第二范式：非主属性完全依赖主属性（要有主键） 第三范式：非主属性互相不依赖，消除传递（不可存在传递依赖）  范式和反范式的理解  范式 理解：符合某一种级别的关系模式的集合。构造数据库必须遵循一定的规则，在关系型数据库中，这种规则就是范式。包含第一范式，第二范式，第三范式。 优点：减少了数据冗余，数据表更新操作快，占用存储空间少 缺点：查询时需要对多个表">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-18T01:09:09.000Z">
-<meta property="article:modified_time" content="2020-08-27T07:50:41.071Z">
+<meta property="article:modified_time" content="2020-10-12T03:39:48.937Z">
 <meta property="article:author" content="Echo">
 <meta name="twitter:card" content="summary">
     
@@ -139,7 +139,7 @@
       
         <time datetime="2020-05-18T01:09:09.000Z" itemprop="datePublished">2020-05-18</time>
         
-        (Updated: <time datetime="2020-08-27T07:50:41.071Z" itemprop="dateModified">2020-08-27</time>)
+        (Updated: <time datetime="2020-10-12T03:39:48.937Z" itemprop="dateModified">2020-10-12</time>)
         
       
     </div>
@@ -281,7 +281,12 @@
 <li>对操作符的优化，尽量不采用不利于索引的操作符。</li>
 </ol>
 <p><strong>必看sql面试题</strong></p>
-<p><a href="https://www.cnblogs.com/qixuejia/p/3637735.html" target="_blank" rel="noopener">sql面试题（学生表_课程表_成绩表_教师表）</a></p>
+<p><a href="https://www.cnblogs.com/qixuejia/p/3637735.html" target="_blank" rel="noopener">sql面试题（学生表_课程表_成绩表_教师表</a></p>
+<p><strong>count(1)、count(*)、count(字段)的区别</strong></p>
+<ul>
+<li>count(1)和count(*)：统计所有记录的条数，包括那些为null的记录。</li>
+<li>count(字段)：统计该字段不为null的记录条数。</li>
+</ul>
 
   </div>
 </article>
