@@ -14,7 +14,7 @@
 <meta property="og:description" content="Servlet是什么 Servlet就是一个Java接口。(Java - Servlet究竟是什么) Maven是什么 项目构建，管理，jar包下载。(maven是干嘛的？) cookie和session的区别  cookie数据存放在客户端，session数据放在服务器上。 cookie不是很安全，别人可以分析存放在本地的Cookie并进行Cookie欺骗，考虑到安全应当使用session。 s">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-09T07:20:18.000Z">
-<meta property="article:modified_time" content="2020-08-27T03:41:22.425Z">
+<meta property="article:modified_time" content="2020-10-22T12:51:38.726Z">
 <meta property="article:author" content="Echo">
 <meta name="twitter:card" content="summary">
     
@@ -139,7 +139,7 @@
       
         <time datetime="2020-07-09T07:20:18.000Z" itemprop="datePublished">2020-07-09</time>
         
-        (Updated: <time datetime="2020-08-27T03:41:22.425Z" itemprop="dateModified">2020-08-27</time>)
+        (Updated: <time datetime="2020-10-22T12:51:38.726Z" itemprop="dateModified">2020-10-22</time>)
         
       
     </div>
@@ -236,6 +236,26 @@
 <p>动态打印日志信息：tail -f 日志文件。</p>
 <p><strong>Linux怎么关闭进程</strong></p>
 <p>通常用ps查看进程PID，用kill命令终止进程。</p>
+<p><strong>分布式session怎么实现的</strong></p>
+<ul>
+<li>Tomcat搭建集群做Session全局复制（集群内每个tomcat的session完全同步），会影响集群的性能呢，不建议。</li>
+<li>根据请求的IP进行Hash映射到对应的机器上（这就相当于请求的IP一直会访问同一个服务器），如果服务器宕机了，会丢失了一大部分Session的数据，不建议。</li>
+<li>把Session数据放在Redis中（使用Redis模拟Session），建议。</li>
+</ul>
+<p><strong>正向代理和反向代理</strong></p>
+<ul>
+<li>正向代理：客户端不能直接访问目标服务器，需要通过代理服务器间接访问目标服务器。</li>
+<li>反向代理：客户端知道代理服务器的地址，代理服务器具体访问哪一台目标服务器不知道。</li>
+</ul>
+<p><strong>Session的实现机制</strong></p>
+<p>浏览器输入用户名和密码提交到服务器端，服务器端验证通过后创建一个session对象，将用户信息存放在session中，并生成一个随机数id，保存在一个叫做JSESSIONID的cookie中，发送给浏览器，浏览器在下次访问服务器的时候就会在请求头携带这个cookie，服务器端会检查有没有这个SESSIONID对应的session对象，并取出session对象中的信息判断用户是否登录。</p>
+<p><strong>Cookie和Session的区别</strong></p>
+<ul>
+<li>都是保存用户信息，不同在于Session存储在服务器端，Cookie是存储在客户端。</li>
+<li>Session中可以保存任意对象，Cookie只能保存字符串。</li>
+<li>Session随会话结束而关闭，Cookie可以长期保存在客户端硬盘上，也可以临时保存在浏览器内存中。</li>
+<li>Session用来保存重要信息，Cookie用来保存不重要的用户信息。</li>
+</ul>
 
   </div>
 </article>
