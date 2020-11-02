@@ -14,7 +14,7 @@
 <meta property="og:description" content="垃圾收集算法  标记-清除算法：首先标记出所有需要回收的对象，在标记完成后统一回收掉所有被标记的对象。（产生大量不连续碎片） 复制算法：将内存分为大小相同的两块，每次使用其中的一块。当这一块的内存使用完后，就将还存活的对象复制到另一块去，然后再把使用的空间一次清理掉，这样就使每次的内存回收都是对内存区间的一半进行回收。（内存的利用率不高） 标记-整理算法：让所有存活的对象向一端移动，然后直接清理掉">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-24T13:48:28.000Z">
-<meta property="article:modified_time" content="2020-09-22T09:43:32.021Z">
+<meta property="article:modified_time" content="2020-10-30T09:02:58.728Z">
 <meta property="article:author" content="Echo">
 <meta name="twitter:card" content="summary">
     
@@ -139,7 +139,7 @@
       
         <time datetime="2020-05-24T13:48:28.000Z" itemprop="datePublished">2020-05-24</time>
         
-        (Updated: <time datetime="2020-09-22T09:43:32.021Z" itemprop="dateModified">2020-09-22</time>)
+        (Updated: <time datetime="2020-10-30T09:02:58.728Z" itemprop="dateModified">2020-10-30</time>)
         
       
     </div>
@@ -272,16 +272,16 @@
 <li>该类对应的java.lang.Class对象没有任何地方被引用，无法在任何地方通过反射访问该类的属性和方法。</li>
 </ul>
 <p><strong>在开发中遇到过内存溢出吗？原因有哪些？解决方法有哪些？</strong></p>
-<p>内存溢出的原因：</p>
 <ul>
+<li>内存溢出的原因：<ul>
 <li>内存中加载的数据量过于庞大，如一次从数据库取出过多数据。</li>
 <li>集合类中有对对象的引用，使用完后未清空，使得JVM不能回收。</li>
 <li>代码中存在死循环或循环产生过多重复的对象实体。</li>
 <li>使用的第三方软件中的BUG。</li>
 <li>启动参数内存值设定的过小。</li>
 </ul>
-<p>内存溢出的解决方案：</p>
-<ol>
+</li>
+<li>内存溢出的解决方案：<ol>
 <li>修改JVM启动参数，直接增加内存。</li>
 <li>检查错误日志，查看”OutOfMemory”错误前是否有其它异常或错误。</li>
 <li>对代码进行走查和分析，找出可能发生内存溢出的位置。<ol>
@@ -293,6 +293,12 @@
 </li>
 <li>使用内存查看工具动态查看内存使用情况。</li>
 </ol>
+</li>
+</ul>
+<p><strong>GC垃圾回收的目的</strong></p>
+<p>回收堆内存中不再使用的对象所占的内存，释放资源。</p>
+<p><strong>什么情况下触发GC</strong></p>
+<p>在新生代的Eden区满了，会触发新生代GC（Minor GC），经过多次触发新生代GC存活下来的对象就会升级到老年代，升级到老年代的对象所需的内存大于老年代剩余的内存，则会触发老年代GC（Full GC）。当程序调用System.gc()时也会触发Full GC。</p>
 
   </div>
 </article>
