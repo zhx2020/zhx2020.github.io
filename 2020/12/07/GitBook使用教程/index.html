@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="通过npm安装1npm install gitbook-cli -g  创建两个文件README.md 12# Introduction说明文档  SUMMARY.md 123456789# Summary* [Introduction](README.md)* [section1](section1&#x2F;README.md)    * [example1](section1&#x2F;ex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GitBook使用教程">
+<meta property="og:url" content="https://zhx2020.github.io/2020/12/07/GitBook%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:site_name" content="ZHX2020">
+<meta property="og:description" content="通过npm安装1npm install gitbook-cli -g  创建两个文件README.md 12# Introduction说明文档  SUMMARY.md 123456789# Summary* [Introduction](README.md)* [section1](section1&#x2F;README.md)    * [example1](section1&#x2F;ex">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-12-07T10:36:03.000Z">
+<meta property="article:modified_time" content="2020-12-07T10:38:11.362Z">
+<meta property="article:author" content="Echo">
+<meta property="article:tag" content="gitbook">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>GitBook使用教程</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2020/10/12/Java%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://zhx2020.github.io/2020/12/07/GitBook%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://zhx2020.github.io/2020/12/07/GitBook%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/&text=GitBook使用教程" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://zhx2020.github.io/2020/12/07/GitBook%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/&title=GitBook使用教程" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zhx2020.github.io/2020/12/07/GitBook%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/&is_video=false&description=GitBook使用教程" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=GitBook使用教程&body=Check out this article: https://zhx2020.github.io/2020/12/07/GitBook%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://zhx2020.github.io/2020/12/07/GitBook%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/&title=GitBook使用教程" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://zhx2020.github.io/2020/12/07/GitBook%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/&title=GitBook使用教程" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://zhx2020.github.io/2020/12/07/GitBook%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/&title=GitBook使用教程" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://zhx2020.github.io/2020/12/07/GitBook%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/&title=GitBook使用教程" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://zhx2020.github.io/2020/12/07/GitBook%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/&name=GitBook使用教程&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://zhx2020.github.io/2020/12/07/GitBook%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/&t=GitBook使用教程" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#通过npm安装"><span class="toc-number">1.</span> <span class="toc-text">通过npm安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建两个文件"><span class="toc-number">2.</span> <span class="toc-text">创建两个文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化目录文件"><span class="toc-number">3.</span> <span class="toc-text">初始化目录文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#预览书籍"><span class="toc-number">4.</span> <span class="toc-text">预览书籍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编译文件"><span class="toc-number">5.</span> <span class="toc-text">编译文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用插件"><span class="toc-number">6.</span> <span class="toc-text">使用插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#书籍部署"><span class="toc-number">7.</span> <span class="toc-text">书籍部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在线预览"><span class="toc-number">8.</span> <span class="toc-text">在线预览</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        GitBook使用教程
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ZHX2020</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-12-07T10:36:03.000Z" itemprop="datePublished">2020-12-07</time>
+        
+        (Updated: <time datetime="2020-12-07T10:38:11.362Z" itemprop="dateModified">2020-12-07</time>)
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/gitbook/" rel="tag">gitbook</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="通过npm安装"><a href="#通过npm安装" class="headerlink" title="通过npm安装"></a>通过npm安装</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install gitbook-cli -g</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建两个文件"><a href="#创建两个文件" class="headerlink" title="创建两个文件"></a>创建两个文件</h2><p>README.md</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Introduction</span><br><span class="line">说明文档</span><br></pre></td></tr></table></figure>
+
+<p><strong>SUMMARY.md</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># Summary</span><br><span class="line"></span><br><span class="line">* [Introduction](README.md)</span><br><span class="line">* [section1](section1&#x2F;README.md)</span><br><span class="line">    * [example1](section1&#x2F;example1.md)</span><br><span class="line">    * [example2](section1&#x2F;example2.md)</span><br><span class="line">* [section2](section2&#x2F;README.md)</span><br><span class="line">    * [example1](section2&#x2F;example1.md)</span><br><span class="line">    * [example2](section2&#x2F;example2.md)</span><br></pre></td></tr></table></figure>
+
+<h2 id="初始化目录文件"><a href="#初始化目录文件" class="headerlink" title="初始化目录文件"></a>初始化目录文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitbook init</span><br></pre></td></tr></table></figure>
+
+<h2 id="预览书籍"><a href="#预览书籍" class="headerlink" title="预览书籍"></a>预览书籍</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitbook serve</span><br></pre></td></tr></table></figure>
+
+<h2 id="编译文件"><a href="#编译文件" class="headerlink" title="编译文件"></a>编译文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitbook build</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用插件"><a href="#使用插件" class="headerlink" title="使用插件"></a>使用插件</h2><p>创建 book.json 文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;title&quot;: &quot;GitBook&quot;,</span><br><span class="line">    &quot;author&quot; : &quot;echo&quot;,</span><br><span class="line">	&quot;output.name&quot;: &quot;site&quot;,</span><br><span class="line">    &quot;description&quot; : &quot;电子书&quot;,</span><br><span class="line">    &quot;language&quot; : &quot;zh-hans&quot;,</span><br><span class="line">	&quot;gitbook&quot; : &quot;3.2.3&quot;,</span><br><span class="line">	&quot;root&quot;: &quot;.&quot;,</span><br><span class="line">	&quot;links&quot; : &#123;</span><br><span class="line">        &quot;sidebar&quot; : &#123;</span><br><span class="line">            &quot;Home&quot; : &quot;https:&#x2F;&#x2F;zhx2020.github.io&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;styles&quot;: &#123;</span><br><span class="line">		&quot;website&quot;: &quot;styles&#x2F;website.css&quot;,</span><br><span class="line">		&quot;ebook&quot;: &quot;styles&#x2F;ebook.css&quot;,</span><br><span class="line">		&quot;pdf&quot;: &quot;styles&#x2F;pdf.css&quot;,</span><br><span class="line">		&quot;mobi&quot;: &quot;styles&#x2F;mobi.css&quot;,</span><br><span class="line">		&quot;epub&quot;: &quot;styles&#x2F;epub.css&quot;</span><br><span class="line">	&#125;,</span><br><span class="line">    &quot;plugins&quot;: [</span><br><span class="line">        &quot;-lunr&quot;,</span><br><span class="line">		&quot;-search&quot;,</span><br><span class="line">		&quot;back-to-top-button&quot;,</span><br><span class="line">		&quot;highlight&quot;,</span><br><span class="line">		&quot;search-plus&quot;,</span><br><span class="line">		&quot;expandable-chapters&quot;,</span><br><span class="line">		&quot;chapter-fold&quot;,</span><br><span class="line">		&quot;splitter&quot;,</span><br><span class="line">		&quot;-prism&quot;,</span><br><span class="line">		&quot;github&quot;,</span><br><span class="line">		&quot;github-buttons&quot;,</span><br><span class="line">		&quot;tbfed-pagefooter&quot;,</span><br><span class="line">		&quot;edit-link&quot;,</span><br><span class="line">		&quot;copy-code-button&quot;,</span><br><span class="line">		&quot;simple-page-toc&quot;,</span><br><span class="line">		&quot;anchor-navigation-ex&quot;</span><br><span class="line">    ],</span><br><span class="line">    &quot;pluginsConfig&quot;: &#123;</span><br><span class="line">		&quot;theme-default&quot;: &#123;</span><br><span class="line">			&quot;showLevel&quot;: false</span><br><span class="line">		&#125;,</span><br><span class="line">		&quot;prism&quot;: &#123;</span><br><span class="line">            &quot;css&quot;: [</span><br><span class="line">                &quot;prism-themes&#x2F;themes&#x2F;prism-base16-ateliersulphurpool.light.css&quot;</span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">		&quot;github&quot;: &#123;</span><br><span class="line">			&quot;url&quot;: &quot;https:&#x2F;&#x2F;github.com&#x2F;zhx2020&quot;</span><br><span class="line">		&#125;,</span><br><span class="line">		&quot;github-buttons&quot;: &#123;</span><br><span class="line">            &quot;repo&quot;: &quot;zhx2020&#x2F;gitbook&quot;,</span><br><span class="line">            &quot;types&quot;: [</span><br><span class="line">                &quot;star&quot;,</span><br><span class="line">                &quot;watch&quot;,</span><br><span class="line">                &quot;fork&quot;</span><br><span class="line">            ],</span><br><span class="line">            &quot;size&quot;: &quot;small&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">		&quot;tbfed-pagefooter&quot;: &#123;</span><br><span class="line">			&quot;copyright&quot;:&quot;Copyright &amp;copy zhx2020.github.io 2020&quot;,</span><br><span class="line">			&quot;modify_label&quot;: &quot;该文件修订时间：&quot;,</span><br><span class="line">			&quot;modify_format&quot;: &quot;YYYY-MM-DD HH:mm:ss&quot;</span><br><span class="line">		&#125;,</span><br><span class="line">		&quot;edit-link&quot;: &#123;</span><br><span class="line">			&quot;base&quot;: &quot;https:&#x2F;&#x2F;github.com&#x2F;zhx2020&#x2F;gitbook&#x2F;edit&#x2F;master&quot;,</span><br><span class="line">			&quot;label&quot;: &quot;Edit This Page&quot;</span><br><span class="line">		&#125;,</span><br><span class="line">		&quot;simple-page-toc&quot;: &#123;</span><br><span class="line">            &quot;maxDepth&quot;: 3,</span><br><span class="line">            &quot;skipFirstH1&quot;: true</span><br><span class="line">        &#125;,</span><br><span class="line">		&quot;anchor-navigation-ex&quot;: &#123;</span><br><span class="line">            &quot;showLevel&quot;: false,</span><br><span class="line">            &quot;showGoTop&quot;: false</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>安装插件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitbook install</span><br></pre></td></tr></table></figure>
+
+<h2 id="书籍部署"><a href="#书籍部署" class="headerlink" title="书籍部署"></a>书籍部署</h2><p>将编译后的 _book 文件部署到 github ，配置 page 。</p>
+<h2 id="在线预览"><a href="#在线预览" class="headerlink" title="在线预览"></a>在线预览</h2><p><a href="https://zhx2020.github.io/book/">GitBook电子书</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#通过npm安装"><span class="toc-number">1.</span> <span class="toc-text">通过npm安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建两个文件"><span class="toc-number">2.</span> <span class="toc-text">创建两个文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化目录文件"><span class="toc-number">3.</span> <span class="toc-text">初始化目录文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#预览书籍"><span class="toc-number">4.</span> <span class="toc-text">预览书籍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编译文件"><span class="toc-number">5.</span> <span class="toc-text">编译文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用插件"><span class="toc-number">6.</span> <span class="toc-text">使用插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#书籍部署"><span class="toc-number">7.</span> <span class="toc-text">书籍部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在线预览"><span class="toc-number">8.</span> <span class="toc-text">在线预览</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://zhx2020.github.io/2020/12/07/GitBook%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://zhx2020.github.io/2020/12/07/GitBook%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/&text=GitBook使用教程" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://zhx2020.github.io/2020/12/07/GitBook%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/&title=GitBook使用教程" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zhx2020.github.io/2020/12/07/GitBook%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/&is_video=false&description=GitBook使用教程" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=GitBook使用教程&body=Check out this article: https://zhx2020.github.io/2020/12/07/GitBook%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://zhx2020.github.io/2020/12/07/GitBook%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/&title=GitBook使用教程" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://zhx2020.github.io/2020/12/07/GitBook%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/&title=GitBook使用教程" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://zhx2020.github.io/2020/12/07/GitBook%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/&title=GitBook使用教程" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://zhx2020.github.io/2020/12/07/GitBook%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/&title=GitBook使用教程" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://zhx2020.github.io/2020/12/07/GitBook%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/&name=GitBook使用教程&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://zhx2020.github.io/2020/12/07/GitBook%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/&t=GitBook使用教程" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2020
+    Echo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
