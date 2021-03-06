@@ -14,7 +14,7 @@
 <meta property="og:description" content="什么是HTTP协议  HTTP是基于TCP&#x2F;IP协议的应用层协议。它不涉及数据包传输，主要规定了客户端和服务器之间的通信格式，默认使用80端口。  http协议版本  HTTP&#x2F;0.9 1991年发布，只有一个命令GET 服务器只能回应HTML格式的字符串，不能回应别的格式   HTTP&#x2F;1.0 1996年5月发布，增加POST和HEAD命令 任何格式的内容都可以发送 每次通信都必须包括头信息，用">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-13T02:05:15.000Z">
-<meta property="article:modified_time" content="2020-11-04T03:26:10.220Z">
+<meta property="article:modified_time" content="2021-02-24T03:44:03.335Z">
 <meta property="article:author" content="Echo">
 <meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary">
@@ -140,7 +140,7 @@
       
         <time datetime="2020-05-13T02:05:15.000Z" itemprop="datePublished">2020-05-13</time>
         
-        (Updated: <time datetime="2020-11-04T03:26:10.220Z" itemprop="dateModified">2020-11-04</time>)
+        (Updated: <time datetime="2021-02-24T03:44:03.335Z" itemprop="dateModified">2021-02-24</time>)
         
       
     </div>
@@ -250,6 +250,22 @@
 <li>本地DNS向baidu.com服务器查询<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a> 的地址</li>
 <li>将 <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a> 的地址发送给浏览器</li>
 </ul>
+<p><strong>http/2相比http/1.1有什么新特性？</strong></p>
+<ul>
+<li>多路复用： 即多个请求都通过一个TCP连接并发地完成。</li>
+<li>服务端推送： 服务端能够主动把资源推送给客户端。</li>
+<li>新的二进制格式： HTTP/2采用二进制格式传输数据，相比于HTTP/1.1的文本格式，二进制格式具有更好的解析性和拓展性。</li>
+<li>header压缩： HTTP/2压缩消息头，减少了传输数据的大小。</li>
+</ul>
+<p><strong>电脑上打开浏览器，输入 <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a> ，回车，到百度页面出现。中间发生了什么？</strong></p>
+<ul>
+<li>DNS 解析:将域名解析成 IP 地址</li>
+<li>TCP 连接：TCP 三次握手</li>
+<li>发送 HTTP 请求</li>
+<li>服务器处理请求并返回 HTTP 报文</li>
+<li>浏览器解析渲染页面</li>
+<li>断开连接：TCP 四次挥手</li>
+</ul>
 
   </div>
 </article>
@@ -317,7 +333,7 @@
     Copyright &copy;
     
     
-    2016-2020
+    2016-2021
     Echo
   </div>
   <div class="footer-right">
