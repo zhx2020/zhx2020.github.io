@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="时间函数DATE_FORMAT()：格式化输出日期 lintcode 1SELECT DATE_FORMAT(date,format);  EXTRACT()：提取指定的时间信息 lintcode 1SELECT EXTRACT(unit FROM date) FROM &#96;table&#96;;  NOW()：可以用来返回当前日期和时间 格式：YYYY-MM-DD hh:mm:ss CURDATE()：可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL函数">
+<meta property="og:url" content="https://zhx2020.github.io/2021/04/05/SQL%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="ZHX2020">
+<meta property="og:description" content="时间函数DATE_FORMAT()：格式化输出日期 lintcode 1SELECT DATE_FORMAT(date,format);  EXTRACT()：提取指定的时间信息 lintcode 1SELECT EXTRACT(unit FROM date) FROM &#96;table&#96;;  NOW()：可以用来返回当前日期和时间 格式：YYYY-MM-DD hh:mm:ss CURDATE()：可">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-05T05:55:00.000Z">
+<meta property="article:modified_time" content="2021-04-07T11:21:54.773Z">
+<meta property="article:author" content="Echo">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>SQL函数</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2021/03/08/Netty%E5%AD%A6%E4%B9%A0/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://zhx2020.github.io/2021/04/05/SQL%E5%87%BD%E6%95%B0/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://zhx2020.github.io/2021/04/05/SQL%E5%87%BD%E6%95%B0/&text=SQL函数" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://zhx2020.github.io/2021/04/05/SQL%E5%87%BD%E6%95%B0/&title=SQL函数" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zhx2020.github.io/2021/04/05/SQL%E5%87%BD%E6%95%B0/&is_video=false&description=SQL函数" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=SQL函数&body=Check out this article: https://zhx2020.github.io/2021/04/05/SQL%E5%87%BD%E6%95%B0/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://zhx2020.github.io/2021/04/05/SQL%E5%87%BD%E6%95%B0/&title=SQL函数" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://zhx2020.github.io/2021/04/05/SQL%E5%87%BD%E6%95%B0/&title=SQL函数" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://zhx2020.github.io/2021/04/05/SQL%E5%87%BD%E6%95%B0/&title=SQL函数" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://zhx2020.github.io/2021/04/05/SQL%E5%87%BD%E6%95%B0/&title=SQL函数" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://zhx2020.github.io/2021/04/05/SQL%E5%87%BD%E6%95%B0/&name=SQL函数&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://zhx2020.github.io/2021/04/05/SQL%E5%87%BD%E6%95%B0/&t=SQL函数" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#时间函数"><span class="toc-number">1.</span> <span class="toc-text">时间函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#时间函数运算"><span class="toc-number">2.</span> <span class="toc-text">时间函数运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#时间差值函数"><span class="toc-number">3.</span> <span class="toc-text">时间差值函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NULL函数"><span class="toc-number">4.</span> <span class="toc-text">NULL函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#条件判断"><span class="toc-number">5.</span> <span class="toc-text">条件判断</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        SQL函数
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ZHX2020</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-04-05T05:55:00.000Z" itemprop="datePublished">2021-04-05</time>
+        
+        (Updated: <time datetime="2021-04-07T11:21:54.773Z" itemprop="dateModified">2021-04-07</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h3 id="时间函数"><a href="#时间函数" class="headerlink" title="时间函数"></a>时间函数</h3><p>DATE_FORMAT()：格式化输出日期 <a href="https://www.lintcode.com/learning/32/1779" target="_blank" rel="noopener">lintcode</a></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DATE_FORMAT</span>(<span class="built_in">date</span>,<span class="keyword">format</span>);</span><br></pre></td></tr></table></figure>
+
+<p>EXTRACT()：提取指定的时间信息 <a href="https://www.lintcode.com/learning/32/1842" target="_blank" rel="noopener">lintcode</a></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">EXTRACT</span>(unit <span class="keyword">FROM</span> <span class="built_in">date</span>) <span class="keyword">FROM</span> <span class="string">`table`</span>;</span><br></pre></td></tr></table></figure>
+
+<p>NOW()：可以用来返回当前日期和时间 格式：YYYY-MM-DD hh:mm:ss</p>
+<p>CURDATE()：可以用来返回当前日期 格式：YYYY-MM-DD</p>
+<p>CURTIME()：可以用来返回当前时间 格式：hh:mm:ss</p>
+<h3 id="时间函数运算"><a href="#时间函数运算" class="headerlink" title="时间函数运算"></a>时间函数运算</h3><p>DATE_SUB()：减少时间 <a href="https://www.lintcode.com/learning/34/1815" target="_blank" rel="noopener">lintcode</a></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DATE_SUB</span>(<span class="built_in">date</span>, <span class="built_in">INTERVAL</span> expr <span class="keyword">type</span>) <span class="keyword">FROM</span> table_name;</span><br></pre></td></tr></table></figure>
+
+<p>DATE_ADD() ：增加时间 <a href="https://www.lintcode.com/learning/34/1814" target="_blank" rel="noopener">lintcode</a></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DATE_ADD</span>(<span class="built_in">date</span>, <span class="built_in">INTERVAL</span> expr <span class="keyword">type</span>) <span class="keyword">FROM</span> table_name;</span><br></pre></td></tr></table></figure>
+
+<h3 id="时间差值函数"><a href="#时间差值函数" class="headerlink" title="时间差值函数"></a>时间差值函数</h3><p>DATEDIFF ()：计算日期差，天数 <a href="https://www.lintcode.com/learning/32/1777" target="_blank" rel="noopener">lintcode</a></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DATEDIFF</span>(时间<span class="number">1</span>,时间<span class="number">2</span>) <span class="keyword">AS</span> date_diff <span class="keyword">FROM</span> courses;</span><br></pre></td></tr></table></figure>
+
+<p>TIMESTAMPDIFF()：计算两个日期相差的年月日 <a href="https://www.lintcode.com/learning/32/1777" target="_blank" rel="noopener">lintcode</a></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">TIMESTAMPDIFF</span> (类型,时间<span class="number">1</span>,时间<span class="number">2</span>) <span class="keyword">AS</span> year_diff;</span><br></pre></td></tr></table></figure>
+
+<h3 id="NULL函数"><a href="#NULL函数" class="headerlink" title="NULL函数"></a>NULL函数</h3><p>ISNULL：会根据该字段是否为NULL值返回0或1，如果是NULL则返回1，不是则返回0</p>
+<p>IFNULL(column_name, value：)函数接收两个参数，第一个参数是列名，第二个如果该列某个字段是NULL则返回value值</p>
+<p>COALESCE(column_name, value)：是和IFNULL是同一个用法</p>
+<p>ROUND(X)： 返回参数X的四舍五入的一个整数。</p>
+<p>ROUND(X, D)： 返回参数X的四舍五入的有 D 位小数的一个数字。如果D为0，结果将没有小数点或小数部分。</p>
+<p>REGEXP：正则匹配</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 查询以字母 'D' 到 'O' 开头的课程</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">name</span> <span class="keyword">from</span> courses <span class="keyword">where</span> <span class="keyword">name</span> regexp <span class="string">'^[D-O].*'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>CONCAT：连接函数</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">concat(ban,"%")</span><br></pre></td></tr></table></figure>
+
+<h3 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">case 字段名 when 1 then 0 <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">IF</span>(condition, value_if_true, value_if_false)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--简单Case函数</span></span><br><span class="line">CASE sex</span><br><span class="line">WHEN '1' THEN '男'</span><br><span class="line">WHEN '2' THEN '女'</span><br><span class="line">ELSE '其他' <span class="keyword">END</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--Case搜索函数</span></span><br><span class="line"><span class="keyword">CASE</span> <span class="keyword">WHEN</span> sex = <span class="string">'1'</span> <span class="keyword">THEN</span> <span class="string">'男'</span></span><br><span class="line"><span class="keyword">WHEN</span> sex = <span class="string">'2'</span> <span class="keyword">THEN</span> <span class="string">'女'</span></span><br><span class="line"><span class="keyword">ELSE</span> <span class="string">'其他'</span> <span class="keyword">END</span></span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#时间函数"><span class="toc-number">1.</span> <span class="toc-text">时间函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#时间函数运算"><span class="toc-number">2.</span> <span class="toc-text">时间函数运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#时间差值函数"><span class="toc-number">3.</span> <span class="toc-text">时间差值函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NULL函数"><span class="toc-number">4.</span> <span class="toc-text">NULL函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#条件判断"><span class="toc-number">5.</span> <span class="toc-text">条件判断</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://zhx2020.github.io/2021/04/05/SQL%E5%87%BD%E6%95%B0/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://zhx2020.github.io/2021/04/05/SQL%E5%87%BD%E6%95%B0/&text=SQL函数" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://zhx2020.github.io/2021/04/05/SQL%E5%87%BD%E6%95%B0/&title=SQL函数" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zhx2020.github.io/2021/04/05/SQL%E5%87%BD%E6%95%B0/&is_video=false&description=SQL函数" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=SQL函数&body=Check out this article: https://zhx2020.github.io/2021/04/05/SQL%E5%87%BD%E6%95%B0/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://zhx2020.github.io/2021/04/05/SQL%E5%87%BD%E6%95%B0/&title=SQL函数" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://zhx2020.github.io/2021/04/05/SQL%E5%87%BD%E6%95%B0/&title=SQL函数" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://zhx2020.github.io/2021/04/05/SQL%E5%87%BD%E6%95%B0/&title=SQL函数" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://zhx2020.github.io/2021/04/05/SQL%E5%87%BD%E6%95%B0/&title=SQL函数" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://zhx2020.github.io/2021/04/05/SQL%E5%87%BD%E6%95%B0/&name=SQL函数&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://zhx2020.github.io/2021/04/05/SQL%E5%87%BD%E6%95%B0/&t=SQL函数" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    Echo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="http://github.com/zhx2020" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
